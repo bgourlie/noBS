@@ -1,0 +1,6 @@
+artifacts/
+obj/
+wwwroot/
+*.sln.ide/
+*.kproj.user
+*.suo

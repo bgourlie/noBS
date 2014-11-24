@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Xunit;
 
 namespace FitLog.Domain.Tests
 {
@@ -6,7 +6,12 @@ namespace FitLog.Domain.Tests
     {
         public Class1()
         {
+        }
 
+        [Fact]
+        public void True_is_true()
+        {
+            Assert.True(true);
         }
     }
 }

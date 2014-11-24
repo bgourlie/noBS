@@ -1,4 +1,4 @@
-﻿{
+{
     "webroot": "wwwroot",
     "version": "1.0.0-*",
     "exclude": [
@@ -11,7 +11,8 @@
     ],
     "dependencies": {
         "Microsoft.AspNet.Server.IIS": "1.0.0-beta1",
-        "Microsoft.AspNet.Mvc": "6.0.0-beta1"
+        "Microsoft.AspNet.Mvc": "6.0.0-beta1",
+"DiscoverPackageSources": "0.1.27"
     },
     "frameworks" : {
         "aspnet50" : { },

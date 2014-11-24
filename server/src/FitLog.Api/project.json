@@ -11,8 +11,7 @@
     ],
     "dependencies": {
         "Microsoft.AspNet.Server.IIS": "1.0.0-beta1",
-        "Microsoft.AspNet.Mvc": "6.0.0-beta1",
-"DiscoverPackageSources": "0.1.27"
+        "Microsoft.AspNet.Mvc": "6.0.0-beta1"
     },
     "frameworks" : {
         "aspnet50" : { },

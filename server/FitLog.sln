@@ -5,8 +5,6 @@ VisualStudioVersion = 14.0.22310.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "FitLog.Api", "FitLog.Api\FitLog.Api.kproj", "{4717B83B-7E4B-48C5-B1ED-92AEAE9BE12B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FitLog.Domain", "FitLog.Domain\FitLog.Domain.csproj", "{69E0E8E8-02D5-41FA-9A2A-4C056CCDF29E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{4717B83B-7E4B-48C5-B1ED-92AEAE9BE12B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4717B83B-7E4B-48C5-B1ED-92AEAE9BE12B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4717B83B-7E4B-48C5-B1ED-92AEAE9BE12B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{69E0E8E8-02D5-41FA-9A2A-4C056CCDF29E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{69E0E8E8-02D5-41FA-9A2A-4C056CCDF29E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{69E0E8E8-02D5-41FA-9A2A-4C056CCDF29E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{69E0E8E8-02D5-41FA-9A2A-4C056CCDF29E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

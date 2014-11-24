@@ -4,3 +4,4 @@ wwwroot/
 *.sln.ide/
 *.kproj.user
 *.suo
+bin/

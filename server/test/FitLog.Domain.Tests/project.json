@@ -3,7 +3,7 @@
     "dependencies": {
         "Microsoft.AspNet.Testing" : "1.0.0-*",
         "Xunit.KRunner": "1.0.0-*",
-"FitLog.Domain": "1.0.0-*"
+        "FitLog.Domain": "1.0.0-*"
     },
     "commands": {
         "test": "Xunit.KRunner"
@@ -15,7 +15,7 @@
         },
         "aspnetcore50" : { 
             "dependencies": {
-                "System.Runtime": "4.0.20-beta-22231"
+                "System.Runtime": "4.0.20-*"
             }
         }
     }

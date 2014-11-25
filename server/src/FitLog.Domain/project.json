@@ -10,7 +10,8 @@
         },
         "aspnetcore50" : { 
             "dependencies": {
-                "System.Runtime": "4.0.20-beta-22231"
+                "System.Runtime": "4.0.20-*",
+                "System.Linq": "4.0.0-*"
             }
         }
     }

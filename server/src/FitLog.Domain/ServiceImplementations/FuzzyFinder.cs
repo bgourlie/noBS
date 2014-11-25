@@ -1,6 +1,7 @@
 ﻿using FitLog.Domain.Model;
 using FitLog.Domain.ServiceContracts;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FitLog.Domain.ServiceImplementations
 {
@@ -8,12 +9,8 @@ namespace FitLog.Domain.ServiceImplementations
     {
         IEnumerable<FuzzyResult<T>> IFuzzyFinder<T>.Matches(IEnumerable<T> candidates, string input, int threshold)
         {
-            foreach(var c in candidates)
-            {
-                yield return new FuzzyResult<T>(c, DamerauLevenshteinDistance(c.Term, input, threshold));
-            }
-            ////return from c in candidates
-            ////   select new FuzzyResult<T>(c, DamerauLevenshteinDistance(c.Term, input, threshold));
+            return from c in candidates
+               select new FuzzyResult<T>(c, DamerauLevenshteinDistance(c.Term, input, threshold));
         }
 
          private static int DamerauLevenshteinDistance(string string1, string string2, int threshold)

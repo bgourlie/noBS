@@ -2,10 +2,22 @@
 
 set -ev
 
-# ugly hack because kvm upgrade isn't adding the KRE bin to the path
-# this will break once the kre version changes
-export PATH=$PATH:~/.kre/packages/KRE-Mono.1.0.0-beta1/bin
+echo "==========================="
+echo "    RUNNING CLIENT TESTS   "
+echo "==========================="
+cd ./client
+ls
+pub get
+pub run grinder:grinder tests
 
-cd ./server/test/FitLog.Domain.Tests/
+
+echo "=========================="
+echo "   RUNNING SERVER TESTS   "
+echo "=========================="
+
+cd ../server
+kpm restore -s https://www.myget.org/F/aspnetvnext/api/v2/ -f https://nuget.org/api/v2/ 
+
+cd ./test/FitLog.Domain.Tests/
 
 k test

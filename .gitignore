@@ -5,3 +5,7 @@ wwwroot/
 *.kproj.user
 *.suo
 bin/
+!/client/bin
+packages
+.idea/
+build/

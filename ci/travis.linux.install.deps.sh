@@ -16,5 +16,3 @@ mono --version
 
 kvm upgrade
 
-cd ./server
-kpm restore -s https://www.myget.org/F/aspnetvnext/api/v2/ -f https://nuget.org/api/v2/ 

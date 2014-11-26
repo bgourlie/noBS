@@ -1,7 +1,14 @@
-language: c
+language: node_js
 
-os:
-  - linux
+os: linux
+
+env:
+  global:
+    - DART_DIST=dartsdk-linux-x64-release.zip
+    - DART_SDK=~/dart-sdk
+    - MONO_HOME=/opt/mono
+    - KRE_HOME=~/.kre/packages/KRE-Mono.1.0.0-beta1
+    - PATH="$DART_SDK/bin:$MONO_HOME/bin:$KRE_HOME/bin:$PATH"
 
 notifications:
   email:
@@ -13,11 +20,12 @@ notifications:
 before_install:
   - date -u
   - uname -a
-  - export PATH=/opt/mono/bin:$PATH
   - env | sort
-
-install:
+  - ./ci/install.dart.sh
   - ./ci/travis.${TRAVIS_OS_NAME}.install.deps.sh
 
 script:
   - ./ci/travis.sh
+
+after_success:
+  - ./ci/deploy-client.sh

@@ -1,0 +1,8 @@
+name: client
+version: 0.0.1
+description: noBS client
+dependencies:
+  browser: any
+dev_dependencies:
+  unittest: any
+  grinder: any

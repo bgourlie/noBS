@@ -1,11 +1,12 @@
 artifacts/
 obj/
-wwwroot/
 *.sln.ide/
 *.kproj.user
 *.suo
 bin/
-!/client/bin
+!/client/bin/
+!/server/src/FitLog.Api/wwwroot/bin/
+!/server/src/AzureDeployDeps/**/
 packages
 .idea/
 build/

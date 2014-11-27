@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.AspNet.Builder;
+using Microsoft.AspNet.Diagnostics;
 using Microsoft.Framework.DependencyInjection;
 
 namespace FitLog.Api
@@ -9,6 +10,9 @@ namespace FitLog.Api
         public void Configure(IApplicationBuilder app)
         {
             app.UseMvc();
+
+            // TODO: move this to ConfigureDevelopment
+            app.UseErrorPage(ErrorPageOptions.ShowAll);
         }
 
         public void ConfigureServices(IServiceCollection services)

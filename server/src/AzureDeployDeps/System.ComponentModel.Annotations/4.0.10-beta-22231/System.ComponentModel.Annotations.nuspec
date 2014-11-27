@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+  <metadata>
+    <id>System.ComponentModel.Annotations</id>
+    <version>4.0.10-beta-22231</version>
+    <title>System.ComponentModel.Annotations</title>
+    <authors>Microsoft</authors>
+    <owners>Microsoft</owners>
+    <licenseUrl>http://go.microsoft.com/fwlink/?LinkId=329770</licenseUrl>
+    <iconUrl>http://go.microsoft.com/fwlink/?LinkID=288859</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Provides attributes that are used to define metadata for objects used as data sources.</description>
+    <copyright>Copyright © Microsoft Corporation</copyright>
+    <dependencies>
+      <dependency id="System.ComponentModel" version="4.0.0-beta-22231" />
+      <dependency id="System.Runtime" version="4.0.0-beta-22231" />
+    </dependencies>
+  </metadata>
+</package>

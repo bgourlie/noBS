@@ -1,0 +1,15 @@
+@ECHO OFF
+SETLOCAL
+SET ERRORLEVEL=
+
+IF "%K_APPBASE%"=="" (
+  SET "K_APPBASE=%CD%"
+)
+
+SET "KLR_EXE_PATH=%~dp0klr.exe"
+SET "KLR_LIB_PATH=%~dp0..\tools"
+
+"%KLR_EXE_PATH%" --appbase "%K_APPBASE%" %K_OPTIONS% --lib "%KLR_LIB_PATH%" %*
+
+exit /b %ERRORLEVEL%
+ENDLOCAL

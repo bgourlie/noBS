@@ -1,31 +1,43 @@
 language: node_js
-
 os: linux
-
 env:
   global:
-    - DART_DIST=dartsdk-linux-x64-release.zip
-    - DART_SDK=~/dart-sdk
-    - MONO_HOME=/opt/mono
-    - KRE_HOME=~/.kre/packages/KRE-Mono.1.0.0-beta1
-    - PATH="$DART_SDK/bin:$MONO_HOME/bin:$KRE_HOME/bin:$PATH"
+  - "AZURE_FTP_USER=nobs-api\\\\bgourlie"
+  - DART_DIST=dartsdk-linux-x64-release.zip
+  - DART_SDK=~/dart-sdk
+  - MONO_HOME=/opt/mono
+  - KRE_HOME=~/.kre/packages/KRE-Mono.1.0.0-beta1
+  - PATH="$DART_SDK/bin:$MONO_HOME/bin:$KRE_HOME/bin:$PATH"
+    # AZURE_FTP_PASSWORD Defined Below
+  -  secure: "LO4BgidrSaCYkTW/pTDTclQL1vpSAumwDQKdV0EgGP2DwVRp+3EfHnSd9BiJ2qDlN7Hz5rhWQQO0a7QzaVfCX1E28kKlWdu3642lE9buPpmUp4WgRizlzi80iddu1ku46e6tpuhwr//uPpDauhnj81/Nl/ja7kkgwroamTgNbVc="
 
 notifications:
   email:
     recipients:
-      - bgourlie@gmail.com
+    - bgourlie@gmail.com
     on_success: change
     on_failure: always
-
 before_install:
-  - date -u
-  - uname -a
-  - env | sort
-  - ./ci/install.dart.sh
-  - ./ci/travis.${TRAVIS_OS_NAME}.install.deps.sh
-
+- date -u
+- uname -a
+- env | sort
+- "./ci/install.dart.sh"
+- "./ci/travis.${TRAVIS_OS_NAME}.install.deps.sh"
 script:
-  - ./ci/travis.sh
-
+- "./ci/travis.sh"
 after_success:
-  - ./ci/deploy-client.sh
+- "./ci/build-server.sh"
+- "./ci/build-client.sh"
+deploy:
+  provider: s3
+  access_key_id: AKIAII53TR3I2GQEKSDA
+  secret_access_key:
+    secure: jYkeixCXjjgOszMolqnJ3DuAk+IpUCpD8DvwIShPGm59PUXL3kgrqw/vy0P+xPI2Qm6py7NgeIoMTwZBV4+iJTCqCLJzGK8PxH+rLp1izEZbvOawyJmb+2c55T2kYQXkLlvy6jwfmq2/QPInXvaGaCAfTCPgSRLSLaDx4em4FvI=
+  bucket: nobs-fitlog
+  local-dir: "$TRAVIS_BUILD_DIR/client/build/web"
+  # upload-dir: ""
+  acl: public_read
+  on:
+    repo: bgourlie/noBS
+    branch: s3-deploy
+  skip_cleanup: true

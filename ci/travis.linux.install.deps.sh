@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ev
+set -e
 
 wget http://download.opensuse.org/repositories/home:tpokorra:mono/xUbuntu_12.04/Release.key
 sudo apt-key add - < Release.key  

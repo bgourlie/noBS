@@ -10,7 +10,7 @@ namespace FitLog.Api.Controllers
     [HttpGet]
     public IActionResult Get()
         {
-            return new ObjectResult("hello!");
+            return new ObjectResult("hello revised!");
         }
     }
 }

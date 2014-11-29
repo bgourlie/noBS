@@ -2,6 +2,8 @@
 
 set -e
 
+echo "Build time is $BUILD_TIME"
+
 cd ./client
 ls
 pub get

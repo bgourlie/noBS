@@ -3,6 +3,12 @@ version: 0.0.1
 description: noBS client
 dependencies:
   browser: any
+  intl: any
+  nvp:
+    git: https://github.com/bgourlie/nobsVersionPatcher.git
 dev_dependencies:
   unittest: any
   grinder: any
+transformers:
+- nvp/client_version_patcher:
+    entryPoint: client.dart

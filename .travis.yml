@@ -8,6 +8,7 @@ env:
   - MONO_HOME=/opt/mono
   - KRE_HOME=~/.kre/packages/KRE-Mono.1.0.0-beta1
   - PATH="$DART_SDK/bin:$MONO_HOME/bin:$KRE_HOME/bin:$PATH"
+  - BUILD_TIME=$(date -Iseconds)
     # AZURE_FTP_PASSWORD Defined Below
   -  secure: "LO4BgidrSaCYkTW/pTDTclQL1vpSAumwDQKdV0EgGP2DwVRp+3EfHnSd9BiJ2qDlN7Hz5rhWQQO0a7QzaVfCX1E28kKlWdu3642lE9buPpmUp4WgRizlzi80iddu1ku46e6tpuhwr//uPpDauhnj81/Nl/ja7kkgwroamTgNbVc="
 

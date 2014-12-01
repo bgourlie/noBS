@@ -40,5 +40,5 @@ deploy:
   acl: public_read
   on:
     repo: bgourlie/noBS
-    branch: s3-deploy
+    branch: master
   skip_cleanup: true

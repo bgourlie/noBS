@@ -25,6 +25,9 @@ cp -rf ../AzureDeployDeps/System.ComponentModel.Annotations ./deploy/approot/pac
 # (HACK) Patch generated web.config so that we can serve static json files (version.json)
 pub global run nvp:nvp patchWebConfig -c ./deploy/wwwroot/web.config
 
+echo "Copying client files to wwwroot"
+cp -rf ../../../client/build/web ./deploy/wwwroot
+
 if [ "$TRAVIS_BRANCH" = "$DEPLOY_BRANCH" ];
 then
 	echo "==========================="

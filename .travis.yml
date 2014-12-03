@@ -28,18 +28,18 @@ before_install:
 script:
 - "./ci/travis.sh"
 after_success:
-- "./ci/build-server.sh"
 - "./ci/build-client.sh"
-deploy:
-  provider: s3
-  access_key_id: AKIAII53TR3I2GQEKSDA
-  secret_access_key:
-    secure: jYkeixCXjjgOszMolqnJ3DuAk+IpUCpD8DvwIShPGm59PUXL3kgrqw/vy0P+xPI2Qm6py7NgeIoMTwZBV4+iJTCqCLJzGK8PxH+rLp1izEZbvOawyJmb+2c55T2kYQXkLlvy6jwfmq2/QPInXvaGaCAfTCPgSRLSLaDx4em4FvI=
-  bucket: nobs-fitlog
-  local-dir: "$TRAVIS_BUILD_DIR/client/build/web"
-  # upload-dir: ""
-  acl: public_read
-  on:
-    repo: bgourlie/noBS
-    branch: "$DEPLOY_BRANCH"
-  skip_cleanup: true
+- "./ci/build-server.sh"
+# deploy:
+#   provider: s3
+#   access_key_id: AKIAII53TR3I2GQEKSDA
+#   secret_access_key:
+#     secure: jYkeixCXjjgOszMolqnJ3DuAk+IpUCpD8DvwIShPGm59PUXL3kgrqw/vy0P+xPI2Qm6py7NgeIoMTwZBV4+iJTCqCLJzGK8PxH+rLp1izEZbvOawyJmb+2c55T2kYQXkLlvy6jwfmq2/QPInXvaGaCAfTCPgSRLSLaDx4em4FvI=
+#   bucket: nobs-fitlog
+#   local-dir: "$TRAVIS_BUILD_DIR/client/build/web"
+#   # upload-dir: ""
+#   acl: public_read
+#   on:
+#     repo: bgourlie/noBS
+#     branch: "$DEPLOY_BRANCH"
+#   skip_cleanup: true

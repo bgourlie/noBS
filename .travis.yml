@@ -23,13 +23,12 @@ before_install:
 - date -u
 - uname -a
 - env | sort
-- "./ci/install.dart.sh"
-- "./ci/travis.${TRAVIS_OS_NAME}.install.deps.sh"
+- "./ci/install-deps.sh"
 script:
-- "./ci/travis.sh"
+- "./ci/run-tests.sh"
 after_success:
-- "./ci/build-client.sh"
-- "./ci/build-server.sh"
+- "./ci/pack-deployment.sh"
+- "./ci/deploy.sh"
 # deploy:
 #   provider: s3
 #   access_key_id: AKIAII53TR3I2GQEKSDA

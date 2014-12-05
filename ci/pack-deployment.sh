@@ -27,9 +27,6 @@ pub global run nvp:nvp genServerVersion -o ./deploy/wwwroot/version.json
 cp -rf ../AzureDeployDeps/System.ComponentModel ./deploy/approot/packages/System.ComponentModel
 cp -rf ../AzureDeployDeps/System.ComponentModel.Annotations ./deploy/approot/packages/System.ComponentModel.Annotations
 
-# (HACK) Patch generated web.config so that we can serve static json files (version.json)
-pub global run nvp:nvp patchWebConfig -c ./deploy/wwwroot/web.config
-
 NUM_SERVER_FILES=$(find ./deploy -type f | wc -l)
 echo "Packed server files ($NUM_SERVER_FILES files)"
 

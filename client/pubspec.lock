@@ -28,7 +28,7 @@ packages:
   intl:
     description: intl
     source: hosted
-    version: "0.11.10"
+    version: "0.11.11"
   logging:
     description: logging
     source: hosted
@@ -36,14 +36,14 @@ packages:
   matcher:
     description: matcher
     source: hosted
-    version: "0.11.1"
+    version: "0.11.2"
   nvp:
     description:
       ref: null
-      resolved-ref: de172d9e21082fab25c1a828d17aaae37d235f41
+      resolved-ref: "7cbfe7433e952941516ec82222f80d4596cd8365"
       url: "https://github.com/bgourlie/nobsVersionPatcher.git"
     source: git
-    version: "0.0.17"
+    version: "0.1.1"
   path:
     description: path
     source: hosted
@@ -76,7 +76,3 @@ packages:
     description: watcher
     source: hosted
     version: "0.9.3"
-  xml:
-    description: xml
-    source: hosted
-    version: "2.2.0"

@@ -9,4 +9,5 @@ bin/
 !/server/src/AzureDeployDeps/**/
 packages
 .idea/
+.pub/
 build/

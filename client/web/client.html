@@ -7,16 +7,8 @@
     <link rel="stylesheet" href="client.css">
   </head>
   <body>
-    <pre id="version"></pre>
-    <h1>Client</h1>
-
-    <p>Hello world from Dart!</p>
-
-    <div id="sample_container_id">
-      <p id="sample_text_id">Click me!</p>
-    </div>
-
+    <ng-view></ng-view>
     <script type="application/dart" src="client.dart"></script>
-    <script src="packages/browser/dart.js"></script>
+    <script data-pub-inline src="packages/browser/dart.js"></script>
   </body>
 </html>

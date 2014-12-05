@@ -4,27 +4,43 @@ packages:
   analyzer:
     description: analyzer
     source: hosted
-    version: "0.22.4"
+    version: "0.15.7"
+  angular:
+    description: angular
+    source: hosted
+    version: "1.0.0"
   args:
     description: args
     source: hosted
-    version: "0.12.1"
+    version: "0.10.0+2"
   barback:
     description: barback
     source: hosted
-    version: "0.15.2+2"
+    version: "0.14.2"
   browser:
     description: browser
     source: hosted
     version: "0.10.0+2"
+  code_transformers:
+    description: code_transformers
+    source: hosted
+    version: "0.1.6"
   collection:
     description: collection
     source: hosted
-    version: "1.1.0"
+    version: "0.9.4"
+  di:
+    description: di
+    source: hosted
+    version: "3.3.2"
   grinder:
     description: grinder
     source: hosted
     version: "0.6.2"
+  html5lib:
+    description: html5lib
+    source: hosted
+    version: "0.10.0"
   intl:
     description: intl
     source: hosted
@@ -40,14 +56,22 @@ packages:
   nvp:
     description:
       ref: null
-      resolved-ref: "7cbfe7433e952941516ec82222f80d4596cd8365"
+      resolved-ref: dd4ac54722eedae828ed097960c7c6004729e9bc
       url: "https://github.com/bgourlie/nobsVersionPatcher.git"
     source: git
-    version: "0.1.1"
+    version: "0.1.2"
+  observe:
+    description: observe
+    source: hosted
+    version: "0.10.1+2"
   path:
     description: path
     source: hosted
     version: "1.3.0"
+  perf_api:
+    description: perf_api
+    source: hosted
+    version: "0.0.9"
   petitparser:
     description: petitparser
     source: hosted
@@ -60,6 +84,18 @@ packages:
     description: quiver
     source: hosted
     version: "0.19.0+1"
+  route_hierarchical:
+    description: route_hierarchical
+    source: hosted
+    version: "0.5.0"
+  smoke:
+    description: smoke
+    source: hosted
+    version: "0.1.0+1"
+  source_maps:
+    description: source_maps
+    source: hosted
+    version: "0.9.4"
   source_span:
     description: source_span
     source: hosted
@@ -72,7 +108,7 @@ packages:
     description: unittest
     source: hosted
     version: "0.11.1+1"
-  watcher:
-    description: watcher
+  utf:
+    description: utf
     source: hosted
-    version: "0.9.3"
+    version: "0.9.0+1"

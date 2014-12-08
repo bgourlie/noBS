@@ -6,10 +6,12 @@ dependencies:
   intl: any
   angular: any
   logging: any
+  rate_limit: any
   nvp:
     git: https://github.com/bgourlie/nobsVersionPatcher.git
 dev_dependencies:
   unittest: any
+  typed_mock: any
   grinder: any
 transformers:
 - angular

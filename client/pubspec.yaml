@@ -6,11 +6,13 @@ dependencies:
   intl: any
   angular: any
   logging: any
-  nvp:
-    git: https://github.com/bgourlie/nobsVersionPatcher.git
 dev_dependencies:
   unittest: any
   grinder: any
+  nvp:
+    git:
+      url: git://github.com/bgourlie/nobsVersionPatcher.git
+      ref: master
 transformers:
 - angular
 - nvp/client_version_patcher:

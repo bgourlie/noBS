@@ -1,0 +1,13 @@
+<div id="searchTypeGroup">
+  <p id="searchTypeLabel">Advanced Search Options <i
+      id="expandCollapseOptions"
+      ng-click="toggleOptions()"
+      ng-class="{'expanded' : optionsExpanded, 'collapsed' : !optionsExpanded}">
+      </i>
+  </p>
+  <div id="searchTypeButtons" ng-show="optionsExpanded">
+    <button class="searchType">Search by name</button>
+    <button class="searchType">Search by tag</button>
+  </div>
+</div>
+<input id="term" type="text" ng-model="term" />

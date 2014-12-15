@@ -6,8 +6,10 @@ dependencies:
   intl: any
   angular: any
   logging: any
+  rate_limit: any
 dev_dependencies:
   unittest: any
+  typed_mock: any
   grinder: any
   nvp:
     git:

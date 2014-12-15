@@ -2,6 +2,7 @@ library entry_screen;
 
 import 'package:angular/angular.dart';
 import 'package:di/annotations.dart';
+import 'package:logging/logging.dart';
 
 @Injectable()
 @Component(
@@ -9,7 +10,11 @@ import 'package:di/annotations.dart';
     templateUrl: 'packages/client/src/components/entry_screen/entry_screen.html',
     cssUrl: 'packages/client/src/components/entry_screen/entry_screen.css')
 class EntryScreen {
-    static final _logger = new Logger('nobs_entry_screen');
+  static final _logger = new Logger('nobs_entry_screen');
+  String term;
 
-    String test = 'Hello from no bullshit exercise log!';
+  void onFindRequest(String term, int onTermType){
+    this.term = term;
+    _logger.finest('Handling find request for "$term"');
+  }
 }

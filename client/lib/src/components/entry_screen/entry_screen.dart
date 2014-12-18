@@ -11,10 +11,4 @@ import 'package:logging/logging.dart';
     cssUrl: 'packages/client/src/components/entry_screen/entry_screen.css')
 class EntryScreen {
   static final _logger = new Logger('nobs_entry_screen');
-  String term;
-
-  void onFindRequest(String term, int onTermType){
-    this.term = term;
-    _logger.finest('Handling find request for "$term"');
-  }
 }

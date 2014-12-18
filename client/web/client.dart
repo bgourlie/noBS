@@ -12,7 +12,6 @@ const BUILD_TIME = '';
 void main() {
   Logger.root.level = Level.FINEST;
   Logger.root.onRecord.listen((LogRecord r) => print('[${r.loggerName}] ${r.message}'));
-  final buildTime = DateTime.parse(BUILD_TIME);
   const versionInfo = const VersionInfo(VERSION, BUILD_NUMBER, BRANCH, COMMIT_ID, BUILD_TIME);
   final clientModule = new ClientModule(versionInfo);
   applicationFactory().addModule(clientModule).run();

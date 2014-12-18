@@ -50,10 +50,10 @@ main(){
     expect(result, equals(2));
   });
 
-  test('should be case insensitive', () {
+  test('should be case sensitive', () {
     final algo = new DamerauLevenshteinDistance();
     final result = algo.distance('BRIAN', 'brian', 255);
-    expect(result, equals(0));
+    expect(result, equals(5));
   });
 
   test('should return max threshold if minimum threshold is exceeded', () {

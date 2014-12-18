@@ -14,7 +14,7 @@ class ExerciseSource implements FindableSource<Exercise> {
       new Exercise('Benchpress', ['bp'], ['chest', 'pecs']),
       new Exercise('Preacher Curl', [], ['biceps']),
       new Exercise('Hammer Curl', [], ['biceps', 'forearms']),
-      new Exercise('Squat', [], ['legs', 'quads', 'glutes', 'back']),
+      new Exercise('Squat', ['Back Squat'], ['legs', 'quads', 'glutes', 'back']),
       new Exercise('Front Squat', [], ['legs', 'quads']),
       new Exercise('Military Press', ['overhead press'], ['shoulders', 'deltoids']),
       new Exercise('Lunge', [], ['legs']),

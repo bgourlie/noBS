@@ -10,7 +10,8 @@ import 'package:client/src/services/exercise_source.dart';
 // once fixed we may be able to inject the generic type directly
 @Injectable()
 class ExerciseFindEngine extends FindEngine<Exercise>{
-    ExerciseFindEngine(DamerauLevenshteinDistance levenshtien, ExerciseSource source)
-        : super(levenshtien, source);
+    ExerciseFindEngine(DamerauLevenshteinDistance levenshtien,
+        ExerciseSource source, MatchRanker ranker)
+        : super(levenshtien, ranker, source);
 }
 

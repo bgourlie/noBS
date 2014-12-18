@@ -1,6 +1,8 @@
 library find_engine;
 
 import 'dart:async';
+import 'package:di/annotations.dart';
+import 'package:di/di.dart';
 
 part 'find_result.dart';
 part 'findable.dart';
@@ -9,12 +11,15 @@ part 'fuzzy_algorithm.dart';
 part 'term.dart';
 part 'threshold_out_of_bounds_error.dart';
 part 'invalid_term_type_error.dart';
+part 'match_ranker.dart';
+part 'find_engine_module.dart';
 
 class FindEngine<T extends Findable> {
   final FuzzyAlgorithm _fuzzyAlgorithm;
+  final MatchRanker _matchRanker;
   final FindableSource<T> _source;
 
-  FindEngine(this._fuzzyAlgorithm, this._source);
+  FindEngine(this._fuzzyAlgorithm, this._matchRanker, this._source);
 
   /// The maximum threshold that [streamResults] will accept.
   int get maxThreshold => _fuzzyAlgorithm.maxThreshold;
@@ -40,7 +45,13 @@ class FindEngine<T extends Findable> {
 
     return _source.getStream()
         .map((r) => _fuzzyMatch(r, searchTerm, threshold, matchOnTermType))
-        .where((r) => !r._noMatch && r.matchScore <= threshold);
+        .where((r) => _resultFilter(r, threshold));
+  }
+
+  bool _resultFilter(FindResult<T> r, int threshold) {
+    final ret = !r._noMatch && (r.matchRank < FindResult.RANK_LAST
+        || r.matchScore <= threshold);
+    return ret;
   }
 
   FindResult _fuzzyMatch(Findable findable, String searchTerm, int threshold,
@@ -54,17 +65,28 @@ class FindEngine<T extends Findable> {
     final terms = matchOnTermType == Term.TYPE_UNSPECIFIED ? findable.terms
         : findable.terms.where((t) => t.termType == matchOnTermType);
 
-    final matchedTerms = terms.map((t) => {'term' : t, 'distance' :
-        _fuzzyAlgorithm.distance(searchTerm, t.term, threshold)});
+    final matchedTerms = terms.map((Term t) {
+      final lowerTerm = t.term.toLowerCase();
+      final lowerSearchTerm = searchTerm.toLowerCase();
+      final matchedTerm = {'term' : t, 'distance'
+          : _fuzzyAlgorithm.distance(lowerSearchTerm, lowerTerm, threshold),
+          'rank' : _matchRanker.getRank(lowerTerm, lowerSearchTerm)};
+
+      return matchedTerm;
+    });
 
     var bestMatch;
     for(var matchedTerm in matchedTerms){
-      if(bestMatch == null || matchedTerm['distance'] < bestMatch['distance']){
+      // rank takes precedence over score.
+      if(bestMatch == null || matchedTerm['rank'] < bestMatch['rank']
+          || (matchedTerm['rank'] == bestMatch['rank']
+          && matchedTerm['distance'] < bestMatch['distance'])){
         bestMatch = matchedTerm;
       }
     }
 
     return bestMatch == null ? new FindResult.noMatch()
-        : new FindResult(findable, bestMatch['distance'], bestMatch['term']);
+        : new FindResult(findable, bestMatch['rank'], bestMatch['distance'],
+        bestMatch['term']);
   }
 }

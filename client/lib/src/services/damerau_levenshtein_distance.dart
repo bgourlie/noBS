@@ -15,10 +15,6 @@ class  DamerauLevenshteinDistance implements FuzzyAlgorithm {
       throw new ThresholdNullOrOutOfBoundsError();
     }
 
-    // normalization -- case insensitive
-    source = source.toLowerCase();
-    target = target.toLowerCase();
-
     // normalization -- source should always be shorter than/equal in length to
     // target
     if(source.length > target.length){

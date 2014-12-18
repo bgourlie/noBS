@@ -5,7 +5,6 @@ import 'package:di/annotations.dart';
 import 'package:angular/angular.dart';
 import 'package:logging/logging.dart';
 import 'package:rate_limit/rate_limit.dart';
-import 'package:client/src/services/exercise_find_engine.dart';
 
 typedef FindRequestHandler(String term, int onTermType);
 
@@ -19,12 +18,11 @@ typedef FindRequestHandler(String term, int onTermType);
     })
 class FindBox implements ShadowRootAware {
   static final _logger = new Logger('nobs_find_box');
-  final ExerciseFindEngine _findEngine;
   String term;
   bool optionsExpanded = false;
   Function findRequestHandler;
 
-  FindBox(this._findEngine);
+  FindBox();
   void toggleOptions() {
    optionsExpanded = !optionsExpanded;
   }

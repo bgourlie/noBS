@@ -14,7 +14,7 @@ class Exercise implements Findable {
         ..addAll(synonyms);
 
     final terms = names.map((e) => new Term(e, Term.TYPE_NAME)).toList()
-        ..addAll(synonyms.map((e) => new Term(e, Term.TYPE_TAG)));
+        ..addAll(tags.map((e) => new Term(e, Term.TYPE_TAG)));
 
     return new Exercise._internal(title, terms);
   }

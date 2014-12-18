@@ -1,0 +1,13 @@
+<find-box find-request-handler="onFindRequest"></find-box>
+<ul id="find-results">
+  <li ng-repeat="findResult in findResults | orderBy:['matchRank', 'matchScore']">
+    <!-- todo: use findResult.toString() -->
+    <!-- once https://github.com/angular/angular.dart/issues/1023 is fixed -->
+    <strong>{{findResult.item.terms[0]}}</strong>
+        matched on <em>{{findResult.matchedTerm}}</em>
+        ({{findResult.matchedTerm.termType == 1 ? 'name' : 'tag'}})
+        rank: {{findResult.matchRank}}
+        distance: {{findResult.matchScore}}
+  </li>
+</ul>
+Showing results for: <strong>{{searchTerm}}</strong>

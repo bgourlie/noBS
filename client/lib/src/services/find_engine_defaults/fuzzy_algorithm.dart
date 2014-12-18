@@ -1,4 +1,4 @@
-part of find_engine;
+part of find_engine_defaults;
 
 abstract class FuzzyAlgorithm {
   /// The maximum threshold (distance) that the fuzzy algorithm can accept.

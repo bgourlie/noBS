@@ -1,5 +1,5 @@
 import 'package:unittest/unittest.dart';
-import 'package:client/src/services/damerau_levenshtein_distance.dart';
+import 'package:client/src/services/find_engine_defaults/find_engine_defaults.dart';
 
 main(){
   test('should report correct number of insertions (1)', () {

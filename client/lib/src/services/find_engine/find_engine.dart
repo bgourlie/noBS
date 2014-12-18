@@ -1,92 +1,74 @@
 library find_engine;
 
 import 'dart:async';
-import 'package:di/annotations.dart';
-import 'package:di/di.dart';
-
+import 'package:quiver/iterables.dart' as q;
 part 'find_result.dart';
 part 'findable.dart';
 part 'findable_source.dart';
-part 'fuzzy_algorithm.dart';
 part 'term.dart';
-part 'threshold_out_of_bounds_error.dart';
 part 'invalid_term_type_error.dart';
-part 'match_ranker.dart';
-part 'find_engine_module.dart';
+part 'find_engine_matcher.dart';
+part 'find_engine_match.dart';
 
 class FindEngine<T extends Findable> {
-  final FuzzyAlgorithm _fuzzyAlgorithm;
-  final MatchRanker _matchRanker;
+  final FindEngineMatcher _matcher;
   final FindableSource<T> _source;
 
-  FindEngine(this._fuzzyAlgorithm, this._matchRanker, this._source);
-
-  /// The maximum threshold that [streamResults] will accept.
-  int get maxThreshold => _fuzzyAlgorithm.maxThreshold;
+  FindEngine(this._matcher, this._source);
 
   /// Returns a [Stream] of [FindResult]s whose values satisfy [searchTerm].
   ///
-  /// The [FindResult]'s values, which are [Findable]s, will satisfy
-  /// [searchTerm] if the [Findable]'s [Term]s are similar to [searchTerm].
-  ///
-  /// The [threshold] tunes the similarity tolerance.  A threshold of 0 will
-  /// require an exact match, while a higher threshold will allow for more
-  /// differences between a [Findable]'s [Term]s and [searchTerm].  If no
-  /// [threshold] is specified, it will default to [defaultThreshold].
+  /// Whether or not a [Findable] satisfies [searchTerm] is determined by the
+  /// injected [FindEngineMatcher].
   ///
   /// [matchOnTermType] determines the type of [Term] that [searchTerm] will
   /// be compared to.  If unspecified, it will compare against all [Term] types.
-  Stream<FindResult<T>> streamResults(String searchTerm, int threshold,
+  Stream<FindResult<T>> streamResults(String searchTerm,
       {int matchOnTermType : Term.TYPE_UNSPECIFIED}){
 
-    if(threshold == null || threshold < 0 || threshold > maxThreshold){
-      throw new ThresholdNullOrOutOfBoundsError();
+    if(![Term.TYPE_UNSPECIFIED, Term.TYPE_NAME, Term.TYPE_TAG]
+    .contains(matchOnTermType)){
+      throw new InvalidTermTypeError();
     }
 
     return _source.getStream()
-        .map((r) => _fuzzyMatch(r, searchTerm, threshold, matchOnTermType))
-        .where((r) => _resultFilter(r, threshold));
+        .map((r) => _match(r, searchTerm, matchOnTermType))
+        .where((r) => !r._noMatch);
   }
 
-  bool _resultFilter(FindResult<T> r, int threshold) {
-    final ret = !r._noMatch && (r.matchRank < FindResult.RANK_LAST
-        || r.matchScore <= threshold);
-    return ret;
-  }
-
-  FindResult _fuzzyMatch(Findable findable, String searchTerm, int threshold,
+  FindResult<T> _match(Findable findable, String searchTerm,
       int matchOnTermType){
-
-    if(![Term.TYPE_UNSPECIFIED, Term.TYPE_NAME, Term.TYPE_TAG]
-        .contains(matchOnTermType)){
-      throw new InvalidTermTypeError();
-    }
 
     final terms = matchOnTermType == Term.TYPE_UNSPECIFIED ? findable.terms
         : findable.terms.where((t) => t.termType == matchOnTermType);
 
     final matchedTerms = terms.map((Term t) {
-      final lowerTerm = t.term.toLowerCase();
-      final lowerSearchTerm = searchTerm.toLowerCase();
-      final matchedTerm = {'term' : t, 'distance'
-          : _fuzzyAlgorithm.distance(lowerSearchTerm, lowerTerm, threshold),
-          'rank' : _matchRanker.getRank(lowerTerm, lowerSearchTerm)};
+      final match = _matcher.getMatch(t, searchTerm);
 
-      return matchedTerm;
+      return match.rank == FindEngineMatch.UNRANKED ? new FindResult.noMatch()
+          : new FindResult(findable, match, t);
     });
 
-    var bestMatch;
-    for(var matchedTerm in matchedTerms){
-      // rank takes precedence over score.
-      if(bestMatch == null || matchedTerm['rank'] < bestMatch['rank']
-          || (matchedTerm['rank'] == bestMatch['rank']
-          && matchedTerm['distance'] < bestMatch['distance'])){
-        bestMatch = matchedTerm;
-      }
-    }
+    // TODO(blocked): write test to verify that we actually return the
+    // highest ranked match. See:
+    // https://code.google.com/p/dart/issues/detail?id=21945
+    final bestMatch = q.max(matchedTerms, (FindResult a, FindResult b){
+      if(!a._noMatch && b._noMatch)  return 1;
+      if(a._noMatch && !b._noMatch)  return -1;
+      if(a._noMatch && b._noMatch) return 0;
 
-    return bestMatch == null ? new FindResult.noMatch()
-        : new FindResult(findable, bestMatch['rank'], bestMatch['distance'],
-        bestMatch['term']);
+      // A lower rank is a better match
+      if(a.match.rank < b.match.rank) return 1;
+      if(a.match.rank > b.match.rank) return -1;
+
+      // if we get here, ranks are safely assumed to be equal
+      if(a.match.subRank > b.match.subRank) return -1;
+      if(a.match.subRank < b.match.subRank) return 1;
+
+      // rank and subRank are safely assumed to be equal
+      return 0;
+    });
+
+    return bestMatch;
   }
 }

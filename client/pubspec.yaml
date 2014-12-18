@@ -7,6 +7,7 @@ dependencies:
   angular: any
   logging: any
   rate_limit: any
+  quiver: any
 dev_dependencies:
   unittest: any
   typed_mock: any

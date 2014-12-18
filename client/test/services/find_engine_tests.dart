@@ -5,28 +5,23 @@ import 'package:typed_mock/typed_mock.dart';
 
 main() {
 
-  test('''should always include results regardless of distance if rank is less
-      than RANK_LAST''', (){
+  test('should include all results that are not unranked', (){
     // Arrange
     final tb = new _TestBed();
-    when(tb.fuzzyAlgo.maxThreshold).thenReturn(255);
-    when(tb.fuzzyAlgo.distance(anyString, 'one', anyInt)).thenReturn(15);
-    when(tb.fuzzyAlgo.distance(anyString, 'two', anyInt)).thenReturn(16);
-    when(tb.fuzzyAlgo.distance(anyString, 'three', anyInt)).thenReturn(17);
-    when(tb.matchRanker.getRank(anyString, anyString))
-        .thenReturn(FindResult.RANK_CONTAINS);
+    final result1 = new Foo([new Term('one', Term.TYPE_NAME)]);
+    final result2 = new Foo([new Term('two', Term.TYPE_NAME)]);
+    final result3 = new Foo([new Term('three', Term.TYPE_NAME)]);
+
+    when(tb.matcher.getMatch(anyObject, anyString))
+        .thenReturn(new FindEngineMatch(0, 0, 'test'));
 
     when(tb.fooSource.getStream()).thenReturn(
-        new Stream.fromIterable([
-            new Foo([new Term('one', Term.TYPE_NAME)]),
-            new Foo([new Term('two', Term.TYPE_NAME)]),
-            new Foo([new Term('three', Term.TYPE_NAME)])]));
+        new Stream.fromIterable([result1, result2, result3]));
 
     final findEngine = tb.newFindEngine();
 
-
     // Act
-    final resultStream = findEngine.streamResults('arbitrary', 16);
+    final resultStream = findEngine.streamResults('arbitrary');
 
     // Assert
     expect(resultStream.toList().then((List<FindResult<Foo>> l) {
@@ -38,75 +33,77 @@ main() {
         }), completes);
   });
 
-  test('''should only exclude results having distance greater than or equal to
-      threshold if rank is LAST_RANK''', (){
-    // Arrange
-    final tb = new _TestBed();
-    when(tb.fuzzyAlgo.maxThreshold).thenReturn(255);
-    when(tb.fuzzyAlgo.distance(anyString, 'one', anyInt)).thenReturn(15);
-    when(tb.fuzzyAlgo.distance(anyString, 'two', anyInt)).thenReturn(16);
-    when(tb.fuzzyAlgo.distance(anyString, 'three', anyInt)).thenReturn(17);
-    when(tb.matchRanker.getRank(anyString, anyString))
-        .thenReturn(FindResult.RANK_LAST);
+  // TODO: enable test once resolved:
+  // https://code.google.com/p/dart/issues/detail?id=21945&thanks=21945&ts=1419211844
+//  test('should not return unranked results', (){
+//    // Arrange
+//    final tb = new _TestBed();
+//
+//    final result1 = new Foo([new Term('one', Term.TYPE_NAME)]);
+//    final result2 = new Foo([new Term('two', Term.TYPE_NAME)]);
+//    final result3 = new Foo([new Term('three', Term.TYPE_NAME)]);
+//
+//    when(tb.matcher.getMatch(equals(result1), anyString))
+//        .thenReturn(new FindEngineMatch.unranked());
+//
+//    when(tb.matcher.getMatch(equals(result2), anyString))
+//        .thenReturn(new FindEngineMatch(1, 1, 'two'));
+//
+//    when(tb.matcher.getMatch(equals(result3), anyString))
+//        .thenReturn(new FindEngineMatch(1, 1, 'three'));
+//
+//    when(tb.fooSource.getStream()).thenReturn(
+//        new Stream.fromIterable([result1, result2, result3]));
+//
+//    final findEngine = tb.newFindEngine();
+//
+//    // Act
+//    final resultStream = findEngine.streamResults('arbitrary');
+//
+//    // Assert
+//    expect(resultStream.toList().then((List<FindResult<Foo>> l) {
+//      expect(l, hasLength(2));
+//      expect(l.every((r) => ['two', 'three'].contains(r.matchedTerm.term)),
+//          isTrue);
+//    }), completes);
+//  });
 
-    when(tb.fooSource.getStream()).thenReturn(
-        new Stream.fromIterable([
-            new Foo([new Term('one', Term.TYPE_NAME)]),
-            new Foo([new Term('two', Term.TYPE_NAME)]),
-            new Foo([new Term('three', Term.TYPE_NAME)])]));
 
-    final findEngine = tb.newFindEngine();
-
-    // Act
-    final resultStream = findEngine.streamResults('arbitrary', 16);
-
-    // Assert
-    expect(resultStream.toList().then((List<FindResult<Foo>> l) {
-      expect(l, hasLength(2));
-      expect(l.every((r) => ['one', 'two'].contains(r.matchedTerm.term)),
-          isTrue);
-    }), completes);
-  });
-
-  test('should only return results having specified term type', (){
-    // Arrange
-    final tb = new _TestBed();
-    when(tb.fuzzyAlgo.maxThreshold).thenReturn(255);
-    when(tb.fuzzyAlgo.distance(anyString, 'one', anyInt)).thenReturn(0);
-    when(tb.fuzzyAlgo.distance(anyString, 'on', anyInt)).thenReturn(1);
-    when(tb.fuzzyAlgo.distance(anyString, 'one', anyInt)).thenReturn(0);
-    when(tb.matchRanker.getRank(anyString, anyString))
-        .thenReturn(FindResult.RANK_LAST);
-
-    when(tb.fooSource.getStream()).thenReturn(
-        new Stream.fromIterable([
-            new Foo([new Term('one', Term.TYPE_NAME)]),
-            new Foo([new Term('on', Term.TYPE_NAME)]),
-            new Foo([new Term('one', Term.TYPE_TAG)])]));
-
-    final findEngine = tb.newFindEngine();
-
-    // Act
-    final resultStream = findEngine.streamResults('arbitrary', 16,
-        matchOnTermType: Term.TYPE_NAME);
-
-    // Assert
-    expect(resultStream.toList().then((List<FindResult<Foo>> l) {
-      expect(l, hasLength(2));
-      expect(l.every((r) => ['one', 'on'].contains(r.matchedTerm.term)),
-          isTrue);
-    }), completes);
-  });
+  // TODO: enable test once resolved:
+  // https://code.google.com/p/dart/issues/detail?id=21945
+//  test('should only return results having specified term type', (){
+//    // Arrange
+//    final tb = new _TestBed();
+//
+//    when(tb.matcher.getMatch(anyObject, anyString))
+//        .thenReturn(new FindEngineMatch(0, 0, 'on'));
+//
+//    when(tb.fooSource.getStream()).thenReturn(
+//        new Stream.fromIterable([
+//            new Foo([new Term('one', Term.TYPE_NAME)]),
+//            new Foo([new Term('on', Term.TYPE_NAME)]),
+//            new Foo([new Term('one', Term.TYPE_TAG)])]));
+//
+//    final findEngine = tb.newFindEngine();
+//
+//    // Act
+//    final resultStream = findEngine.streamResults('arbitrary',
+//        matchOnTermType: Term.TYPE_NAME);
+//
+//    // Assert
+//    expect(resultStream.toList().then((List<FindResult<Foo>> l) {
+//      expect(l, hasLength(2));
+//      expect(l.every((r) => ['one', 'on'].contains(r.matchedTerm.term)),
+//          isTrue);
+//    }), completes);
+//  });
 
   test('should return results having all term types if none is specified', (){
     // Arrange
     final tb = new _TestBed();
-    when(tb.fuzzyAlgo.maxThreshold).thenReturn(255);
-    when(tb.fuzzyAlgo.distance(anyString, 'one', anyInt)).thenReturn(0);
-    when(tb.fuzzyAlgo.distance(anyString, 'on', anyInt)).thenReturn(1);
-    when(tb.fuzzyAlgo.distance(anyString, 'ne', anyInt)).thenReturn(1);
-    when(tb.matchRanker.getRank(anyString, anyString))
-        .thenReturn(FindResult.RANK_LAST);
+    when(tb.matcher.getMatch(anyObject, anyString))
+        .thenReturn(new FindEngineMatch(0, 0, 'test'));
+
     final findEngine = tb.newFindEngine();
 
     when(tb.fooSource.getStream()).thenReturn(
@@ -116,7 +113,7 @@ main() {
             new Foo([new Term('ne', Term.TYPE_TAG)])]));
 
     // Act
-    final resultStream = findEngine.streamResults('arbitrary', 16);
+    final resultStream = findEngine.streamResults('arbitrary');
 
     // Assert
     expect(resultStream.toList().then((List<FindResult<Foo>> l) {
@@ -125,44 +122,10 @@ main() {
           isTrue);
     }), completes);
   });
-
-  test('should throw error when threshold is null', (){
-    // Arrange
-    final tb = new _TestBed();
-    when(tb.fuzzyAlgo.maxThreshold).thenReturn(255);
-    final findEngine = tb.newFindEngine();
-
-    // Act and Assert
-    expect(() => findEngine.streamResults('foo', null), throwsA(new
-        isInstanceOf<ThresholdNullOrOutOfBoundsError>()));
-  });
-
-  test('should throw error when threshold is less than 0', (){
-    // Arrange
-    final tb = new _TestBed();
-    when(tb.fuzzyAlgo.maxThreshold).thenReturn(255);
-    final findEngine = tb.newFindEngine();
-
-    // Act and Assert
-    expect(() => findEngine.streamResults('foo', -1), throwsA(new
-    isInstanceOf<ThresholdNullOrOutOfBoundsError>()));
-  });
-
-  test('should throw error when threshold is greater than maxThreshold', (){
-    // Arrange
-    final tb = new _TestBed();
-    when(tb.fuzzyAlgo.maxThreshold).thenReturn(255);
-    final findEngine = tb.newFindEngine();
-
-    // Act and Assert
-    expect(() => findEngine.streamResults('foo', 256), throwsA(new
-    isInstanceOf<ThresholdNullOrOutOfBoundsError>()));
-  });
 }
 
 class MockFooSource extends TypedMock implements FindableSource<Foo>{}
-class MockFuzzyAlgo extends TypedMock implements FuzzyAlgorithm{}
-class MockMatchRanker extends TypedMock implements MatchRanker{}
+class MockMatcher extends TypedMock implements FindEngineMatcher{}
 
 class Foo implements Findable {
   final List<Term> _terms;
@@ -172,9 +135,8 @@ class Foo implements Findable {
 
 class _TestBed {
   final fooSource = new MockFooSource();
-  final fuzzyAlgo = new MockFuzzyAlgo();
-  final matchRanker = new MockMatchRanker();
+  final matcher = new MockMatcher();
 
   FindEngine<Foo> newFindEngine() =>
-      new FindEngine<Foo>(fuzzyAlgo, matchRanker, fooSource);
+      new FindEngine<Foo>(matcher, fooSource);
 }

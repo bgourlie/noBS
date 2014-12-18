@@ -1,8 +1,5 @@
-library damerau_levenshtein_distance;
+part of find_engine_defaults;
 
-import 'dart:typed_data';
-import 'package:di/annotations.dart';
-import 'package:client/src/services/find_engine/find_engine.dart';
 
 @Injectable()
 class  DamerauLevenshteinDistance implements FuzzyAlgorithm {
@@ -12,7 +9,7 @@ class  DamerauLevenshteinDistance implements FuzzyAlgorithm {
   int distance(String source, String target, int threshold){
 
     if(threshold > maxThreshold){
-      throw new ThresholdNullOrOutOfBoundsError();
+      threshold = maxThreshold;
     }
 
     // normalization -- source should always be shorter than/equal in length to

@@ -24,7 +24,7 @@ class FindWidget {
         this.searchTerm = term;
         _logger.finest('Handling find request for "$term"');
         findResults.clear();
-        _findEngine.streamResults(term, 15).listen((FindResult<Exercise> e){
+        _findEngine.streamResults(term).listen((FindResult<Exercise> e){
             findResults.add(e);
         });
     }

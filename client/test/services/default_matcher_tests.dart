@@ -102,7 +102,7 @@ main(){
   test('should be case insensitive', (){
     final tb = new _TestBed();
     when(tb.fuzzyAlgo.distance(anyString, anyString, anyInt))
-    .thenReturn(DefaultMatcher.FUZZY_THRESHOLD + 1);
+        .thenReturn(DefaultMatcher.FUZZY_THRESHOLD + 1);
     final matcher = tb.newMatcher();
     final nameTerm = new Term('THIS IS A TEST', Term.TYPE_NAME);
     final result = matcher.getMatch(nameTerm, 'this is a test');

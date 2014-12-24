@@ -2,7 +2,7 @@ part of find_engine_defaults;
 
 @Injectable()
 class DefaultMatcher implements FindEngineMatcher {
-  static const int FUZZY_THRESHOLD = 5;
+  static const int FUZZY_THRESHOLD = 2;
   static const int RANK_NAME_EQUALS = 0;
   static const int RANK_TAG_EQUALS = 1;
   static const int RANK_NAME_STARTS_WITH = 2;
@@ -30,9 +30,21 @@ class DefaultMatcher implements FindEngineMatcher {
 
     // If we get here, we attempt to do a fuzzy match on the individual words
     // within a term.
-    final words = _termSplitter.splitTerm(term).map((word) => {'word' : word,
-        'distance' :
-        _fuzzy.distance(lowerSearchTerm, word.toLowerCase(), FUZZY_THRESHOLD)});
+    final words = _termSplitter.splitTerm(term).map((word) {
+      final searchTermLength = lowerSearchTerm.length;
+      final wordLength = word.length;
+      // the string we compare against is a substring equal to the length of the
+      // search term.
+      final toCompare = searchTermLength >= word.length? word
+          : word.substring(0, searchTermLength - 1);
+
+      return {
+          'word' : word,
+          'distance' :
+          _fuzzy.distance(lowerSearchTerm, toCompare.toLowerCase(),
+              FUZZY_THRESHOLD)
+      };
+    });
 
     final closest = q.min(words, (a, b){
       if(a['distance'] > b['distance']) return 1;

@@ -2,6 +2,8 @@ library find_engine;
 
 import 'dart:async';
 import 'package:quiver/iterables.dart' as q;
+import 'package:logging/logging.dart';
+
 part 'find_result.dart';
 part 'findable.dart';
 part 'findable_source.dart';
@@ -11,6 +13,7 @@ part 'find_engine_matcher.dart';
 part 'find_engine_match.dart';
 
 class FindEngine<T extends Findable> {
+  static final _logger = new Logger('find_engine');
   final FindEngineMatcher _matcher;
   final FindableSource<T> _source;
 

@@ -5,23 +5,12 @@
 :host {
   display: block;
 }
-#searchTypeGroup {
-  flex-direction: column;
-  background-color: aliceblue;
-  padding: 15px 5px;
-}
-#searchTypeGroup #searchTypeButtons {
-  flex-direction: row;
-}
-#searchTypeGroup #searchTypeButtons .searchType {
-  width: 200px;
-}
 input[type=text]#term {
-  text-align: center;
+  border: 1px solid lightgray;
   width: 100%;
-  border: 0;
   font-size: 16px;
   padding: 5px;
+  box-sizing: border-box;
 }
 i#expandCollapseOptions {
   font-style: normal;

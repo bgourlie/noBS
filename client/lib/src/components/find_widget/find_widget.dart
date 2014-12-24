@@ -22,10 +22,14 @@ class FindWidget {
 
     void onFindRequest(String term, int onTermType){
         this.searchTerm = term;
-        _logger.finest('Handling find request for "$term"');
-        findResults.clear();
-        _findEngine.streamResults(term).listen((FindResult<Exercise> e){
-            findResults.add(e);
-        });
+        if(this.searchTerm.length == 0){
+            findResults.clear();
+        }else{
+            _logger.finest('Handling find request for "$term"');
+            findResults.clear();
+            _findEngine.streamResults(term).listen((FindResult<Exercise> e){
+                findResults.add(e);
+            });
+        }
     }
 }

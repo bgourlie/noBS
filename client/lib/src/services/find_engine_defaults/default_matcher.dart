@@ -2,7 +2,7 @@ part of find_engine_defaults;
 
 @Injectable()
 class DefaultMatcher implements FindEngineMatcher {
-  static const int FUZZY_THRESHOLD = 2;
+  static const int FUZZY_THRESHOLD = 1;
   static const int RANK_NAME_EQUALS = 0;
   static const int RANK_TAG_EQUALS = 1;
   static const int RANK_NAME_STARTS_WITH = 2;
@@ -25,7 +25,7 @@ class DefaultMatcher implements FindEngineMatcher {
     if(rank < RANK_LIKE){
       // The lower the difference in string length, the higher the sub rank.
       int subRank = (term.term.length - searchTerm.length).abs();
-      return new FindEngineMatch(rank, subRank, searchTerm);
+      return new FindEngineMatch(rank, subRank, lowerSearchTerm);
     }
 
     // If we get here, we attempt to do a fuzzy match on the individual words
@@ -35,14 +35,13 @@ class DefaultMatcher implements FindEngineMatcher {
       final wordLength = word.length;
       // the string we compare against is a substring equal to the length of the
       // search term.
-      final toCompare = searchTermLength >= word.length? word
-          : word.substring(0, searchTermLength - 1);
+      final fragment = searchTermLength >= word.length ? word.toLowerCase()
+          : word.substring(0, searchTermLength).toLowerCase();
 
       return {
-          'word' : word,
+          'fragment' : fragment,
           'distance' :
-          _fuzzy.distance(lowerSearchTerm, toCompare.toLowerCase(),
-              FUZZY_THRESHOLD)
+          _fuzzy.distance(lowerSearchTerm, fragment, FUZZY_THRESHOLD)
       };
     });
 
@@ -54,7 +53,7 @@ class DefaultMatcher implements FindEngineMatcher {
 
     return closest == null || closest['distance'] > FUZZY_THRESHOLD
         ? new FindEngineMatch.unranked()
-        : new FindEngineMatch(rank, closest['distance'], closest['word']);
+        : new FindEngineMatch(rank, closest['distance'], closest['fragment']);
   }
 
   int _getRank(String term, int termType, String searchTerm){

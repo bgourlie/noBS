@@ -15,6 +15,7 @@ map: const {
 class FindResult {
   Exercise _exercise;
   List<String> _tags;
+  List<String> _synonyms;
 
   fe.FindResult<Exercise> findResult;
 
@@ -31,7 +32,16 @@ class FindResult {
           .where((fe.Term t) => t.termType == fe.Term.TYPE_TAG)
           .map((t) => t.term).toList();
     }
-
     return _tags;
+  }
+
+  List<String> get synonyms {
+    if(_synonyms == null){
+      _synonyms = exercise.terms
+          .where((fe.Term t) => t.termType == fe.Term.TYPE_NAME)
+          .skip(1)
+          .map((fe.Term t) => t.term).toList();
+    }
+    return _synonyms;
   }
 }

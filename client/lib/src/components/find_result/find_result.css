@@ -1,5 +1,15 @@
+.ng-cloak,
+.ng-hide {
+  display: none !important;
+}
 :host {
   display: block;
+}
+#container {
+  padding: 3px;
+}
+#container:hover {
+  background-color: lightgoldenrodyellow;
 }
 tag {
   margin-right: 5px;
@@ -9,4 +19,14 @@ tag:last-of-type {
 }
 #matchInfo {
   font-size: 80%;
+}
+#synonyms {
+  font-size: 80%;
+  margin: 0;
+}
+.synonym::after {
+  content: ', ';
+}
+.synonym:last-of-type::after {
+  content: '';
 }

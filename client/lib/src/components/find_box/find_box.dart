@@ -19,13 +19,7 @@ typedef FindRequestHandler(String term, int onTermType);
 class FindBox implements ShadowRootAware {
   static final _logger = new Logger('nobs_find_box');
   String term;
-  bool optionsExpanded = false;
   Function findRequestHandler;
-
-  FindBox();
-  void toggleOptions() {
-   optionsExpanded = !optionsExpanded;
-  }
 
   void onShadowRoot(ShadowRoot shadowRoot){
     shadowRoot.querySelector('#term').onKeyDown.transform(

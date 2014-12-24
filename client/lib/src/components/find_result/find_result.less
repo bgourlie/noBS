@@ -1,5 +1,15 @@
+@import '../angular.less';
+
 :host{
   display: block;
+}
+
+#container{
+  padding: 3px;
+
+  &:hover{
+    background-color: lightgoldenrodyellow;
+  }
 }
 
 tag{
@@ -12,4 +22,19 @@ tag{
 
 #matchInfo {
   font-size: 80%
+}
+#synonyms{
+  font-size: 80%;
+  margin: 0;
+}
+
+.synonym{
+
+  &::after{
+    content: ', '
+  }
+
+  &:last-of-type::after{
+    content: '';
+  }
 }

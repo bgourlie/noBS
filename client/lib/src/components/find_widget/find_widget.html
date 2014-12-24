@@ -1,6 +1,6 @@
 <find-box find-request-handler="onFindRequest"></find-box>
+<p>Showing results for: <strong>{{searchTerm}}</strong></p>
 <ul id="find-results">
   <li ng-repeat="findResult in findResults | orderBy:['match.rank', 'match.subRank']" find-result="findResult">
   </li>
 </ul>
-Showing results for: <strong>{{searchTerm}}</strong>

@@ -5,6 +5,8 @@ import 'src/components/entry_screen/entry_screen.dart';
 import 'src/components/app_header/app_header.dart';
 import 'src/components/find_box/find_box.dart';
 import 'src/components/find_widget/find_widget.dart';
+import 'src/components/find_result/find_result.dart';
+import 'src/components/tag/tag.dart';
 import 'package:client/fitlog_models.dart';
 import 'package:client/src/services/find_engine_defaults/find_engine_defaults.dart';
 import 'package:client/src/services/exercise_find_engine.dart';
@@ -23,6 +25,8 @@ class ClientModule extends Module {
     bind(AppHeader);
     bind(FindBox);
     bind(FindWidget);
+    bind(FindResult);
+    bind(Tag);
     bind(ExerciseSource);
     bind(ExerciseFindEngine);
     bind(RouteInitializerFn, toImplementation: Routes);

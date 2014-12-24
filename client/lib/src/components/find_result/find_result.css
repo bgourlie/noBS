@@ -1,0 +1,12 @@
+:host {
+  display: block;
+}
+tag {
+  margin-right: 5px;
+}
+tag:last-of-type {
+  margin-right: 0;
+}
+#matchInfo {
+  font-size: 80%;
+}

@@ -19,13 +19,13 @@ class FindEngine<T extends Findable> {
 
   FindEngine(this._matcher, this._source);
 
-  /// Returns a [Stream] of [FindResult]s whose values satisfy [searchTerm].
+  /// Returns a [Stream] of [FindResult] whose [Term]s satisfy [searchTerm].
   ///
   /// Whether or not a [Findable] satisfies [searchTerm] is determined by the
   /// injected [FindEngineMatcher].
   ///
-  /// [matchOnTermType] determines the type of [Term] that [searchTerm] will
-  /// be compared to.  If unspecified, it will compare against all [Term] types.
+  /// [matchOnTermType] determines the type of term that [searchTerm] will
+  /// be compared to.  If unspecified, it will compare against all term types.
   Stream<FindResult<T>> streamResults(String searchTerm,
       {int matchOnTermType : Term.TYPE_UNSPECIFIED}){
 

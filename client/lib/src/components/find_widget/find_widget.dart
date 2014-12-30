@@ -1,6 +1,5 @@
 library find_widget;
 
-import 'dart:async';
 import 'package:angular/angular.dart';
 import 'package:di/annotations.dart';
 import 'package:logging/logging.dart';

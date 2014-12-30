@@ -1,9 +1,8 @@
-.ng-cloak,
-.ng-hide {
-  display: none !important;
-}
 :host {
   display: block;
+}
+input[type=text]#term {
+  width: 100%;
 }
 ul {
   padding: 0;

@@ -11,4 +11,3 @@ packages
 .idea/
 .pub/
 build/
-/client/lib/src/components/angular.css

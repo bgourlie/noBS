@@ -5,6 +5,37 @@ body {
   font-weight: normal;
   line-height: 1.2em;
   margin: 15px;
+  /* Controls */
+}
+body /deep/ .ng-cloak,
+body /deep/ .ng-hide {
+  display: none !important;
+}
+body /deep/ input[type=text],
+body /deep/ input[type=number],
+body /deep/ button,
+body /deep/ select {
+  border: 1px solid #AAA;
+  box-sizing: border-box;
+  outline: 0;
+  padding: 10px 20px;
+  font-size: 16px;
+  background: white;
+}
+body /deep/ input[type=text]:hover,
+body /deep/ input[type=number]:hover,
+body /deep/ button:hover,
+body /deep/ select:hover {
+  box-shadow: rgba(160, 160, 160, 0.5) 1px 1px 1px 0;
+  color: #000;
+  border-color: #909090;
+}
+body /deep/ input[type=text]:focus,
+body /deep/ input[type=number]:focus,
+body /deep/ button:focus,
+body /deep/ select:focus {
+  outline: 0;
+  box-shadow: rgba(160, 160, 160, 0.5) 1px 1px 1px 0;
 }
 header {
   text-align: center;

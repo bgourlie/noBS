@@ -5,6 +5,14 @@ body {
   font-weight: normal;
   line-height: 1.2em;
   margin: 15px;
+
+  /deep/ .ng-cloak, /deep/ .ng-hide {
+    display: none !important;
+  }
+}
+
+body /deep/ .ng-cloak {
+  display: none !important;
 }
 
 header {

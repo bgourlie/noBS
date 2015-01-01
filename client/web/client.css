@@ -6,6 +6,13 @@ body {
   line-height: 1.2em;
   margin: 15px;
 }
+body /deep/ .ng-cloak,
+body /deep/ .ng-hide {
+  display: none !important;
+}
+body /deep/ .ng-cloak {
+  display: none !important;
+}
 header {
   text-align: center;
 }

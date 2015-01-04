@@ -9,10 +9,28 @@ body {
   /deep/ .ng-cloak, /deep/ .ng-hide {
     display: none !important;
   }
-}
 
-body /deep/ .ng-cloak {
-  display: none !important;
+  /* Controls */
+  /deep/ input[type=text], /deep/ input[type=number], /deep/ button,
+      /deep/ select {
+    border: 1px solid #AAA;
+    box-sizing: border-box;
+    outline: 0;
+    padding: 10px 20px;
+    font-size: 16px;
+    background: white;
+
+    &:hover {
+      box-shadow: rgba(160, 160, 160, 0.5) 1px 1px 1px 0;
+      color: #000;
+      border-color: #909090;
+    }
+
+    &:focus {
+      outline: 0;
+      box-shadow: rgba(160, 160, 160, 0.5) 1px 1px 1px 0;
+    }
+  }
 }
 
 header {
@@ -22,3 +40,4 @@ header {
     margin: 0;
   }
 }
+

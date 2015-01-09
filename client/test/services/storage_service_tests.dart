@@ -47,7 +47,7 @@ main() {
     when(store.upgrade).thenReturn((oldVersion, newVersion) => print('upgrade called!'));
     final storageService = new StorageService(store, dom.window);
     expect(storageService.open().then((db) {
-      verify(store.upgrade(0)).once();
+      verify(store.upgrade(db, 0)).once();
       expect(closeDb(db), completes);
     }), completes);
   });
@@ -56,22 +56,22 @@ main() {
     final store = new MockStore();
     when(store.dbName).thenReturn(DB_NAME);
     when(store.version).thenReturn(1);
-    when(store.upgrade).thenReturn((oldVersion)
+    when(store.upgrade).thenReturn((db, oldVersion)
         => print('upgrade called!'));
 
     final storeV2 = new MockStore();
     when(storeV2.dbName).thenReturn(DB_NAME);
     when(storeV2.version).thenReturn(2);
-    when(storeV2.upgrade).thenReturn((oldVersion)
+    when(storeV2.upgrade).thenReturn((db, oldVersion)
         => print('upgrade called!'));
 
     final storageService = new StorageService(store, dom.window);
     expect(storageService.open().then((db) {
-      verify(store.upgrade(0)).once();
+      verify(store.upgrade(db, 0)).once();
       expect(closeDb(db).then((_) {
         final storageService2 = new StorageService(storeV2, dom.window);
         expect(storageService2.open().then((db2){
-          verify(storeV2.upgrade(1)).once();
+          verify(storeV2.upgrade(db2, 1)).once();
           expect(closeDb(db2), completes);
         }), completes);
       }), completes);

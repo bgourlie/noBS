@@ -18,7 +18,8 @@ class StorageService<T> {
     return _window.indexedDB.open(_store.dbName, version: _store.version,
         onUpgradeNeeded: (VersionChangeEvent e)  {
           _logger.finest('db upgrade needed (${e.oldVersion} -> ${e.newVersion})');
-          _store.upgrade(e.oldVersion);
+          final db = (e.target as Request).result;
+          _store.upgrade(db, e.oldVersion);
         });
   }
 }

@@ -4,5 +4,5 @@ abstract class Store {
   String get dbName;
   int get version;
 
-  void upgrade(int oldVersion);
+  void upgrade( Database db, int oldVersion);
 }

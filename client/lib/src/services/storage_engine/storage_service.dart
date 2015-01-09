@@ -1,11 +1,11 @@
 part of storage_engine;
 
-class StorageService<T> {
-  final Store _store;
+class Bootstrapper {
+  final DbConfig _config;
   final Window _window;
 
-  StorageService(this._store, this._window) {
-    if(this._store == null) {
+  Bootstrapper(this._config, this._window) {
+    if(this._config == null) {
       throw new ArgumentError.notNull('_store');
     }
 
@@ -14,13 +14,19 @@ class StorageService<T> {
     }
   }
 
-  Future<Database> open() {
-    return _window.indexedDB.open(_store.dbName, version: _store.version,
+  /// Get a database connection.  Create or upgrade if needed.
+  Future<Database> getDatabase() {
+    final completer = new Completer<Database>();
+    _window.indexedDB.open(_config.dbName, version: _config.version,
         onUpgradeNeeded: (VersionChangeEvent e)  {
           _logger.finest('db upgrade needed (${e.oldVersion} -> ${e.newVersion})');
           final db = (e.target as Request).result;
-          _store.upgrade(db, e.oldVersion);
-        });
+          _config.upgrade(db, e.oldVersion);
+        }).then((db) {
+          _logger.finest('returning new connection.');
+          completer.complete(db);
+    }, onError: (e) => completer.completeError(e));
+    return completer.future;
   }
 }
 

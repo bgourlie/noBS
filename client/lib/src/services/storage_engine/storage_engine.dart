@@ -6,7 +6,7 @@ import 'dart:indexed_db';
 import 'package:logging/logging.dart';
 import 'package:quiver/core.dart';
 
-part 'storage_service.dart';
+part 'bootstrapper.dart';
 part 'storable.dart';
 part 'db_config.dart';
 part 'repository.dart';

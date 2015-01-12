@@ -41,6 +41,21 @@ abstract class Repository<T extends Storable> {
     return completer.future;
   }
 
+  Future putAll(List<T> storables, [Transaction tx]) {
+    if(tx == null){
+      tx = _db.transaction(storeName, 'readwrite');
+    }
+
+    final objectStore = tx.objectStore(storeName);
+
+    storables.forEach((Storable s) => objectStore.add(serialize(s))
+        .then((key) => s.dbKey = key));
+
+    return tx.completed.then((_){
+      _logger.finest('putMany transaction completed.');
+    });
+  }
+
   Stream<T> getAll(){
     final controller = new StreamController<T>();
     final tx = _db.transaction(storeName, 'readonly');

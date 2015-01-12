@@ -20,8 +20,10 @@ class Bootstrapper {
     _window.indexedDB.open(_config.dbName, version: _config.version,
         onUpgradeNeeded: (VersionChangeEvent e)  {
           _logger.finest('db upgrade needed (${e.oldVersion} -> ${e.newVersion})');
-          final db = (e.target as Request).result;
-          _config.upgrade(db, e.oldVersion);
+          final req = (e.target as Request);
+          final db = req.result;
+          final tx = req.transaction;
+          _config.upgrade(db, tx, e.oldVersion);
         }).then((db) {
           _logger.finest('returning new connection.');
           completer.complete(db);

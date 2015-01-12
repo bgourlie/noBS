@@ -34,10 +34,10 @@ main() {
     final config = new MockConfig();
     when(config.dbName).thenReturn(DB_NAME);
     when(config.version).thenReturn(1);
-    when(config.upgrade).thenReturn((oldVersion, newVersion) => print('upgrade called!'));
+    when(config.upgrade).thenReturn((a,b,c) => print('called!'));
     final storageService = new Bootstrapper(config, dom.window);
     expect(storageService.getDatabase().then((db) {
-      verify(config.upgrade(db, 0)).once();
+      verify(config.upgrade(db, anyObject, 0)).once();
       expect(closeDb(db), completes);
     }), completes);
   });
@@ -46,22 +46,20 @@ main() {
     final config = new MockConfig();
     when(config.dbName).thenReturn(DB_NAME);
     when(config.version).thenReturn(1);
-    when(config.upgrade).thenReturn((db, oldVersion)
-        => print('upgrade called!'));
+    when(config.upgrade).thenReturn((a,b,c) => print('called!'));
 
     final configV2 = new MockConfig();
     when(configV2.dbName).thenReturn(DB_NAME);
     when(configV2.version).thenReturn(2);
-    when(configV2.upgrade).thenReturn((db, oldVersion)
-        => print('upgrade called!'));
+    when(configV2.upgrade).thenReturn((a,b,c) => print('called!'));
 
     final bootstrapper = new Bootstrapper(config, dom.window);
     expect(bootstrapper.getDatabase().then((db) {
-      verify(config.upgrade(db, 0)).once();
+      verify(config.upgrade(db, anyObject, 0)).once();
       expect(closeDb(db).then((_) {
         final bootstrapper2 = new Bootstrapper(configV2, dom.window);
         expect(bootstrapper2.getDatabase().then((db2){
-          verify(configV2.upgrade(db2, 1)).once();
+          verify(configV2.upgrade(db2, anyObject, 1)).once();
           expect(closeDb(db2), completes);
         }), completes);
       }), completes);

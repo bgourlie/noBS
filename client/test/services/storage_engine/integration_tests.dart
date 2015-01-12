@@ -9,7 +9,7 @@ import 'package:unittest/unittest.dart';
 import 'package:client/src/services/storage_engine/storage_engine.dart';
 
 const String DB_NAME = 'testDb';
-
+const String TEST_STORE_NAME = 'foo';
 final _logger = new Logger('integration_tests');
 
 void main(){
@@ -59,10 +59,26 @@ void main(){
     final foo2 = new Foo('jon', 29);
     final foo3 = new Foo('aaron', 39);
     final foo4 = new Foo('jeremy', 38);
-    expect(Future.wait([fooRepo.put(foo1), fooRepo.put(foo2), fooRepo.put(foo3),
-        fooRepo.put(foo4)]).then((_){
+    expect(fooRepo.putAll([foo1, foo2, foo3, foo4]).then((_){
       expect(fooRepo.getAll().toList().then((List<Foo> foos){
         expect(foos.length, equals(4));
+      }), completes);
+    }), completes);
+  });
+
+  test('should put many and retrieve all with explicit transaction', (){
+    final bootstrapper = new Bootstrapper(new TestDbV1Config(), dom.window);
+    expect(bootstrapper.getDatabase().then((_db_){
+      final fooRepo = new FooRepository(_db_);
+      final foo1 = new Foo('brian', 31);
+      final foo2 = new Foo('jon', 29);
+      final foo3 = new Foo('aaron', 39);
+      final foo4 = new Foo('jeremy', 38);
+      final trans = _db_.transaction(TEST_STORE_NAME, 'readwrite');
+      expect(fooRepo.putAll([foo1, foo2, foo3, foo4], trans).then((_){
+        expect(fooRepo.getAll().toList().then((List<Foo> foos){
+          expect(foos.length, equals(4));
+        }), completes);
       }), completes);
     }), completes);
   });
@@ -72,7 +88,7 @@ class TestDbV1Config extends DbConfig {
   String get dbName => DB_NAME;
   int get version => 1;
 
-  void upgrade(Database db, int version){
+  void upgrade(Database db, Transaction tx, int version){
     _logger.finest('upgrade called.');
     db.createObjectStore('foo', autoIncrement: true);
   }
@@ -90,7 +106,7 @@ class Foo extends Storable {
 }
 
 class FooRepository extends Repository<Foo> {
-  String get storeName => 'foo';
+  String get storeName => TEST_STORE_NAME;
 
   FooRepository(Database db) : super(db);
 

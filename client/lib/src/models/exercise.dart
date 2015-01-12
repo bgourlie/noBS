@@ -1,21 +1,27 @@
 part of fitlog_models;
 
-class Exercise implements Findable {
+class Exercise implements Findable, Storable {
   final String title;
-  final List<Term> _terms;
+  final List<String> synonyms;
+  final List<String> tags;
 
-  List<Term> get terms => _terms;
+  List<Term> _terms;
+  int _dbKey;
 
-  Exercise._internal(this.title, this._terms);
+  int get dbKey => _dbKey;
+  set dbKey(int val) => _dbKey = val;
 
-  factory Exercise(String title, List<String> synonyms, List<String> tags){
-    final names = new List<String>()
+  List<Term> get terms {
+    if(_terms == null){
+      final names = new List<String>()
         ..add(title)
         ..addAll(synonyms);
 
-    final terms = names.map((e) => new Term(e, Term.TYPE_NAME)).toList()
+      _terms = names.map((e) => new Term(e, Term.TYPE_NAME)).toList()
         ..addAll(tags.map((e) => new Term(e, Term.TYPE_TAG)));
-
-    return new Exercise._internal(title, terms);
+    }
+    return _terms;
   }
+
+  Exercise(this.title, this.synonyms, this.tags);
 }

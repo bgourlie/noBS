@@ -12,11 +12,13 @@ dev_dependencies:
   unittest: any
   typed_mock: any
   grinder: any
+  script_inliner: any
   nvp:
     git:
       url: git://github.com/bgourlie/nobsVersionPatcher.git
       ref: master
 transformers:
+- script_inliner
 - angular
 - nvp/client_version_patcher:
     entryPoint: client.dart

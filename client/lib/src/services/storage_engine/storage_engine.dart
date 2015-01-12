@@ -10,6 +10,5 @@ part 'storage_service.dart';
 part 'storable.dart';
 part 'db_config.dart';
 part 'repository.dart';
-part 'storable_factory.dart';
 
 final _logger = new Logger('storage_engine');

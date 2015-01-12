@@ -35,14 +35,14 @@ void main(){
   });
 
   test('should put item into storage', (){
-    final fooRepo = new Repository<Foo>(db, new FooFactory());
+    final fooRepo = new FooRepository(db);
     expect(fooRepo.put(new Foo('brian', 31)).then((_){
       _logger.finest('put foo object!');
     }), completes);
   });
 
   test('should put and retrieve', (){
-    final fooRepo = new Repository<Foo>(db, new FooFactory());
+    final fooRepo = new FooRepository(db);
     final foo = new Foo('brian', 31);
     expect(fooRepo.put(foo).then((_){
       expect(fooRepo.get(foo.dbKey).then((Optional<Foo> foo2){
@@ -54,7 +54,7 @@ void main(){
   });
 
   test('should put many and retrieve all', (){
-    final fooRepo = new Repository<Foo>(db, new FooFactory());
+    final fooRepo = new FooRepository(db);
     final foo1 = new Foo('brian', 31);
     final foo2 = new Foo('jon', 29);
     final foo3 = new Foo('aaron', 39);
@@ -87,13 +87,15 @@ class Foo extends Storable {
   final int age;
 
   Foo(this.name, this.age);
-
-  Map<String, Object> toStorage() => { 'name' : name, 'age' : age };
 }
 
-class FooFactory extends StorableFactory<Foo> {
+class FooRepository extends Repository<Foo> {
   String get storeName => 'foo';
 
-  Foo fromStorage(String key, Map value) =>
+  FooRepository(Database db) : super(db);
+
+  Foo deserialize(int key, Map value) =>
       new Foo(value['name'], value['age']);
+
+  Map serialize(Foo obj) => { 'name' : obj.name, 'age' : obj.age };
 }

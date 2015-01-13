@@ -2,14 +2,13 @@ language: csharp
 os: linux
 env:
   global:
-  - "AZURE_FTP_USER=nobs-api\\\\bgourlie"
+  - "AZURE_FTP_USER=nobs-api\\\\nobs_deploy"
   - DART_DIST=dartsdk-linux-x64-release.zip
   - DART_SDK=~/dart-sdk
   - KRE_HOME=~/.kre/packages/KRE-Mono.1.0.0-beta1
   - PATH="$DART_SDK/bin:$KRE_HOME/bin:$PATH"
   - DEPLOY_BRANCH=master
   - BUILD_TIME=$(date -Iseconds)
-    # AZURE_FTP_PASSWORD Defined Below
   -  secure: "LO4BgidrSaCYkTW/pTDTclQL1vpSAumwDQKdV0EgGP2DwVRp+3EfHnSd9BiJ2qDlN7Hz5rhWQQO0a7QzaVfCX1E28kKlWdu3642lE9buPpmUp4WgRizlzi80iddu1ku46e6tpuhwr//uPpDauhnj81/Nl/ja7kkgwroamTgNbVc="
 
 notifications:
@@ -28,16 +27,3 @@ script:
 after_success:
 - "./ci/pack-deployment.sh"
 - "./ci/deploy.sh"
-# deploy:
-#   provider: s3
-#   access_key_id: AKIAII53TR3I2GQEKSDA
-#   secret_access_key:
-#     secure: jYkeixCXjjgOszMolqnJ3DuAk+IpUCpD8DvwIShPGm59PUXL3kgrqw/vy0P+xPI2Qm6py7NgeIoMTwZBV4+iJTCqCLJzGK8PxH+rLp1izEZbvOawyJmb+2c55T2kYQXkLlvy6jwfmq2/QPInXvaGaCAfTCPgSRLSLaDx4em4FvI=
-#   bucket: nobs-fitlog
-#   local-dir: "$TRAVIS_BUILD_DIR/client/build/web"
-#   # upload-dir: ""
-#   acl: public_read
-#   on:
-#     repo: bgourlie/noBS
-#     branch: "$DEPLOY_BRANCH"
-#   skip_cleanup: true

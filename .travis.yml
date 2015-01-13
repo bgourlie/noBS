@@ -9,7 +9,8 @@ env:
   - PATH="$DART_SDK/bin:$KRE_HOME/bin:$PATH"
   - DEPLOY_BRANCH=master
   - BUILD_TIME=$(date -Iseconds)
-  -  secure: "LO4BgidrSaCYkTW/pTDTclQL1vpSAumwDQKdV0EgGP2DwVRp+3EfHnSd9BiJ2qDlN7Hz5rhWQQO0a7QzaVfCX1E28kKlWdu3642lE9buPpmUp4WgRizlzi80iddu1ku46e6tpuhwr//uPpDauhnj81/Nl/ja7kkgwroamTgNbVc="
+    # AZURE_FTP_PASSWORD
+  - secure: "cX6jLPr9ldqPoPKatf6Ni3mYxDIj1oVpaQqbVsDLiMUu5YCXca+/7tqmHfHKF6/qMz+PqpMx+JPLvogIj+2THt4NN3bZv4CdPzJeaLF+NlPOiWVPFVw1drjCF/vmnpU8uKuA48UMyntKYmFhhZAM9hj9ni1cd0oT4AHs6kUCLA4="
 
 notifications:
   email:

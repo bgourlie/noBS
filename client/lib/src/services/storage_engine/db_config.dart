@@ -4,5 +4,5 @@ abstract class DbConfig {
   String get dbName;
   int get version;
 
-  void upgrade(Database db, Transaction tx, int oldVersion);
+ Future upgrade(Database db, Transaction tx, int oldVersion);
 }

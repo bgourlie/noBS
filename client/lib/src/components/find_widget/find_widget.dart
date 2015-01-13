@@ -20,7 +20,7 @@ typedef SelectedHandler(Exercise exercise);
 class FindWidget implements ShadowRootAware {
   static final _logger = new Logger('find_widget');
   final ExerciseFindEngine _findEngine;
-  final findResults = new List<FindResult<Exercise>>();
+  List<FindResult<Exercise>> findResults;
   Function selectedHandler;
   String searchTerm; // The searchTerm, updated as it's being typed
   String searchedTerm; // The term actually being searched
@@ -38,10 +38,10 @@ class FindWidget implements ShadowRootAware {
       findResults.clear();
     } else {
       _logger.finest('Handling find request for "$searchTerm"');
-      findResults.clear();
-      _findEngine.streamResults(searchTerm).listen((FindResult<Exercise> e) {
-        findResults.add(e);
-      });
+      _findEngine
+          .streamResults(searchTerm)
+          .toList()
+          .then((results) => findResults = results);
     }
     searchedTerm = searchTerm;
   }

@@ -10,7 +10,7 @@ env:
   - DEPLOY_BRANCH=master
   - BUILD_TIME=$(date -Iseconds)
     # AZURE_FTP_PASSWORD
-  - secure: "cX6jLPr9ldqPoPKatf6Ni3mYxDIj1oVpaQqbVsDLiMUu5YCXca+/7tqmHfHKF6/qMz+PqpMx+JPLvogIj+2THt4NN3bZv4CdPzJeaLF+NlPOiWVPFVw1drjCF/vmnpU8uKuA48UMyntKYmFhhZAM9hj9ni1cd0oT4AHs6kUCLA4="
+  - secure: "V5lVEyfGZqG8JT0P4zbJO1aS2jLXVQKkSj42twhA0Au24ibvfEsIfI5QPqj3sY7jv2SjpNM9fg1ZHMLC/lYw+S+5a57MCDzJChguMKvFBV5FC2qyA1Q2zYANTI3JE7qA+wWmI8DaJQ3AlDSeiItQlrYKsH7gk0O9R1zCcRDXfyc="
 
 notifications:
   email:

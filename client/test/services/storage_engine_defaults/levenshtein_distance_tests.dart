@@ -1,3 +1,5 @@
+library levenshtien_distance_tests;
+
 import 'package:unittest/unittest.dart';
 import 'package:client/src/services/find_engine_defaults/find_engine_defaults.dart';
 

@@ -1,3 +1,5 @@
+library default_matcher_tests;
+
 import 'package:unittest/unittest.dart';
 import 'package:typed_mock/typed_mock.dart';
 import 'package:client/src/services/find_engine/find_engine.dart';

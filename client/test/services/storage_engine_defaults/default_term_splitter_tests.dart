@@ -1,3 +1,5 @@
+library default_term_splitter_tests;
+
 import 'package:unittest/unittest.dart';
 import 'package:client/src/services/find_engine/find_engine.dart';
 import 'package:client/src/services/find_engine_defaults/find_engine_defaults.dart';

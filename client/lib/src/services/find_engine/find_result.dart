@@ -14,11 +14,13 @@ class FindResult<T extends Findable> {
   /// terms matched.
   final bool _noMatch;
 
-  FindResult(this.item, this.match, this.matchedTerm)
-      : _noMatch = false;
+  FindResult(this.item, this.match, this.matchedTerm) : _noMatch = false;
 
-  FindResult.noMatch() : item = null, matchedTerm = null,
-      match = null, _noMatch = true;
+  FindResult.noMatch()
+      : item = null,
+        matchedTerm = null,
+        match = null,
+        _noMatch = true;
 
   String toString() => _noMatch ? '[No Match]' : matchedTerm.toString();
 }

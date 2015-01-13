@@ -14,14 +14,13 @@ import 'package:client/src/services/exercise_find_engine.dart';
 import 'package:client/src/services/nobs_storage/nobs_storage.dart';
 import 'package:client/src/services/exercise_source.dart';
 
-
 part 'src/routes.dart';
 
 class ClientModule extends Module {
   final VersionInfo _versionInfo;
   final Database _database;
 
-  ClientModule(this._versionInfo, this._database){
+  ClientModule(this._versionInfo, this._database) {
     install(new FindEngineDefaultsModule());
     install(new NobsStorageModule());
     bind(Database, toValue: this._database);

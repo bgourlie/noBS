@@ -6,12 +6,11 @@ import 'package:client/fitlog_models.dart';
 import 'package:client/src/services/find_engine/find_engine.dart' as fe;
 
 @Injectable()
-@Component(selector: '[find-result]',
-templateUrl: 'packages/client/src/components/find_result/find_result.html',
-cssUrl: 'packages/client/src/components/find_result/find_result.css',
-map: const {
-    'find-result' : '=>!findResult',
-})
+@Component(
+    selector: '[find-result]',
+    templateUrl: 'packages/client/src/components/find_result/find_result.html',
+    cssUrl: 'packages/client/src/components/find_result/find_result.css',
+    map: const {'find-result': '=>!findResult',})
 class FindResult {
   Exercise _exercise;
   List<String> _tags;
@@ -20,27 +19,29 @@ class FindResult {
   fe.FindResult<Exercise> findResult;
 
   Exercise get exercise {
-    if(_exercise == null){
+    if (_exercise == null) {
       _exercise = findResult.item;
     }
     return _exercise;
   }
 
   List<String> get tags {
-    if(_tags == null){
+    if (_tags == null) {
       _tags = exercise.terms
           .where((fe.Term t) => t.termType == fe.Term.TYPE_TAG)
-          .map((t) => t.term).toList();
+          .map((t) => t.term)
+          .toList();
     }
     return _tags;
   }
 
   List<String> get synonyms {
-    if(_synonyms == null){
+    if (_synonyms == null) {
       _synonyms = exercise.terms
           .where((fe.Term t) => t.termType == fe.Term.TYPE_NAME)
           .skip(1)
-          .map((fe.Term t) => t.term).toList();
+          .map((fe.Term t) => t.term)
+          .toList();
     }
     return _synonyms;
   }

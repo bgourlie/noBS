@@ -1,20 +1,17 @@
 part of find_engine_defaults;
 
-
 @Injectable()
-class  DamerauLevenshteinDistance implements FuzzyAlgorithm {
+class DamerauLevenshteinDistance implements FuzzyAlgorithm {
   int get maxThreshold => 255;
 
-
-  int distance(String source, String target, int threshold){
-
-    if(threshold > maxThreshold){
+  int distance(String source, String target, int threshold) {
+    if (threshold > maxThreshold) {
       threshold = maxThreshold;
     }
 
     // normalization -- source should always be shorter than/equal in length to
     // target
-    if(source.length > target.length){
+    if (source.length > target.length) {
       final tmp = target;
       target = source;
       source = tmp;
@@ -22,7 +19,7 @@ class  DamerauLevenshteinDistance implements FuzzyAlgorithm {
 
     final length1 = source.length;
     final length2 = target.length;
-    if(length2 - length1 > threshold){
+    if (length2 - length1 > threshold) {
       return maxThreshold;
     }
 
@@ -34,12 +31,14 @@ class  DamerauLevenshteinDistance implements FuzzyAlgorithm {
     var dMinus2 = new Uint8ClampedList(maxi + 1);
     Uint8ClampedList dSwap;
 
-    for(int i = 0; i < maxi; i++){
+    for (int i = 0; i < maxi; i++) {
       dCurrent[i] = i;
     }
 
-    int jm1 = 0, im1 = 0, im2 = -1;
-    for(int j = 1; j <= maxj; j++){
+    int jm1 = 0,
+        im1 = 0,
+        im2 = -1;
+    for (int j = 1; j <= maxj; j++) {
       // rotate
       dSwap = dMinus2;
       dMinus2 = dMinus1;
@@ -52,22 +51,24 @@ class  DamerauLevenshteinDistance implements FuzzyAlgorithm {
       im1 = 0;
       im2 = -1;
 
-      for(int i = 1; i <= maxi; i++){
+      for (int i = 1; i <= maxi; i++) {
         int cost = source[im1] == target[jm1] ? 0 : 1;
         int del = dCurrent[im1] + 1;
         int ins = dMinus1[i] + 1;
         int sub = dMinus1[im1] + cost;
-        int min = (del > ins) ? (ins > sub ? sub : ins)
-            : (del > sub ? sub : del);
+        int min =
+            (del > ins) ? (ins > sub ? sub : ins) : (del > sub ? sub : del);
 
-        if(i > 1 && j > 1 && source[im2] == target[jm1]
-            && source[im1] == target[j - 2]){
+        if (i > 1 &&
+            j > 1 &&
+            source[im2] == target[jm1] &&
+            source[im1] == target[j - 2]) {
           final possMin = dMinus2[im2] + cost;
           min = min < possMin ? min : possMin;
         }
 
         dCurrent[i] = min;
-        if(min < minDistance){
+        if (min < minDistance) {
           minDistance = min;
         }
 
@@ -76,7 +77,7 @@ class  DamerauLevenshteinDistance implements FuzzyAlgorithm {
       }
 
       jm1++;
-      if(minDistance > threshold){
+      if (minDistance > threshold) {
         return maxThreshold;
       }
     }

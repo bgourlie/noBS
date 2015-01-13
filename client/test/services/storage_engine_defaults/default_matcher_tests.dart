@@ -5,8 +5,8 @@ import 'package:typed_mock/typed_mock.dart';
 import 'package:client/src/services/find_engine/find_engine.dart';
 import 'package:client/src/services/find_engine_defaults/find_engine_defaults.dart';
 
-main(){
-  test('should rank exact-name-match above exact-tag-match', (){
+main() {
+  test('should rank exact-name-match above exact-tag-match', () {
     final tb = new _TestBed();
     final matcher = tb.newMatcher();
     final nameTerm = new Term('test', Term.TYPE_NAME);
@@ -16,7 +16,7 @@ main(){
     expect(nameResult.rank, lessThan(tagResult.rank));
   });
 
-  test('should rank exact-tag-match above start-with-name match', (){
+  test('should rank exact-tag-match above start-with-name match', () {
     final tb = new _TestBed();
     final matcher = tb.newMatcher();
     final nameTerm = new Term('testing', Term.TYPE_NAME);
@@ -26,7 +26,7 @@ main(){
     expect(tagResult.rank, lessThan(nameResult.rank));
   });
 
-  test('should rank starts-with-name match above start-with-tag match', (){
+  test('should rank starts-with-name match above start-with-tag match', () {
     final tb = new _TestBed();
     final matcher = tb.newMatcher();
     final nameTerm = new Term('testing', Term.TYPE_NAME);
@@ -36,7 +36,7 @@ main(){
     expect(nameResult.rank, lessThan(tagResult.rank));
   });
 
-  test('should rank starts-with-tag match above contains-name match', (){
+  test('should rank starts-with-tag match above contains-name match', () {
     final tb = new _TestBed();
     final matcher = tb.newMatcher();
     final nameTerm = new Term('some testing', Term.TYPE_NAME);
@@ -46,7 +46,7 @@ main(){
     expect(tagResult.rank, lessThan(nameResult.rank));
   });
 
-  test('should rank contains-name match above contains-tag match', (){
+  test('should rank contains-name match above contains-tag match', () {
     final tb = new _TestBed();
     final matcher = tb.newMatcher();
     final nameTerm = new Term('some testing', Term.TYPE_NAME);
@@ -56,7 +56,7 @@ main(){
     expect(nameResult.rank, lessThan(tagResult.rank));
   });
 
-  test('should rank contains-tag match above name-like match', (){
+  test('should rank contains-tag match above name-like match', () {
     final tb = new _TestBed();
     when(tb.fuzzyAlgo.distance(anyString, anyString, anyInt)).thenReturn(1);
     final matcher = tb.newMatcher();
@@ -68,7 +68,7 @@ main(){
   });
 
   test('should rank contains-name match on shorter term higher than ' +
-      'contains-name match on longer term', (){
+      'contains-name match on longer term', () {
     final tb = new _TestBed();
     final matcher = tb.newMatcher();
     final nameTerm = new Term('this is a test', Term.TYPE_NAME);
@@ -80,7 +80,7 @@ main(){
   });
 
   test('should rank contains-tag match on shorter term higher than ' +
-  'contains-tag match on longer term', (){
+      'contains-tag match on longer term', () {
     final tb = new _TestBed();
     final matcher = tb.newMatcher();
     final nameTerm = new Term('this is a test', Term.TYPE_TAG);
@@ -91,7 +91,7 @@ main(){
     expect(shortResult.subRank, lessThan(longResult.subRank));
   });
 
-  test('should return unranked match if fuzzy distance exceeds threshold', (){
+  test('should return unranked match if fuzzy distance exceeds threshold', () {
     final tb = new _TestBed();
     when(tb.fuzzyAlgo.distance(anyString, anyString, anyInt))
         .thenReturn(DefaultMatcher.FUZZY_THRESHOLD + 1);
@@ -101,7 +101,7 @@ main(){
     expect(result.rank, equals(FindEngineMatch.UNRANKED));
   });
 
-  test('should be case insensitive', (){
+  test('should be case insensitive', () {
     final tb = new _TestBed();
     when(tb.fuzzyAlgo.distance(anyString, anyString, anyInt))
         .thenReturn(DefaultMatcher.FUZZY_THRESHOLD + 1);
@@ -111,7 +111,7 @@ main(){
     expect(result.rank, lessThan(FindEngineMatch.UNRANKED));
   });
 
-  test('should return the expected matchedFragment', (){
+  test('should return the expected matchedFragment', () {
     final tb = new _TestBed();
     final matcher = tb.newMatcher();
     final nameTerm = new Term('THIS IS A TEST', Term.TYPE_NAME);
@@ -120,13 +120,13 @@ main(){
   });
 }
 
-class SpaceTermSplitter implements TermSplitter{
+class SpaceTermSplitter implements TermSplitter {
   splitTerm(Term term) => term.term.split(' ');
 }
 
-class MockFuzzyAlgo extends TypedMock implements FuzzyAlgorithm{}
+class MockFuzzyAlgo extends TypedMock implements FuzzyAlgorithm {}
 
-class _TestBed{
+class _TestBed {
   final termSplitter = new SpaceTermSplitter();
   final fuzzyAlgo = new MockFuzzyAlgo();
 

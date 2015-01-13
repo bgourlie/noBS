@@ -22,7 +22,7 @@ class DefaultMatcher implements FindEngineMatcher {
 
     final rank = _getRank(lowerTerm, term.termType, lowerSearchTerm);
 
-    if(rank < RANK_LIKE){
+    if (rank < RANK_LIKE) {
       // The lower the difference in string length, the higher the sub rank.
       int subRank = (term.term.length - searchTerm.length).abs();
       return new FindEngineMatch(rank, subRank, lowerSearchTerm);
@@ -35,19 +35,19 @@ class DefaultMatcher implements FindEngineMatcher {
       final wordLength = word.length;
       // the string we compare against is a substring equal to the length of the
       // search term.
-      final fragment = searchTermLength >= word.length ? word.toLowerCase()
+      final fragment = searchTermLength >= word.length
+          ? word.toLowerCase()
           : word.substring(0, searchTermLength).toLowerCase();
 
       return {
-          'fragment' : fragment,
-          'distance' :
-          _fuzzy.distance(lowerSearchTerm, fragment, FUZZY_THRESHOLD)
+        'fragment': fragment,
+        'distance': _fuzzy.distance(lowerSearchTerm, fragment, FUZZY_THRESHOLD)
       };
     });
 
-    final closest = q.min(words, (a, b){
-      if(a['distance'] > b['distance']) return 1;
-      if(a['distance'] < b['distance']) return -1;
+    final closest = q.min(words, (a, b) {
+      if (a['distance'] > b['distance']) return 1;
+      if (a['distance'] < b['distance']) return -1;
       return 0;
     });
 
@@ -56,27 +56,27 @@ class DefaultMatcher implements FindEngineMatcher {
         : new FindEngineMatch(rank, closest['distance'], closest['fragment']);
   }
 
-  int _getRank(String term, int termType, String searchTerm){
-    switch(termType){
+  int _getRank(String term, int termType, String searchTerm) {
+    switch (termType) {
       case Term.TYPE_NAME:
-        if(term == searchTerm){
+        if (term == searchTerm) {
           return RANK_NAME_EQUALS;
         }
-        if(term.startsWith(searchTerm)){
+        if (term.startsWith(searchTerm)) {
           return RANK_NAME_STARTS_WITH;
         }
-        if(term.contains(searchTerm)){
+        if (term.contains(searchTerm)) {
           return RANK_NAME_CONTAINS;
         }
         return RANK_LIKE;
       case Term.TYPE_TAG:
-        if(term == searchTerm){
+        if (term == searchTerm) {
           return RANK_TAG_EQUALS;
         }
-        if(term.startsWith(searchTerm)){
+        if (term.startsWith(searchTerm)) {
           return RANK_TAG_STARTS_WITH;
         }
-        if(term.contains(searchTerm)){
+        if (term.contains(searchTerm)) {
           return RANK_TAG_CONTAINS;
         }
         return RANK_LIKE;

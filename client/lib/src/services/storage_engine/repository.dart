@@ -9,12 +9,12 @@ abstract class Repository<T extends Storable> {
   Map<String, Object> serialize(T storable);
   T deserialize(int key, Map value);
 
-  Future<Optional<T>> get(int key){
+  Future<Optional<T>> get(int key) {
     final completer = new Completer<Optional<T>>();
     final tx = _db.transaction(storeName, 'readonly');
     final index = tx.objectStore(storeName);
-    index.getObject(key).then((Object result){
-      if(result == null){
+    index.getObject(key).then((Object result) {
+      if (result == null) {
         completer.complete(new Optional.absent());
       } else {
         final ret = deserialize(key, result);
@@ -24,7 +24,7 @@ abstract class Repository<T extends Storable> {
     return completer.future;
   }
 
-  Future put(T storable){
+  Future put(T storable) {
     final completer = new Completer();
     final tx = _db.transaction(storeName, 'readwrite');
     final objectStore = tx.objectStore(storeName);
@@ -42,28 +42,31 @@ abstract class Repository<T extends Storable> {
   }
 
   Future putAll(List<T> storables, [Transaction tx]) {
-    if(tx == null){
+    if (tx == null) {
       tx = _db.transaction(storeName, 'readwrite');
     }
 
     final objectStore = tx.objectStore(storeName);
 
-    storables.forEach((Storable s) => objectStore.add(serialize(s))
-        .then((key) => s.dbKey = key));
+    storables.forEach((Storable s) =>
+        objectStore.add(serialize(s)).then((key) => s.dbKey = key));
 
-    return tx.completed.then((_){
+    return tx.completed.then((_) {
       _logger.finest('putMany transaction completed.');
     });
   }
 
-  Stream<T> getAll(){
+  Stream<T> getAll() {
     final controller = new StreamController<T>();
     final tx = _db.transaction(storeName, 'readonly');
-    final objectStore = tx.objectStore(storeName)
-        .openCursor(autoAdvance: true).listen((cursor){
+    final objectStore = tx
+        .objectStore(storeName)
+        .openCursor(autoAdvance: true)
+        .listen((cursor) {
       final obj = deserialize(cursor.key, cursor.value);
       controller.add(obj);
-    }, onDone: () => controller.close(),
+    },
+        onDone: () => controller.close(),
         onError: (e, stacktrace) => controller.addError(e, stacktrace));
 
     return controller.stream;

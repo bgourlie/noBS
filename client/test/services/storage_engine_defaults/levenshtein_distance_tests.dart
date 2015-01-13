@@ -3,7 +3,7 @@ library levenshtien_distance_tests;
 import 'package:unittest/unittest.dart';
 import 'package:client/src/services/find_engine_defaults/find_engine_defaults.dart';
 
-main(){
+main() {
   test('should report correct number of insertions (1)', () {
     final algo = new DamerauLevenshteinDistance();
     final result = algo.distance('bria', 'brian', 255);

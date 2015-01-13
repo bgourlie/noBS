@@ -4,8 +4,7 @@ import 'package:client/src/services/find_engine/find_engine.dart';
 import 'package:typed_mock/typed_mock.dart';
 
 main() {
-
-  test('should include all results that are not unranked', (){
+  test('should include all results that are not unranked', () {
     // Arrange
     final tb = new _TestBed();
     final result1 = new Foo([new Term('one', Term.TYPE_NAME)]);
@@ -15,8 +14,8 @@ main() {
     when(tb.matcher.getMatch(anyObject, anyString))
         .thenReturn(new FindEngineMatch(0, 0, 'test'));
 
-    when(tb.fooSource.getStream()).thenReturn(
-        new Stream.fromIterable([result1, result2, result3]));
+    when(tb.fooSource.getStream())
+        .thenReturn(new Stream.fromIterable([result1, result2, result3]));
 
     final findEngine = tb.newFindEngine();
 
@@ -25,12 +24,13 @@ main() {
 
     // Assert
     expect(resultStream.toList().then((List<FindResult<Foo>> l) {
-          expect(l, hasLength(3));
-          final blah = l.every((r) => ['one', 'two', 'three']
-              .contains(r.matchedTerm.term));
-          expect(l.every((r) => ['one', 'two', 'three']
-              .contains(r.matchedTerm.term)), isTrue);
-        }), completes);
+      expect(l, hasLength(3));
+      final blah =
+          l.every((r) => ['one', 'two', 'three'].contains(r.matchedTerm.term));
+      expect(
+          l.every((r) => ['one', 'two', 'three'].contains(r.matchedTerm.term)),
+          isTrue);
+    }), completes);
   });
 
   // TODO: enable test once resolved:
@@ -68,7 +68,6 @@ main() {
 //    }), completes);
 //  });
 
-
   // TODO: enable test once resolved:
   // https://code.google.com/p/dart/issues/detail?id=21945
 //  test('should only return results having specified term type', (){
@@ -98,7 +97,7 @@ main() {
 //    }), completes);
 //  });
 
-  test('should return results having all term types if none is specified', (){
+  test('should return results having all term types if none is specified', () {
     // Arrange
     final tb = new _TestBed();
     when(tb.matcher.getMatch(anyObject, anyString))
@@ -106,11 +105,11 @@ main() {
 
     final findEngine = tb.newFindEngine();
 
-    when(tb.fooSource.getStream()).thenReturn(
-        new Stream.fromIterable([
-            new Foo([new Term('one', Term.TYPE_NAME)]),
-            new Foo([new Term('on', Term.TYPE_NAME)]),
-            new Foo([new Term('ne', Term.TYPE_TAG)])]));
+    when(tb.fooSource.getStream()).thenReturn(new Stream.fromIterable([
+      new Foo([new Term('one', Term.TYPE_NAME)]),
+      new Foo([new Term('on', Term.TYPE_NAME)]),
+      new Foo([new Term('ne', Term.TYPE_TAG)])
+    ]));
 
     // Act
     final resultStream = findEngine.streamResults('arbitrary');
@@ -124,8 +123,8 @@ main() {
   });
 }
 
-class MockFooSource extends TypedMock implements FindableSource<Foo>{}
-class MockMatcher extends TypedMock implements FindEngineMatcher{}
+class MockFooSource extends TypedMock implements FindableSource<Foo> {}
+class MockMatcher extends TypedMock implements FindEngineMatcher {}
 
 class Foo implements Findable {
   final List<Term> _terms;
@@ -137,6 +136,5 @@ class _TestBed {
   final fooSource = new MockFooSource();
   final matcher = new MockMatcher();
 
-  FindEngine<Foo> newFindEngine() =>
-      new FindEngine<Foo>(matcher, fooSource);
+  FindEngine<Foo> newFindEngine() => new FindEngine<Foo>(matcher, fooSource);
 }

@@ -15,8 +15,10 @@ class FindEngineMatch {
 
   FindEngineMatch(this.rank, this.subRank, this.matchedFragment);
 
-  FindEngineMatch.unranked() : this.rank = UNRANKED, this.subRank = UNRANKED,
-      this.matchedFragment = '';
+  FindEngineMatch.unranked()
+      : this.rank = UNRANKED,
+        this.subRank = UNRANKED,
+        this.matchedFragment = '';
 
   String toString() => '"$matchedFragment" [rank: $rank] [subRank: $subRank]';
 }

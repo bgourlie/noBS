@@ -8,8 +8,7 @@ import 'package:client/src/services/exercise_source.dart';
 // TODO: track https://github.com/angular/di.dart/issues/129
 // once fixed we may be able to inject the generic type directly
 @Injectable()
-class ExerciseFindEngine extends FindEngine<Exercise>{
-    ExerciseFindEngine(ExerciseSource source, FindEngineMatcher matcher)
-        : super(matcher, source);
+class ExerciseFindEngine extends FindEngine<Exercise> {
+  ExerciseFindEngine(ExerciseSource source, FindEngineMatcher matcher)
+      : super(matcher, source);
 }
-

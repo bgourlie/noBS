@@ -14,8 +14,7 @@ void init(GrinderContext context) {
 }
 
 void analyze(GrinderContext context) {
-  Analyzer.analyzePaths(context,
-      ['web/client.dart']);
+  Analyzer.analyzePaths(context, ['web/client.dart']);
 }
 
 void tests(GrinderContext context) {

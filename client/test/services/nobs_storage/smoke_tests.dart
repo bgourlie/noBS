@@ -12,11 +12,11 @@ const String DB_NAME = 'testDb';
 const String TEST_STORE_NAME = 'foo';
 final _logger = new Logger('integration_tests');
 
-void main(){
+void main() {
   final config = new NobsDbV1Config();
   Database db;
 
-  setUp((){
+  setUp(() {
     final bootstrapper = new Bootstrapper(config, dom.window);
     return dom.window.indexedDB.deleteDatabase(config.dbName, onBlocked: (e) {
       _logger.finest('delete db blocked, but completing future anyway');
@@ -30,12 +30,10 @@ void main(){
   });
 
   tearDown(() {
-    if(db != null){
+    if (db != null) {
       db.close();
     }
   });
 
-  test('should complete normally', (){
-
-  });
+  test('should complete normally', () {});
 }

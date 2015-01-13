@@ -7,5 +7,6 @@ class VersionInfo {
   final String commitId;
   final String branch;
   final String buildTime;
-  const VersionInfo(this.version, this.build, this.commitId, this.branch, this.buildTime);
+  const VersionInfo(
+      this.version, this.build, this.commitId, this.branch, this.buildTime);
 }

@@ -19,6 +19,7 @@ dev_dependencies:
       ref: master
 transformers:
 - script_inliner
-- angular
+- angular:
+    $exclude: test
 - nvp/client_version_patcher:
     entryPoint: client.dart

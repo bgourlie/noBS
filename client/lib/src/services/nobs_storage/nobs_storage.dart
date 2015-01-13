@@ -1,5 +1,6 @@
 library nobs_storage;
 
+import 'dart:async';
 import 'dart:indexed_db';
 import 'package:di/di.dart';
 import 'package:di/annotations.dart';

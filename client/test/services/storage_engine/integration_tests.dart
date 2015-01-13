@@ -1,4 +1,4 @@
-library integration_tests;
+library storage_engine_integration_tests;
 
 import 'dart:async';
 import 'dart:html' as dom;
@@ -10,7 +10,7 @@ import 'package:client/src/services/storage_engine/storage_engine.dart';
 
 const String DB_NAME = 'testDb';
 const String TEST_STORE_NAME = 'foo';
-final _logger = new Logger('integration_tests');
+final _logger = new Logger('storage_engine_integration_tests');
 
 void main(){
   Database db;
@@ -18,11 +18,11 @@ void main(){
   setUp((){
     final bootstrapper = new Bootstrapper(new TestDbV1Config(), dom.window);
     return dom.window.indexedDB.deleteDatabase(DB_NAME, onBlocked: (e) {
-      print('delete db blocked, but completing future anyway');
+      _logger.finest('delete db blocked, but completing future anyway');
     }).then((_) {
-      print('db successfully deleted!');
+      _logger.finest('db successfully deleted!');
       return bootstrapper.getDatabase().then((_db_) {
-        print('db opened.');
+        _logger.finest('db opened.');
         db = _db_;
       });
     });
@@ -88,9 +88,10 @@ class TestDbV1Config extends DbConfig {
   String get dbName => DB_NAME;
   int get version => 1;
 
-  void upgrade(Database db, Transaction tx, int version){
+  Future upgrade(Database db, Transaction tx, int version){
     _logger.finest('upgrade called.');
     db.createObjectStore('foo', autoIncrement: true);
+    return new Future.value();
   }
 }
 

@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/bgourlie/noBS.svg?branch=master)](https://travis-ci.org/bgourlie/noBS)
+
 # noBS Exercise Logger
 
 ### What is it?

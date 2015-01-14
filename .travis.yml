@@ -6,6 +6,7 @@ env:
   - DART_DIST=dartsdk-linux-x64-release.zip
   - DART_SDK=~/dart-sdk
   - KRE_HOME=~/.kre/packages/KRE-Mono.1.0.0-beta1
+  - DEPLOY_DIR=~/deploy
   - PATH="$DART_SDK/bin:$KRE_HOME/bin:$PATH"
   - DEPLOY_BRANCH=master
   - BUILD_TIME=$(date -Iseconds)

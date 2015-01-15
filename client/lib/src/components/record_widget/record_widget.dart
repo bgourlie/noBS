@@ -26,15 +26,24 @@ import 'package:angular/angular.dart';
 import 'package:di/annotations.dart';
 import 'package:logging/logging.dart';
 
+typedef void RecordHandler(num weight, num reps);
+
 @Injectable()
 @Component(
     selector: 'record-widget',
     templateUrl: 'packages/client/src/components/record_widget/record_widget.html',
     cssUrl: 'packages/client/src/components/record_widget/record_widget.css',
-    map: const {'on-back': '&goBackHandler'})
+    map: const {
+  'on-back': '&goBackHandler',
+  'record-handler': '&recordHandler',
+  'is-disabled': '=>isDisabled'
+})
 class RecordWidget implements ShadowRootAware {
   static final _logger = new Logger('record_widget');
   Function goBackHandler;
+  Function recordHandler;
+  NgForm recordForm;
+  bool isDisabled;
   num weight;
   num reps;
 
@@ -42,6 +51,13 @@ class RecordWidget implements ShadowRootAware {
     root.querySelector('#go-back').onClick.listen((e) {
       if (goBackHandler != null) {
         goBackHandler();
+      }
+    });
+
+    root.querySelector('#record').onClick.listen((e) {
+      if (recordHandler != null) {
+        final RecordHandler handler = recordHandler();
+        handler(weight, reps);
       }
     });
   }

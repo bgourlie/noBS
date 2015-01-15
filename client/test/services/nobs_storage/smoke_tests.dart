@@ -21,11 +21,11 @@
 
 library nobs_storage_smoke_tests;
 
-import 'dart:async';
 import 'dart:html' as dom;
 import 'dart:indexed_db';
 import 'package:logging/logging.dart';
 import 'package:unittest/unittest.dart';
+import 'package:client/fitlog_models.dart';
 import 'package:client/src/services/storage_engine/storage_engine.dart';
 import 'package:client/src/services/nobs_storage/nobs_storage.dart';
 
@@ -36,6 +36,8 @@ final _logger = new Logger('integration_tests');
 void main() {
   final config = new NobsDbV1Config();
   Database db;
+  final exerciseSerializer = new ExerciseSerializer();
+  final exerciseSetSerializer = new ExerciseSetSerializer(exerciseSerializer);
 
   setUp(() {
     final bootstrapper = new Bootstrapper(config, dom.window);
@@ -56,5 +58,26 @@ void main() {
     }
   });
 
-  test('should complete normally', () {});
+  test('should add and retrieve an exercise, exercise set', () {
+    final exerciseRepo = new ExerciseRepository(db, exerciseSerializer);
+    final exercise =
+        new Exercise('benchpress', ['barbell benchpress'], ['chest']);
+    expect(exerciseRepo.put(exercise).then((_) {
+      expect(exerciseRepo.get(exercise.dbKey).then((benchpress) {
+        expect(benchpress.isPresent, isTrue);
+        expect(benchpress.value.dbKey, equals(exercise.dbKey));
+
+        final setRepo = new ExerciseSetRepository(db, exerciseSetSerializer);
+        final set = new ExerciseSet(benchpress.value, 225, 8,
+            new DateTime.now().toUtc(), new DateTime.now().toUtc());
+        expect(setRepo.put(set).then((__) {
+          expect(setRepo.get(set.dbKey).then((dbSet) {
+            expect(dbSet.isPresent, isTrue);
+            expect(dbSet.value.dbKey, equals(set.dbKey));
+            expect(dbSet.value.exercise.dbKey, equals(benchpress.value.dbKey));
+          }), completes);
+        }), completes);
+      }), completes);
+    }), completes);
+  });
 }

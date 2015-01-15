@@ -1,10 +1,12 @@
-<input type="text" placeholder="weight" />
-<select id="weight-unit">
-  <option>Pounds</option>
-  <option>Kilograms</option>
-</select>
-<input type="number" placeholder="reps" />
-<div id="buttons">
-  <button id="go-back">Go back</button>
-  <button>Record</button>
-</div>
+<form name="recordForm" novalidate>
+  <input type="text" placeholder="weight" ng-model="weight" ng-disabled="isDisabled" required />
+  <select id="weight-unit" ng-disabled="isDisabled">
+    <option>Pounds</option>
+    <option>Kilograms</option>
+  </select>
+  <input type="number" placeholder="reps" ng-model="reps" ng-disabled="isDisabled" required />
+  <div id="buttons">
+    <button id="go-back" ng-disabled="isDisabled">Go back</button>
+    <button id="record" type="submit" ng-disabled="recordForm.invalid || isDisabled">Record</button>
+  </div>
+</form>

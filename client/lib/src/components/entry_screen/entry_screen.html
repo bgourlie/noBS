@@ -2,5 +2,6 @@
     selected-handler="onExerciseSelected"></find-widget>
 <div ng-show="selectedExercise != null">
   <p>Recording data for {{selectedExercise.title}}</p>
-  <record-widget on-back="cancelRecord()"></record-widget>
+  <record-widget on-back="cancelRecord()" record-handler="onRecord" is-disabled="saving">
+  </record-widget>
 </div>

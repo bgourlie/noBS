@@ -27,3 +27,4 @@ import 'src/services/storage_engine/storage_engine.dart';
 
 part 'src/models/version_info.dart';
 part 'src/models/exercise.dart';
+part 'src/models/exercise_set.dart';

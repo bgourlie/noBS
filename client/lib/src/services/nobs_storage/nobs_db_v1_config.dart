@@ -33,7 +33,7 @@ class NobsDbV1Config implements DbConfig {
 
   Future _seed(Database db, Transaction tx) {
     _logger.finest('seeding database...');
-    final exerciseRepo = new ExerciseRepository(db);
+    final exerciseRepo = new ExerciseRepository(db, new ExerciseSerializer());
     final exercises = [
       new Exercise('Stiff-legged Deadlift',
           ['romanian deadlift', 'sldl'], ['back', 'hamstrings']),

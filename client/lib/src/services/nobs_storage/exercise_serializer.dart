@@ -19,18 +19,15 @@
 // All portions of the code written by W. Brian Gourlie are Copyright (c)
 // 2014-2015 W. Brian Gourlie. All Rights Reserved.
 
-library storage_engine;
+part of nobs_storage;
 
-import 'dart:html';
-import 'dart:async';
-import 'dart:indexed_db';
-import 'package:logging/logging.dart';
-import 'package:quiver/core.dart';
+@Injectable()
+class ExerciseSerializer extends Serializer<Exercise> {
+  Exercise deserializeImpl(Map obj) {
+    return new Exercise(obj['title'], obj['synonyms'], obj['tags']);
+  }
 
-part 'bootstrapper.dart';
-part 'storable.dart';
-part 'db_config.dart';
-part 'repository.dart';
-part 'serializer.dart';
-
-final _logger = new Logger('storage_engine');
+  Map serializeImpl(Exercise obj) {
+    return {'title': obj.title, 'synonyms': obj.synonyms, 'tags': obj.tags};
+  }
+}

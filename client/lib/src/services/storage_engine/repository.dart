@@ -23,12 +23,11 @@ part of storage_engine;
 
 abstract class Repository<T extends Storable> {
   final Database _db;
+  final Serializer<T> _serializer;
 
-  Repository(this._db);
+  Repository(this._db, this._serializer);
 
   String get storeName;
-  Map<String, Object> serialize(T storable);
-  T deserialize(int key, Map value);
 
   Future<Optional<T>> get(int key) {
     final completer = new Completer<Optional<T>>();
@@ -38,7 +37,7 @@ abstract class Repository<T extends Storable> {
       if (result == null) {
         completer.complete(new Optional.absent());
       } else {
-        final ret = deserialize(key, result);
+        final ret = _serializer.deserialize(key, result);
         completer.complete(new Optional.of(ret));
       }
     }, onError: (e) => completer.completeError(e));
@@ -50,7 +49,7 @@ abstract class Repository<T extends Storable> {
     final tx = _db.transaction(storeName, 'readwrite');
     final objectStore = tx.objectStore(storeName);
     _logger.finest('adding object to store...');
-    objectStore.add(serialize(storable)).then((addedKey) {
+    objectStore.add(_serializer.serialize(storable)).then((addedKey) {
       _logger.finest('object added to store with key=$addedKey');
       storable.dbKey = addedKey;
     }, onError: (e) => completer.completeError(e));
@@ -70,7 +69,7 @@ abstract class Repository<T extends Storable> {
     final objectStore = tx.objectStore(storeName);
 
     storables.forEach((Storable s) =>
-        objectStore.add(serialize(s)).then((key) => s.dbKey = key));
+        objectStore.add(_serializer.serialize(s)).then((key) => s.dbKey = key));
 
     return tx.completed.then((_) {
       _logger.finest('putMany transaction completed.');
@@ -84,7 +83,7 @@ abstract class Repository<T extends Storable> {
         .objectStore(storeName)
         .openCursor(autoAdvance: true)
         .listen((cursor) {
-      final obj = deserialize(cursor.key, cursor.value);
+      final obj = _serializer.deserialize(cursor.key, cursor.value);
       controller.add(obj);
     },
         onDone: () => controller.close(),

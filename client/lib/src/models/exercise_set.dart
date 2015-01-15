@@ -19,18 +19,22 @@
 // All portions of the code written by W. Brian Gourlie are Copyright (c)
 // 2014-2015 W. Brian Gourlie. All Rights Reserved.
 
-library storage_engine;
+part of fitlog_models;
 
-import 'dart:html';
-import 'dart:async';
-import 'dart:indexed_db';
-import 'package:logging/logging.dart';
-import 'package:quiver/core.dart';
+class ExerciseSet implements Storable {
+  final Exercise exercise;
+  final num weight;
+  final num reps;
+  final DateTime recordedDate;
+  final DateTime performedDate;
 
-part 'bootstrapper.dart';
-part 'storable.dart';
-part 'db_config.dart';
-part 'repository.dart';
-part 'serializer.dart';
+  ExerciseSet(this.exercise, this.weight, this.reps, this.recordedDate,
+      this.performedDate) {
+    assert(this.recordedDate.isUtc);
+    assert(this.performedDate.isUtc);
+  }
 
-final _logger = new Logger('storage_engine');
+  int _dbKey;
+  int get dbKey => _dbKey;
+  set dbKey(int val) => _dbKey = val;
+}

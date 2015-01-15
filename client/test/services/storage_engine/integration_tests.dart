@@ -35,6 +35,7 @@ final _logger = new Logger('storage_engine_integration_tests');
 
 void main() {
   Database db;
+  final serializer = new FooSerializer();
 
   setUp(() {
     final bootstrapper = new Bootstrapper(new TestDbV1Config(), dom.window);
@@ -56,14 +57,14 @@ void main() {
   });
 
   test('should put item into storage', () {
-    final fooRepo = new FooRepository(db);
+    final fooRepo = new FooRepository(db, serializer);
     expect(fooRepo.put(new Foo('brian', 31)).then((_) {
       _logger.finest('put foo object!');
     }), completes);
   });
 
   test('should put and retrieve', () {
-    final fooRepo = new FooRepository(db);
+    final fooRepo = new FooRepository(db, serializer);
     final foo = new Foo('brian', 31);
     expect(fooRepo.put(foo).then((_) {
       expect(fooRepo.get(foo.dbKey).then((Optional<Foo> foo2) {
@@ -75,7 +76,7 @@ void main() {
   });
 
   test('should put many and retrieve all', () {
-    final fooRepo = new FooRepository(db);
+    final fooRepo = new FooRepository(db, serializer);
     final foo1 = new Foo('brian', 31);
     final foo2 = new Foo('jon', 29);
     final foo3 = new Foo('aaron', 39);
@@ -90,7 +91,7 @@ void main() {
   test('should put many and retrieve all with explicit transaction', () {
     final bootstrapper = new Bootstrapper(new TestDbV1Config(), dom.window);
     expect(bootstrapper.getDatabase().then((_db_) {
-      final fooRepo = new FooRepository(_db_);
+      final fooRepo = new FooRepository(_db_, serializer);
       final foo1 = new Foo('brian', 31);
       final foo2 = new Foo('jon', 29);
       final foo3 = new Foo('aaron', 39);
@@ -129,10 +130,11 @@ class Foo extends Storable {
 
 class FooRepository extends Repository<Foo> {
   String get storeName => TEST_STORE_NAME;
+  FooRepository(Database db, Serializer<Foo> serializer)
+      : super(db, serializer);
+}
 
-  FooRepository(Database db) : super(db);
-
-  Foo deserialize(int key, Map value) => new Foo(value['name'], value['age']);
-
-  Map serialize(Foo obj) => {'name': obj.name, 'age': obj.age};
+class FooSerializer extends Serializer<Foo> {
+  Foo deserializeImpl(Map value) => new Foo(value['name'], value['age']);
+  Map serializeImpl(Foo obj) => {'name': obj.name, 'age': obj.age};
 }

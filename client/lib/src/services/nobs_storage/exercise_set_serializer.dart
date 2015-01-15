@@ -19,18 +19,27 @@
 // All portions of the code written by W. Brian Gourlie are Copyright (c)
 // 2014-2015 W. Brian Gourlie. All Rights Reserved.
 
-library storage_engine;
+part of nobs_storage;
 
-import 'dart:html';
-import 'dart:async';
-import 'dart:indexed_db';
-import 'package:logging/logging.dart';
-import 'package:quiver/core.dart';
+@Injectable()
+class ExerciseSetSerializer extends Serializer<ExerciseSet> {
+  final ExerciseSerializer _exerciseSerializer;
 
-part 'bootstrapper.dart';
-part 'storable.dart';
-part 'db_config.dart';
-part 'repository.dart';
-part 'serializer.dart';
+  ExerciseSetSerializer(this._exerciseSerializer);
 
-final _logger = new Logger('storage_engine');
+  ExerciseSet deserializeImpl(Map obj) {
+    return new ExerciseSet(
+        _exerciseSerializer.deserializeForeign(obj['exercise']), obj['weight'],
+        obj['reps'], obj['recordedDate'], obj['performedDate']);
+  }
+
+  Map serializeImpl(ExerciseSet obj) {
+    return {
+      'exercise': _exerciseSerializer.serialize(obj.exercise, isForeign: true),
+      'weight': obj.weight,
+      'reps': obj.reps,
+      'recordedDate': obj.recordedDate,
+      'performedDate': obj.performedDate
+    };
+  }
+}

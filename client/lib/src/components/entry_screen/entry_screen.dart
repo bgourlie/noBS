@@ -25,6 +25,7 @@ import 'package:angular/angular.dart';
 import 'package:di/annotations.dart';
 import 'package:logging/logging.dart';
 import 'package:client/fitlog_models.dart';
+import 'package:client/src/services/nobs_storage/nobs_storage.dart';
 
 @Injectable()
 @Component(
@@ -33,11 +34,27 @@ import 'package:client/fitlog_models.dart';
     cssUrl: 'packages/client/src/components/entry_screen/entry_screen.css')
 class EntryScreen {
   static final _logger = new Logger('nobs_entry_screen');
+  final ExerciseSetRepository _setRepo;
   Exercise selectedExercise;
+  bool saving = false;
+  EntryScreen(this._setRepo);
 
   void onExerciseSelected(Exercise e) {
     _logger.finest('${e.title} selected');
     selectedExercise = e;
+  }
+
+  void onRecord(num weight, num reps) {
+    saving = true;
+    _logger.finest('record called: weight=$weight reps=$reps');
+    assert(selectedExercise != null);
+    // eventually we will have widgets to adjust recorded/performed dates.
+    final now = new DateTime.now().toUtc();
+    final set = new ExerciseSet(selectedExercise, weight, reps, now, now);
+    _setRepo.put(set).then((_) {
+      _logger.finest('saved set!');
+      saving = false;
+    });
   }
 
   void cancelRecord() {

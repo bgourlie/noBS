@@ -22,18 +22,18 @@ body /deep/ select {
   font-size: 16px;
   background: white;
 }
-body /deep/ input[type=text]:hover,
-body /deep/ input[type=number]:hover,
-body /deep/ button:hover,
-body /deep/ select:hover {
+body /deep/ input[type=text]:hover:enabled,
+body /deep/ input[type=number]:hover:enabled,
+body /deep/ button:hover:enabled,
+body /deep/ select:hover:enabled {
   box-shadow: rgba(160, 160, 160, 0.5) 1px 1px 1px 0;
   color: #000;
   border-color: #909090;
 }
-body /deep/ input[type=text]:focus,
-body /deep/ input[type=number]:focus,
-body /deep/ button:focus,
-body /deep/ select:focus {
+body /deep/ input[type=text]:focus:enabled,
+body /deep/ input[type=number]:focus:enabled,
+body /deep/ button:focus:enabled,
+body /deep/ select:focus:enabled {
   outline: 0;
   box-shadow: rgba(160, 160, 160, 0.5) 1px 1px 1px 0;
 }

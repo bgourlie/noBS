@@ -53,8 +53,7 @@ class EntryScreen {
     final set = new ExerciseSet(selectedExercise, weight, reps, now, now);
     _setRepo.put(set).then((_) {
       _logger.finest('saved set!');
-      saving = false;
-    });
+    }).whenComplete(() => saving = false);
   }
 
   void cancelRecord() {

@@ -2,6 +2,15 @@
     selected-handler="onExerciseSelected"></find-widget>
 <div ng-show="selectedExercise != null">
   <p>Recording data for {{selectedExercise.title}}</p>
+  <h2>Last couple of sets</h2>
+  <ul>
+    <li ng-repeat="set in previousSets | orderBy:['performedDate']">
+      <!-- todo: the following hidden field is a hack required due to bug -->
+      <!-- https://github.com/angular/angular.dart/issues/1023 -->
+      <input type="hidden" value="{{ set.performedDate }}" />
+      {{set.weight}} x {{set.reps}}
+    </li>
+  </ul>
   <record-widget on-back="cancelRecord()" record-handler="onRecord" is-disabled="saving">
   </record-widget>
 </div>

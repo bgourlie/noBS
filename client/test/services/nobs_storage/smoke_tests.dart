@@ -37,7 +37,7 @@ void main() {
   final config = new NobsDbV1Config();
   Database db;
   final exerciseSerializer = new ExerciseSerializer();
-  final exerciseSetSerializer = new ExerciseSetSerializer(exerciseSerializer);
+  final exerciseSetSerializer = new ExerciseSetSerializer();
 
   setUp(() {
     final bootstrapper = new Bootstrapper(config, dom.window);
@@ -68,13 +68,22 @@ void main() {
         expect(benchpress.value.dbKey, equals(exercise.dbKey));
 
         final setRepo = new ExerciseSetRepository(db, exerciseSetSerializer);
-        final set = new ExerciseSet(benchpress.value, 225, 8,
+        final set = new ExerciseSet(benchpress.value.dbKey, 225, 8,
             new DateTime.now().toUtc(), new DateTime.now().toUtc());
-        expect(setRepo.put(set).then((__) {
+        final set2 = new ExerciseSet(benchpress.value.dbKey, 225, 8,
+            new DateTime.now().toUtc(), new DateTime.now().toUtc());
+
+        expect(setRepo.putAll([set, set2]).then((__) {
           expect(setRepo.get(set.dbKey).then((dbSet) {
             expect(dbSet.isPresent, isTrue);
             expect(dbSet.value.dbKey, equals(set.dbKey));
-            expect(dbSet.value.exercise.dbKey, equals(benchpress.value.dbKey));
+            expect(dbSet.value.exerciseId, equals(benchpress.value.dbKey));
+            expect(setRepo
+                .getLatest(benchpress.value.dbKey, 3)
+                .toList()
+                .then((sets) {
+              expect(sets.length, equals(2));
+            }), completes);
           }), completes);
         }), completes);
       }), completes);

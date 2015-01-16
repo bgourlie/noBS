@@ -22,13 +22,13 @@
 part of fitlog_models;
 
 class ExerciseSet implements Storable {
-  final Exercise exercise;
+  final int exerciseId;
   final num weight;
   final num reps;
   final DateTime recordedDate;
   final DateTime performedDate;
 
-  ExerciseSet(this.exercise, this.weight, this.reps, this.recordedDate,
+  ExerciseSet(this.exerciseId, this.weight, this.reps, this.recordedDate,
       this.performedDate) {
     assert(this.recordedDate.isUtc);
     assert(this.performedDate.isUtc);

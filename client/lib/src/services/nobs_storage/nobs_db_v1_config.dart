@@ -22,12 +22,16 @@
 part of nobs_storage;
 
 class NobsDbV1Config implements DbConfig {
-  String get dbName => 'nobs';
+  String get dbName => _DB_NAME;
   int get version => 1;
 
-  Future upgrade(Database db, Transaction tx, int version) {
-    db.createObjectStore(SETS_STORE_NAME, autoIncrement: true);
-    db.createObjectStore(EXERCISE_STORE_NAME, autoIncrement: true);
+  Future upgrade(Database db, Transaction tx, int oldVersion) {
+    final setsStore =
+        db.createObjectStore(_SETS_STORE_NAME, autoIncrement: true);
+    final exerciseStore =
+        db.createObjectStore(_EXERCISE_STORE_NAME, autoIncrement: true);
+    setsStore.createIndex(
+        'idx_exerciseId_performedDate', ['exerciseId', 'performedDate']);
     return _seed(db, tx);
   }
 

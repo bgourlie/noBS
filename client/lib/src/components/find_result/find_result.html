@@ -1,5 +1,3 @@
-<!-- todo: use findResult.toString() -->
-<!-- once https://github.com/angular/angular.dart/issues/1023 is fixed -->
 <div id="container">
   <header><strong>{{exercise.title}}</strong></header>
   <p id="synonyms" ng-show="synonyms.length > 0">Synonyms: <em class="synonym" ng-repeat="synonym in synonyms">{{synonym}}</em></p>
@@ -8,6 +6,8 @@
   </div>
   <div id="matchInfo">
     matched on <em>{{findResult.matchedTerm}}</em>
+    <!-- todo: use findResult.toString() -->
+    <!-- once https://github.com/angular/angular.dart/issues/1023 is fixed -->
     ({{findResult.matchedTerm.termType == 1 ? 'name' : 'tag'}})
     fragment: "{{findResult.match.matchedFragment}}"
     rank: {{findResult.match.rank}}

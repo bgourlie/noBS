@@ -23,7 +23,7 @@ part of nobs_storage;
 
 @Injectable()
 class ExerciseRepository extends Repository<Exercise> {
-  String get storeName => EXERCISE_STORE_NAME;
+  String get storeName => _EXERCISE_STORE_NAME;
 
   ExerciseRepository(Database db, ExerciseSerializer serializer)
       : super(db, serializer);

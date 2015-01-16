@@ -23,19 +23,16 @@ part of nobs_storage;
 
 @Injectable()
 class ExerciseSetSerializer extends Serializer<ExerciseSet> {
-  final ExerciseSerializer _exerciseSerializer;
-
-  ExerciseSetSerializer(this._exerciseSerializer);
+  ExerciseSetSerializer();
 
   ExerciseSet deserializeImpl(Map obj) {
-    return new ExerciseSet(
-        _exerciseSerializer.deserializeForeign(obj['exercise']), obj['weight'],
-        obj['reps'], obj['recordedDate'], obj['performedDate']);
+    return new ExerciseSet(obj['exerciseId'], obj['weight'], obj['reps'],
+        obj['recordedDate'], obj['performedDate']);
   }
 
   Map serializeImpl(ExerciseSet obj) {
     return {
-      'exercise': _exerciseSerializer.serialize(obj.exercise, isForeign: true),
+      'exerciseId': obj.exerciseId,
       'weight': obj.weight,
       'reps': obj.reps,
       'recordedDate': obj.recordedDate,

@@ -36,12 +36,16 @@ class EntryScreen {
   static final _logger = new Logger('nobs_entry_screen');
   final ExerciseSetRepository _setRepo;
   Exercise selectedExercise;
+  List<ExerciseSet> previousSets;
   bool saving = false;
   EntryScreen(this._setRepo);
 
   void onExerciseSelected(Exercise e) {
     _logger.finest('${e.title} selected');
     selectedExercise = e;
+    _setRepo.getLatest(e.dbKey, 3).toList().then((sets) {
+      previousSets = sets;
+    });
   }
 
   void onRecord(num weight, num reps) {
@@ -50,9 +54,10 @@ class EntryScreen {
     assert(selectedExercise != null);
     // eventually we will have widgets to adjust recorded/performed dates.
     final now = new DateTime.now().toUtc();
-    final set = new ExerciseSet(selectedExercise, weight, reps, now, now);
+    final set = new ExerciseSet(selectedExercise.dbKey, weight, reps, now, now);
     _setRepo.put(set).then((_) {
       _logger.finest('saved set!');
+      previousSets.add(set);
     }).whenComplete(() => saving = false);
   }
 

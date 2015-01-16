@@ -37,8 +37,9 @@ part 'exercise_set_serializer.dart';
 
 final _logger = new Logger('nobs_storage');
 
-const EXERCISE_STORE_NAME = 'exercises';
-const SETS_STORE_NAME = 'sets';
+const _DB_NAME = 'nobs';
+const _EXERCISE_STORE_NAME = 'exercises';
+const _SETS_STORE_NAME = 'sets';
 
 class NobsStorageModule extends Module {
   NobsStorageModule() {

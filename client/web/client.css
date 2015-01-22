@@ -37,9 +37,6 @@ body /deep/ select:focus:enabled {
   outline: 0;
   box-shadow: rgba(160, 160, 160, 0.5) 1px 1px 1px 0;
 }
-header {
-  text-align: center;
-}
 header > h3 {
   margin: 0;
 }

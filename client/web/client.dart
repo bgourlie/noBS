@@ -29,10 +29,10 @@ import 'package:client/src/services/storage_engine/storage_engine.dart'
 import 'package:client/src/services/nobs_storage/nobs_storage.dart';
 
 const VERSION = 'alpha';
-const BUILD_NUMBER = '';
+const BUILD_NUMBER = '1';
 const BRANCH = '';
 const COMMIT_ID = '';
-const BUILD_TIME = '';
+const BUILD_TIME = '2015-01-22';
 
 void main() {
   Logger.root.level = Level.FINEST;

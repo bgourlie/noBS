@@ -24,23 +24,25 @@ library relative_time;
 import 'package:angular/angular.dart';
 import 'package:di/annotations.dart';
 import 'package:intl/intl.dart';
+import 'package:logging/logging.dart';
 
 @Injectable()
 @Formatter(name: 'relativeTime')
 class RelativeTime {
-  static DateFormat timeOnlyFormat = new DateFormat('h:mm a');
-  static DateFormat pastWeekFormat = new DateFormat('EEE h:mm a');
-  static DateFormat dateOnlyFormat = new DateFormat('M/d/y');
+  static final _logger = new Logger('relative_time_filter');
+  static final DateFormat timeOnlyFormat = new DateFormat('h:mm a');
+  static final DateFormat pastWeekFormat = new DateFormat('EEE h:mm a');
+  static final DateFormat dateOnlyFormat = new DateFormat('M/d/y');
 
   call(time) {
     if (time is String) {
+      _logger.finest('time is string, parsing \'$time\'');
       time = DateTime.parse(time);
     }
 
     assert(time.isUtc);
 
     final diff = new DateTime.now().toUtc().difference(time);
-    final now = new DateTime.now().toUtc();
 
     if (diff.inMinutes <= 59) {
       return Intl.plural(diff.inMinutes,

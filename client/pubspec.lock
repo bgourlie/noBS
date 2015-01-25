@@ -12,7 +12,7 @@ packages:
   args:
     description: args
     source: hosted
-    version: "0.12.2+2"
+    version: "0.12.2+3"
   barback:
     description: barback
     source: hosted
@@ -60,10 +60,10 @@ packages:
   nvp:
     description:
       ref: master
-      resolved-ref: "99ca42119d39a88a84d10359f8932a1df4ded045"
+      resolved-ref: ce883b7392f1b43c38f5d1ddf75b48bc290c553c
       url: "git://github.com/bgourlie/nobsVersionPatcher.git"
     source: git
-    version: "0.1.3"
+    version: "0.2.0"
   observe:
     description: observe
     source: hosted
@@ -79,7 +79,7 @@ packages:
   petitparser:
     description: petitparser
     source: hosted
-    version: "1.3.3"
+    version: "1.3.4"
   pool:
     description: pool
     source: hosted
@@ -131,4 +131,4 @@ packages:
   watcher:
     description: watcher
     source: hosted
-    version: "0.9.3"
+    version: "0.9.4"

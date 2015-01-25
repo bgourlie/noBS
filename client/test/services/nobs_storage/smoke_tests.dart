@@ -69,9 +69,11 @@ void main() {
 
         final setRepo = new ExerciseSetRepository(db, exerciseSetSerializer);
         final set = new ExerciseSet(benchpress.value.dbKey, 225, 8,
-            new DateTime.now().toUtc(), new DateTime.now().toUtc());
+            new DateTime.now().toUtc().millisecondsSinceEpoch,
+            new DateTime.now().toUtc().millisecondsSinceEpoch);
         final set2 = new ExerciseSet(benchpress.value.dbKey, 225, 8,
-            new DateTime.now().toUtc(), new DateTime.now().toUtc());
+            new DateTime.now().toUtc().millisecondsSinceEpoch,
+            new DateTime.now().toUtc().millisecondsSinceEpoch);
 
         expect(setRepo.putAll([set, set2]).then((__) {
           expect(setRepo.get(set.dbKey).then((dbSet) {

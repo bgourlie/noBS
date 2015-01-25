@@ -53,7 +53,7 @@ class EntryScreen {
     _logger.finest('record called: weight=$weight reps=$reps');
     assert(selectedExercise != null);
     // eventually we will have widgets to adjust recorded/performed dates.
-    final now = new DateTime.now().toUtc();
+    final now = new DateTime.now().toUtc().millisecondsSinceEpoch;
     final set = new ExerciseSet(selectedExercise.dbKey, weight, reps, now, now);
     _setRepo.put(set).then((_) {
       _logger.finest('saved set!');

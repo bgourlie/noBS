@@ -32,7 +32,7 @@ const VERSION = 'alpha';
 const BUILD_NUMBER = '1';
 const BRANCH = '';
 const COMMIT_ID = '';
-const BUILD_TIME = '2015-01-22';
+const BUILD_TIME = '';
 
 void main() {
   Logger.root.level = Level.FINEST;

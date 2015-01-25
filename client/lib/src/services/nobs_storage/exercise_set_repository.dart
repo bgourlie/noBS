@@ -24,10 +24,12 @@ part of nobs_storage;
 @Injectable()
 class ExerciseSetRepository extends Repository<ExerciseSet> {
   final Database _db;
+  final Serializer<ExerciseSet> _serializer;
   String get storeName => _SETS_STORE_NAME;
 
   ExerciseSetRepository(Database db, ExerciseSetSerializer serializer)
       : _db = db,
+        _serializer = serializer,
         super(db, serializer);
 
   Stream<ExerciseSet> getLatest(int exerciseId, int numRecords) {
@@ -35,14 +37,22 @@ class ExerciseSetRepository extends Repository<ExerciseSet> {
     final trans = _db.transactionStore(_SETS_STORE_NAME, 'readonly');
     final store = trans.objectStore(_SETS_STORE_NAME);
     final index = store.index('idx_exerciseId_performedDate');
-    final uBound = [exerciseId, new DateTime.now().toUtc()];
-    final lBound = [exerciseId, new DateTime.utc(1983, 3, 15)];
+    // TODO: bounds should use DateTimes, not millis
+    // see https://github.com/bgourlie/noBS/issues/1
+    final uBound = [
+      exerciseId,
+      new DateTime.now().toUtc().millisecondsSinceEpoch
+    ];
+    final lBound = [
+      exerciseId,
+      new DateTime.utc(1983, 3, 15).millisecondsSinceEpoch
+    ];
     final cursor = index.openCursor(
         range: new KeyRange.bound(lBound, uBound),
         direction: 'prev',
         autoAdvance: true);
     cursor.take(numRecords).listen((r) {
-      controller.add(r.value);
+      controller.add(_serializer.deserialize(r.primaryKey, r.value));
     },
         onDone: () => controller.close(),
         onError: (e) => controller.addError(e));

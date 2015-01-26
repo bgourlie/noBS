@@ -25,7 +25,7 @@ import 'dart:indexed_db';
 import 'package:angular/angular.dart';
 import 'package:client/fitlog_models.dart';
 import 'package:client/src/components/entry_screen/entry_screen.dart';
-import 'package:client/src/components/app_header/app_header.dart';
+import 'package:client/src/components/version_info/version_info.dart';
 import 'package:client/src/components/find_widget/find_widget.dart';
 import 'package:client/src/components/find_result/find_result.dart';
 import 'package:client/src/components/tag/tag.dart';
@@ -40,16 +40,16 @@ import 'package:client/src/services/exercise_source.dart';
 part 'src/routes.dart';
 
 class ClientModule extends Module {
-  final VersionInfo _versionInfo;
+  final AppVersion _appVersion;
   final Database _database;
 
-  ClientModule(this._versionInfo, this._database) {
+  ClientModule(this._appVersion, this._database) {
     install(new FindEngineDefaultsModule());
     install(new NobsStorageModule());
     bind(Database, toValue: this._database);
-    bind(VersionInfo, toValue: this._versionInfo);
+    bind(AppVersion, toValue: this._appVersion);
     bind(EntryScreen);
-    bind(AppHeader);
+    bind(VersionInfo);
     bind(FindWidget);
     bind(FindResult);
     bind(RelativeTime);

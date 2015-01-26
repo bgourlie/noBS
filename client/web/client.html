@@ -8,9 +8,15 @@
   </head>
   <body>
     <header>
-      <app-header>NoBS Exercise Log</app-header>
+      <h3>NoBS Exercise Log</h3>
+      <span id="splash" ng-show="false">Loading...</span>
+      <version-info></version-info>
     </header>
     <ng-view></ng-view>
+    <footer>
+      Developed by W. Brian Gourlie.  Source available on
+      <a href="https://github.com/bgourlie/noBS" target="_blank">GitHub</a>.
+    </footer>
     <script type="application/dart" src="client.dart"></script>
     <script data-pub-inline src="packages/browser/dart.js"></script>
   </body>

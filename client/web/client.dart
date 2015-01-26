@@ -39,14 +39,14 @@ void main() {
   Logger.root.onRecord
       .listen((LogRecord r) => print('[${r.loggerName}] ${r.message}'));
   final logger = new Logger('app_entrypoint');
-  const versionInfo =
-      const VersionInfo(VERSION, BUILD_NUMBER, BRANCH, COMMIT_ID, BUILD_TIME);
+  const appVersion =
+      const AppVersion(VERSION, BUILD_NUMBER, BRANCH, COMMIT_ID, BUILD_TIME);
   final dbConfig = new NobsDbV1Config();
   final bootstrapper = new storage.Bootstrapper(dbConfig, dom.window);
   logger.finest('bootstrapping database...');
   bootstrapper.getDatabase().then((db) {
     logger.finest('got database, running app.');
-    final clientModule = new ClientModule(versionInfo, db);
+    final clientModule = new ClientModule(appVersion, db);
     applicationFactory().addModule(clientModule).run();
   });
 }

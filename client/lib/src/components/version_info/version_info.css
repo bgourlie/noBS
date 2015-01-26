@@ -1,9 +1,5 @@
 :host {
-  display: block;
-}
-h3 {
-  display: inline-block;
-  margin: 0 0 5px 0;
+  display: inline;
 }
 span {
   font-size: 12px;

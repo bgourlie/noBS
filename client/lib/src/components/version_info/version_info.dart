@@ -19,20 +19,18 @@
 // All portions of the code written by W. Brian Gourlie are Copyright (c)
 // 2014-2015 W. Brian Gourlie. All Rights Reserved.
 
-:host{
-  display: block;
-}
+library app_header;
 
-h3 {
-  display: inline-block;
-  margin: 0 0 5px 0;
-}
+import 'package:angular/angular.dart';
+import 'package:di/annotations.dart';
+import 'package:client/fitlog_models.dart';
 
-span{
-  font-size: 12px;
-  font-style: italic;
-}
-
-p {
-  margin: 0;
+@Injectable()
+@Component(
+    selector: 'version-info',
+    templateUrl: 'packages/client/src/components/version_info/version_info.html',
+    cssUrl: 'packages/client/src/components/version_info/version_info.css')
+class VersionInfo {
+  final AppVersion appVersion;
+  VersionInfo(this.appVersion);
 }

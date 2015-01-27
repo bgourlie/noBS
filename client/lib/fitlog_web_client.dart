@@ -22,7 +22,9 @@
 library fitlog_web_client;
 
 import 'dart:indexed_db';
+import 'dart:html';
 import 'package:angular/angular.dart';
+import 'package:angular/core_dom/module_internal.dart';
 import 'package:client/fitlog_models.dart';
 import 'package:client/src/components/entry_screen/entry_screen.dart';
 import 'package:client/src/components/version_info/version_info.dart';
@@ -59,5 +61,25 @@ class ClientModule extends Module {
     bind(ExerciseFindEngine);
     bind(MuscleMan);
     bind(RouteInitializerFn, toImplementation: Routes);
+
+    // disable CSS shim
+    bind(PlatformJsBasedShim, toImplementation: PlatformJsBasedNoShim);
+    bind(DefaultPlatformShim, toImplementation: DefaultPlatformNoShim);
   }
+}
+
+/// Class to effectively disable CSS shim
+@Injectable()
+class DefaultPlatformNoShim implements DefaultPlatformShim {
+  bool get shimRequired => true;
+  String shimCss(String css, {String selector, String cssUrl}) => css;
+  void shimShadowDom(Element root, String selector) {}
+}
+
+/// Class to effectively disable CSS shim
+@Injectable()
+class PlatformJsBasedNoShim implements PlatformJsBasedShim {
+  bool get shimRequired => true;
+  String shimCss(String css, {String selector, String cssUrl}) => css;
+  void shimShadowDom(Element root, String selector) {}
 }

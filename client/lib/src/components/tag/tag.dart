@@ -28,5 +28,5 @@ import 'package:angular/angular.dart';
 @Component(
     selector: 'tag',
     templateUrl: 'packages/client/src/components/tag/tag.html',
-    cssUrl: 'packages/client/src/components/tag/tag.css')
+    useShadowDom: false)
 class Tag {}

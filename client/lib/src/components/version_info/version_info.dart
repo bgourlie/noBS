@@ -29,7 +29,7 @@ import 'package:client/fitlog_models.dart';
 @Component(
     selector: 'version-info',
     templateUrl: 'packages/client/src/components/version_info/version_info.html',
-    cssUrl: 'packages/client/src/components/version_info/version_info.css')
+    useShadowDom: false)
 class VersionInfo {
   final AppVersion appVersion;
   VersionInfo(this.appVersion);

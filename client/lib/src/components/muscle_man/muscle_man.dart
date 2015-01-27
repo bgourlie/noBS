@@ -7,5 +7,5 @@ import 'package:di/annotations.dart';
 @Component(
     selector: 'muscle-man',
     templateUrl: 'packages/client/src/components/muscle_man/muscle_man.html',
-    cssUrl: 'packages/client/src/components/muscle_man/muscle_man.css')
+    useShadowDom: false)
 class MuscleMan {}

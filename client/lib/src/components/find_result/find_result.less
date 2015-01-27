@@ -19,41 +19,43 @@
 // All portions of the code written by W. Brian Gourlie are Copyright (c)
 // 2014-2015 W. Brian Gourlie. All Rights Reserved.
 
-:host{
+[find-result]{
   display: block;
-}
 
-#container{
-  padding: 3px;
+  .container{
+    padding: 3px;
 
-  &:hover{
-    background-color: lightgoldenrodyellow;
+    &:hover{
+      background-color: lightgoldenrodyellow;
+    }
+  }
+
+  tag{
+    margin-right: 5px;
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
+
+  .matchInfo {
+    font-size: 80%
+  }
+
+  .synonyms{
+    font-size: 80%;
+    margin: 0;
+  }
+
+  .synonym{
+
+    &::after{
+      content: ', '
+    }
+
+    &:last-of-type::after{
+      content: '';
+    }
   }
 }
 
-tag{
-  margin-right: 5px;
-
-  &:last-of-type {
-    margin-right: 0;
-  }
-}
-
-#matchInfo {
-  font-size: 80%
-}
-#synonyms{
-  font-size: 80%;
-  margin: 0;
-}
-
-.synonym{
-
-  &::after{
-    content: ', '
-  }
-
-  &:last-of-type::after{
-    content: '';
-  }
-}

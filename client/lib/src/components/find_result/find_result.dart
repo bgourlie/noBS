@@ -30,7 +30,7 @@ import 'package:client/src/services/find_engine/find_engine.dart' as fe;
 @Component(
     selector: '[find-result]',
     templateUrl: 'packages/client/src/components/find_result/find_result.html',
-    cssUrl: 'packages/client/src/components/find_result/find_result.css',
+    useShadowDom: false,
     map: const {'find-result': '=>!findResult',})
 class FindResult {
   Exercise _exercise;

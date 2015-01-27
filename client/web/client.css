@@ -26,14 +26,14 @@ body > footer {
   border-top-right-radius: 6px;
   border-top-left-radius: 6px;
 }
-body /deep/ .ng-cloak,
-body /deep/ .ng-hide {
+body .ng-cloak,
+body .ng-hide {
   display: none !important;
 }
-body /deep/ input[type=text],
-body /deep/ input[type=number],
-body /deep/ button,
-body /deep/ select {
+body input[type=text],
+body input[type=number],
+body button,
+body select {
   border: 1px solid #AAA;
   box-sizing: border-box;
   outline: 0;
@@ -41,21 +41,95 @@ body /deep/ select {
   font-size: 16px;
   background: white;
 }
-body /deep/ input[type=text]:hover:enabled,
-body /deep/ input[type=number]:hover:enabled,
-body /deep/ button:hover:enabled,
-body /deep/ select:hover:enabled {
+body input[type=text]:hover:enabled,
+body input[type=number]:hover:enabled,
+body button:hover:enabled,
+body select:hover:enabled {
   box-shadow: rgba(160, 160, 160, 0.5) 1px 1px 1px 0;
   color: #000;
   border-color: #909090;
 }
-body /deep/ input[type=text]:focus:enabled,
-body /deep/ input[type=number]:focus:enabled,
-body /deep/ button:focus:enabled,
-body /deep/ select:focus:enabled {
+body input[type=text]:focus:enabled,
+body input[type=number]:focus:enabled,
+body button:focus:enabled,
+body select:focus:enabled {
   outline: 0;
   box-shadow: rgba(160, 160, 160, 0.5) 1px 1px 1px 0;
 }
 header > h3 {
+  margin: 0;
+}
+find-widget {
+  display: block;
+}
+find-widget find-box {
+  margin-top: 5px;
+  text-align: center;
+}
+[find-result] {
+  display: block;
+}
+[find-result] .container {
+  padding: 3px;
+}
+[find-result] .container:hover {
+  background-color: lightgoldenrodyellow;
+}
+[find-result] tag {
+  margin-right: 5px;
+}
+[find-result] tag:last-of-type {
+  margin-right: 0;
+}
+[find-result] .matchInfo {
+  font-size: 80%;
+}
+[find-result] .synonyms {
+  font-size: 80%;
+  margin: 0;
+}
+[find-result] .synonym::after {
+  content: ', ';
+}
+[find-result] .synonym:last-of-type::after {
+  content: '';
+}
+find-widget {
+  display: block;
+}
+find-widget input[type=text].term {
+  width: 100%;
+}
+find-widget ul {
+  padding: 0;
+}
+find-widget li {
+  list-style-type: none;
+  padding-bottom: 5px;
+}
+muscle-man {
+  display: block;
+}
+record-widget {
+  display: block;
+}
+record-widget #buttons {
+  padding-top: 10px;
+}
+tag {
+  display: inline-block;
+  padding: 4px;
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.3), inset -1px 0 0 0 rgba(255, 255, 255, 0.1), inset 0 -1px 0 0 rgba(0, 0, 0, 0), inset 1px 0 0 0 rgba(0, 0, 0, 0.2);
+  background-color: powderblue;
+  cursor: pointer;
+}
+version-info {
+  display: inline;
+}
+version-info span {
+  font-size: 12px;
+  font-style: italic;
+}
+version-info p {
   margin: 0;
 }

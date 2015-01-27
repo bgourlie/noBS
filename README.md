@@ -4,17 +4,12 @@
 
 ### What is it?
 
-noBS Exercise Logger is my attempt at creating a simple and useful tool for logging workouts using modern web technologies, some of which are still developing standards.  As such, it is currently only supported in Chrome, with the expectation that other browsers will be supported as they implement the standards on which noBS is built.
+noBS Exercise Logger is my latest attempt at creating a simple and useful tool for logging workouts, built using modern web technologies.
 
-The latest version is continuosly deployed to http://www.nobs.io provided the build is passing. 
+### Browser Support
 
-### Development Philosophy
+noBS should work fully in the latest versions of Chrome and Firefox.  Unfortunatly, it is not currently supported in Internet Explorer or Safari due to poor/buggy [IndexedDB support](http://caniuse.com/#search=indexeddb) in these browsers.
 
-Unlike many web applications that make reasonable attempts to support as many browsers as possible, no such efforts will be made developing noBS.  As of this writing, I feel pretty strongly about this, even going as far as to not polyfill missing functionality in non-Chrome browsers.
+### How do I use it?
 
-The motivation behind this is to allow myself (and anyone who contributes) to focus on writing clean and straightforward code without the burden of worrying about non-standard or differing browser implementations.  So long as noBS is built on standard technologies, browser support should catch up.
-
-The following is a list of technologies used in noBS that are currently limiting browser support:
-
-- [Shadow DOM](http://caniuse.com/#search=shadowdom)
-- [IndexedDB](http://caniuse.com/#feat=indexeddb)
+The latest version is continuously deployed to http://www.nobs.io provided the build is passing. It is currently in a pre-alpha state, so don't expect anything too useful at the moment.

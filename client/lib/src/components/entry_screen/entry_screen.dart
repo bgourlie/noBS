@@ -31,7 +31,7 @@ import 'package:client/src/services/nobs_storage/nobs_storage.dart';
 @Component(
     selector: 'entry-screen',
     templateUrl: 'packages/client/src/components/entry_screen/entry_screen.html',
-    cssUrl: 'packages/client/src/components/entry_screen/entry_screen.css')
+    useShadowDom: false)
 class EntryScreen {
   static final _logger = new Logger('nobs_entry_screen');
   final ExerciseSetRepository _setRepo;

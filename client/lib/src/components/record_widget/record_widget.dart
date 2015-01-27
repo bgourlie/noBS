@@ -32,7 +32,7 @@ typedef void RecordHandler(num weight, num reps);
 @Component(
     selector: 'record-widget',
     templateUrl: 'packages/client/src/components/record_widget/record_widget.html',
-    cssUrl: 'packages/client/src/components/record_widget/record_widget.css',
+    useShadowDom: false,
     map: const {
   'on-back': '&goBackHandler',
   'record-handler': '&recordHandler',
@@ -40,6 +40,7 @@ typedef void RecordHandler(num weight, num reps);
 })
 class RecordWidget implements ShadowRootAware {
   static final _logger = new Logger('record_widget');
+  final Element _root;
   Function goBackHandler;
   Function recordHandler;
   NgForm recordForm;
@@ -47,14 +48,16 @@ class RecordWidget implements ShadowRootAware {
   num weight;
   num reps;
 
-  void onShadowRoot(ShadowRoot root) {
-    root.querySelector('#go-back').onClick.listen((e) {
+  RecordWidget(this._root);
+
+  void onShadowRoot(ShadowRoot _) {
+    _root.querySelector('#go-back').onClick.listen((e) {
       if (goBackHandler != null) {
         goBackHandler();
       }
     });
 
-    root.querySelector('#record').onClick.listen((e) {
+    _root.querySelector('#record').onClick.listen((e) {
       if (recordHandler != null) {
         final RecordHandler handler = recordHandler();
         handler(weight, reps);

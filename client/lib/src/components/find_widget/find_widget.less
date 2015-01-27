@@ -19,19 +19,20 @@
 // All portions of the code written by W. Brian Gourlie are Copyright (c)
 // 2014-2015 W. Brian Gourlie. All Rights Reserved.
 
-:host {
+find-widget {
   display: block;
+
+  input[type=text].term{
+    width: 100%;
+  }
+
+  ul{
+    padding: 0;
+  }
+
+  li {
+    list-style-type: none;
+    padding-bottom: 5px;
+  }
 }
 
-input[type=text]#term{
-  width: 100%;
-}
-
-ul{
-  padding: 0;
-}
-
-li {
-  list-style-type: none;
-  padding-bottom: 5px;
-}

@@ -50,13 +50,12 @@ body {
     border-top-left-radius: 6px;
   }
 
-  /deep/ .ng-cloak, /deep/ .ng-hide {
+  .ng-cloak, .ng-hide {
     display: none !important;
   }
 
   /* Controls */
-  /deep/ input[type=text], /deep/ input[type=number], /deep/ button,
-      /deep/ select {
+  input[type=text], input[type=number], button, select {
     border: 1px solid #AAA;
     box-sizing: border-box;
     outline: 0;
@@ -82,4 +81,12 @@ header {
     margin: 0;
   }
 }
+
+@import "packages/client/src/components/entry_screen/entry_screen.less";
+@import "packages/client/src/components/find_result/find_result.less";
+@import "packages/client/src/components/find_widget/find_widget.less";
+@import "packages/client/src/components/muscle_man/muscle_man.less";
+@import "packages/client/src/components/record_widget/record_widget.less";
+@import "packages/client/src/components/tag/tag.less";
+@import "packages/client/src/components/version_info/version_info.less";
 

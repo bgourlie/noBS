@@ -36,20 +36,21 @@ typedef SelectedHandler(Exercise exercise);
 @Component(
     selector: 'find-widget',
     templateUrl: 'packages/client/src/components/find_widget/find_widget.html',
-    cssUrl: 'packages/client/src/components/find_widget/find_widget.css',
+    useShadowDom: false,
     map: const {'selected-handler': '&selectedHandler'})
 class FindWidget implements ShadowRootAware {
   static final _logger = new Logger('find_widget');
+  final Element _root;
   final ExerciseFindEngine _findEngine;
   List<FindResult<Exercise>> findResults;
   Function selectedHandler;
   String searchTerm; // The searchTerm, updated as it's being typed
   String searchedTerm; // The term actually being searched
 
-  FindWidget(this._findEngine);
+  FindWidget(this._root, this._findEngine);
 
-  void onShadowRoot(ShadowRoot shadowRoot) {
-    shadowRoot.querySelector('#term').onKeyDown
+  void onShadowRoot(ShadowRoot _) {
+    _root.querySelector('.term').onKeyDown
         .transform(new Debouncer(const Duration(milliseconds: 250)))
         .forEach((e) => doSearch());
   }

@@ -1,10 +1,10 @@
-<div id="container">
+<div class="container">
   <header><strong>{{exercise.title}}</strong></header>
-  <p id="synonyms" ng-show="synonyms.length > 0">Synonyms: <em class="synonym" ng-repeat="synonym in synonyms">{{synonym}}</em></p>
-  <div id="tags">
+  <p class="synonyms" ng-show="synonyms.length > 0">Synonyms: <em class="synonym" ng-repeat="synonym in synonyms">{{synonym}}</em></p>
+  <div class="tags">
     <tag ng-repeat="tag in tags">{{tag}}</tag>
   </div>
-  <div id="matchInfo">
+  <div class="matchInfo">
     matched on <em>{{findResult.matchedTerm}}</em>
     <!-- todo: use findResult.toString() -->
     <!-- once https://github.com/angular/angular.dart/issues/1023 is fixed -->

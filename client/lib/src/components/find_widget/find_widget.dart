@@ -45,7 +45,6 @@ class FindWidget implements ShadowRootAware {
   List<FindResult<Exercise>> findResults;
   Function selectedHandler;
   String searchTerm; // The searchTerm, updated as it's being typed
-  String searchedTerm; // The term actually being searched
 
   FindWidget(this._root, this._findEngine);
 
@@ -65,7 +64,6 @@ class FindWidget implements ShadowRootAware {
           .toList()
           .then((results) => findResults = results);
     }
-    searchedTerm = searchTerm;
   }
 
   void handleSelect(Exercise e) {

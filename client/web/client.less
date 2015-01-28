@@ -19,30 +19,34 @@
 // All portions of the code written by W. Brian Gourlie are Copyright (c)
 // 2014-2015 W. Brian Gourlie. All Rights Reserved.
 
+@fontSizeSmall: 1.2vw;
+@fontSizeNormal: 1.5vw;
+
 body {
   background-color: #F8F8F8;
   font-family: 'Open Sans', sans-serif;
-  font-size: 14px;
+  font-size: @fontSizeNormal;
   font-weight: normal;
   line-height: 1.2em;
-  margin: 15px;
+  margin: 5px 15px;
 
   > header {
     margin-bottom: 10px;
 
     h3{
+      font-size: 2vw;
       display: inline-block;
-      margin: 0 0 5px 0;
+      margin: 0;
     }
 
     #splash{
-      font-size: 12px;
+      font-size: 1vw;
     }
   }
 
   > footer {
     background-color: white;
-    font-size: 12px;
+    font-size: @fontSizeSmall;
     position: fixed;
     bottom: 0;
     padding: 2px 5px;
@@ -59,8 +63,8 @@ body {
     border: 1px solid #AAA;
     box-sizing: border-box;
     outline: 0;
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 5px 10px;
+    font-size: 1.5vw;
     background: white;
 
     &:hover:enabled {
@@ -73,12 +77,6 @@ body {
       outline: 0;
       box-shadow: rgba(160, 160, 160, 0.5) 1px 1px 1px 0;
     }
-  }
-}
-
-header {
-  > h3{
-    margin: 0;
   }
 }
 

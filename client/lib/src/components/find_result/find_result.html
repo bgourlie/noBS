@@ -1,6 +1,6 @@
 <div class="container">
-  <header><strong>{{exercise.title}}</strong></header>
-  <p class="synonyms" ng-show="synonyms.length > 0">Synonyms: <em class="synonym" ng-repeat="synonym in synonyms">{{synonym}}</em></p>
+  <header class="title"><strong>{{exercise.title}}</strong></header>
+  <span class="synonyms" ng-show="synonyms.length > 0"><em class="synonym" ng-repeat="synonym in synonyms">{{synonym}}</em></span>
   <div class="tags">
     <tag ng-repeat="tag in tags">{{tag}}</tag>
   </div>

@@ -1,6 +1,5 @@
 <input class="term" type="text" ng-model="searchTerm"
        placeholder="Start typing to find an exercise" />
-<p>Showing results for: <strong>{{searchedTerm}}</strong></p>
 <ul class="find-results">
   <li ng-repeat="findResult in findResults | orderBy:['match.rank', 'match.subRank']"
       find-result="findResult"

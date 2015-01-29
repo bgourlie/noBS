@@ -1,18 +1,13 @@
-language: csharp
+language: dart
 os: linux
 env:
   global:
   - "AZURE_FTP_USER=nobs-api\\\\nobs_deploy"
-  - DART_DIST=dartsdk-linux-x64-release.zip
-  - DART_SDK=~/dart-sdk
-  - KRE_HOME=~/.kre/packages/KRE-Mono.1.0.0-beta1
   - DEPLOY_DIR=~/deploy
-  - PATH="$DART_SDK/bin:$KRE_HOME/bin:$PATH"
   - DEPLOY_BRANCH=master
   - BUILD_TIME=$(date -Iseconds)
     # AZURE_FTP_PASSWORD
-  - secure: "bTBWeGleEVuiwODIjzo4J9UuWvXLx2nLb+XDzdVm394P3JyFxRZwkHNNcYCbaLLdOoWXyLvLnbJDAlcK1eziF1sA5fZyqtVgUYGw1E0eUTn/LP45bzTVI7dGYorvFeYU6ub2SQ8fuvOJhVViPke9zwKhkjT2WR7a8rORXvPbQnA="
-
+  - secure: "RKklX/SBqDz2j5t+7tYzgpwt47/5S4Rk7VS96HJzrjq8kseCuIjbVB4cp7Ilf52Neby9Wb25tuNM9BydlVAuZeBU1ITwoM7JeQvMesgOOYM67eY868Nqj0JcaKLQzDiBwwp0TaHHIyuhBam52zQifTuIZhawGBmwg1lCwBiCZBg="
 notifications:
   email:
     recipients:
@@ -20,12 +15,7 @@ notifications:
     on_success: change
     on_failure: always
 before_install:
-- date -u
-- uname -a
-- env | sort
-- "./ci/install-deps.sh"
-script:
-- "./ci/run-tests.sh"
+- cd ./client
 after_success:
-- "./ci/pack-deployment.sh"
-- "./ci/deploy.sh"
+- "$TRAVIS_BUILD_DIR/ci/pack-deployment.sh"
+- "$TRAVIS_BUILD_DIR/ci/deploy.sh"

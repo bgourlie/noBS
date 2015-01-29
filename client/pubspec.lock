@@ -37,10 +37,6 @@ packages:
     description: di
     source: hosted
     version: "3.3.3"
-  grinder:
-    description: grinder
-    source: hosted
-    version: "0.6.5"
   html5lib:
     description: html5lib
     source: hosted
@@ -57,13 +53,6 @@ packages:
     description: matcher
     source: hosted
     version: "0.11.4"
-  nvp:
-    description:
-      ref: master
-      resolved-ref: "52082941d35841b1205216c123cb744a587d1a59"
-      url: "git://github.com/bgourlie/nobsVersionPatcher.git"
-    source: git
-    version: "0.2.1"
   observe:
     description: observe
     source: hosted

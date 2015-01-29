@@ -1,46 +1,21 @@
 html {
   font-family: "helvetica neue", helvetica, arial, sans-serif;
   line-height: 1.4;
-  font-size: 13px;
+  font-size: 14px;
 }
-@media screen and (min-width: 500px) {
-  html {
-    font-size: 14px;
-  }
-}
-@media screen and (min-width: 570px) {
-  html {
-    font-size: 15px;
-  }
-}
-@media screen and (min-width: 620px) {
+@media screen and (min-width: 48em) {
   html {
     font-size: 16px;
   }
 }
-@media screen and (min-width: 680px) {
-  html {
-    font-size: 17px;
-  }
-}
-@media screen and (min-width: 720px) {
+@media screen and (min-width: 62em) {
   html {
     font-size: 18px;
   }
 }
-@media screen and (min-width: 800px) {
-  html {
-    font-size: 19px;
-  }
-}
-@media screen and (min-width: 860px) {
+@media screen and (min-width: 75em) {
   html {
     font-size: 20px;
-  }
-}
-@media screen and (min-width: 920px) {
-  html {
-    font-size: 21px;
   }
 }
 h1 {
@@ -61,7 +36,8 @@ p {
 body {
   background-color: #F8F8F8;
   font-weight: normal;
-  margin: 5px 15px;
+  margin: .25rem 1rem;
+  white-space: nowrap;
   /* Controls */
 }
 body > header {
@@ -71,11 +47,15 @@ body > header h3 {
   display: inline-block;
   margin: 0;
 }
+body > header #splash {
+  font-size: 0.8rem;
+}
 body > footer {
+  font-size: 0.8rem;
   background-color: white;
   position: fixed;
   bottom: 0;
-  padding: 2px 5px;
+  padding: 0.1rem 0.25rem;
   border-top-right-radius: 6px;
   border-top-left-radius: 6px;
 }
@@ -90,7 +70,7 @@ body select {
   border: 1px solid #AAA;
   box-sizing: border-box;
   outline: 0;
-  padding: 5px 10px;
+  padding: .5rem .75rem;
   font-size: 1rem;
   background: white;
 }
@@ -181,6 +161,7 @@ version-info {
 }
 version-info span {
   font-style: italic;
+  font-size: 0.8rem;
 }
 version-info p {
   margin: 0;

@@ -19,34 +19,77 @@
 // All portions of the code written by W. Brian Gourlie are Copyright (c)
 // 2014-2015 W. Brian Gourlie. All Rights Reserved.
 
-@fontSizeSmall: 1.2vw;
-@fontSizeNormal: 1.5vw;
+@fontSizeSmall: .8rem;
+@fontSizeNormal: 1rem;
+
+
+html {
+  font-family: "helvetica neue", helvetica, arial, sans-serif;
+  line-height: 1.4;
+  font-size: 13px;
+
+  @media screen and (min-width: 500px){
+    font-size: 14px;
+  }
+  @media screen and (min-width: 570px){
+    font-size: 15px;
+  }
+  @media screen and (min-width: 620px){
+    font-size: 16px;
+  }
+  @media screen and (min-width: 680px){
+    font-size: 17px;
+  }
+  @media screen and (min-width: 720px){
+    font-size: 18px;
+  }
+  @media screen and (min-width: 800px){
+    font-size: 19px;
+  }
+  @media screen and (min-width: 860px){
+    font-size: 20px;
+  }
+  @media screen and (min-width: 920px){
+    font-size: 21px;
+  }
+}
+
+h1{
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+}
+
+h4 {
+  font-size: 1rem;
+}
+
+p {
+ font-size: 1rem;
+}
 
 body {
   background-color: #F8F8F8;
-  font-family: 'Open Sans', sans-serif;
-  font-size: @fontSizeNormal;
   font-weight: normal;
-  line-height: 1.2em;
   margin: 5px 15px;
 
   > header {
     margin-bottom: 10px;
 
     h3{
-      font-size: 2vw;
       display: inline-block;
       margin: 0;
-    }
-
-    #splash{
-      font-size: 1vw;
     }
   }
 
   > footer {
     background-color: white;
-    font-size: @fontSizeSmall;
     position: fixed;
     bottom: 0;
     padding: 2px 5px;
@@ -64,7 +107,7 @@ body {
     box-sizing: border-box;
     outline: 0;
     padding: 5px 10px;
-    font-size: 1.5vw;
+    font-size: @fontSizeNormal;
     background: white;
 
     &:hover:enabled {

@@ -1,10 +1,9 @@
 <find-widget ng-show="selectedExercise == null"
              selected-handler="onExerciseSelected"></find-widget>
 <div ng-show="selectedExercise != null">
-  <h2>Recording data for {{selectedExercise.title}}</h2>
+  <h4>Recording data for {{selectedExercise.title}}</h4>
 
   <div ng-show="previousSets.length > 0">
-    <h3>Previous sets</h3>
     <table>
       <thead>
       <tr>
@@ -21,9 +20,6 @@
       </tr>
       </tbody>
     </table>
-  </div>
-  <div ng-show="previousSets.length == 0">
-    <h2>No previous sets to display</h2>
   </div>
   <record-widget on-back="cancelRecord()"
                  record-handler="onRecord"

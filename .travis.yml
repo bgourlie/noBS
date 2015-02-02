@@ -8,6 +8,8 @@ env:
   - BUILD_TIME=$(date -Iseconds)
     # AZURE_FTP_PASSWORD
   - secure: "RKklX/SBqDz2j5t+7tYzgpwt47/5S4Rk7VS96HJzrjq8kseCuIjbVB4cp7Ilf52Neby9Wb25tuNM9BydlVAuZeBU1ITwoM7JeQvMesgOOYM67eY868Nqj0JcaKLQzDiBwwp0TaHHIyuhBam52zQifTuIZhawGBmwg1lCwBiCZBg="
+    # COVERALLS_TOKEN
+  - secure: "hO/18P0TBXn62EnUl8uXyFNWu/d2J0vmueTEDIkYEN3K52XcA6npQt1DfOgEyUOGJGor8zfGbObLuf8H8rmg5dwyaysAHwOZL76oZ7lwL4ihclQAz/aukEH1SrUni7CeRtsi5RWVwrvt/noZBlrLv5pEebcvOr8oozQ90tQPuYo="
 notifications:
   email:
     recipients:
@@ -17,5 +19,7 @@ notifications:
 before_install:
 - cd ./client
 after_success:
+- pub global activate dart_coveralls
+- pub global run dart_coveralls:dart_coveralls report --exclude-test-files --token $COVERALLS_TOKEN ./test/all_test.dart
 - "$TRAVIS_BUILD_DIR/ci/pack-deployment.sh"
 - "$TRAVIS_BUILD_DIR/ci/deploy.sh"

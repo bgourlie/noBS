@@ -19,26 +19,16 @@
 // All portions of the code written by W. Brian Gourlie are Copyright (c)
 // 2014-2015 W. Brian Gourlie. All Rights Reserved.
 
-part of nobs_storage;
+part of fitlog_models;
 
-@Injectable()
-class ExerciseSetSerializer extends Serializer<ExerciseSet> {
-  ExerciseSetSerializer();
-  // TODO: Use DateTime objects instead od millis
-  // see https://github.com/bgourlie/noBS/issues/1
-  ExerciseSet deserializeImpl(Map obj) {
-    return new ExerciseSet(obj['personId'], obj['exerciseId'], obj['weight'],
-        obj['reps'], obj['recordedDate'], obj['performedDate']);
-  }
+class Person implements Storable {
+  final String email;
+  final String nick;
 
-  Map serializeImpl(ExerciseSet obj) {
-    return {
-      'personId': obj.personId,
-      'exerciseId': obj.exerciseId,
-      'weight': obj.weight,
-      'reps': obj.reps,
-      'recordedDate': obj.recordedDateMillis,
-      'performedDate': obj.performedDateMillis
-    };
-  }
+  int _dbKey;
+
+  int get dbKey => _dbKey;
+  set dbKey(int val) => _dbKey = val;
+
+  Person(this.email, this.nick);
 }

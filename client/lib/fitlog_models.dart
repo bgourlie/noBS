@@ -28,3 +28,4 @@ import 'src/services/storage_engine/storage_engine.dart';
 part 'src/models/app_version.dart';
 part 'src/models/exercise.dart';
 part 'src/models/exercise_set.dart';
+part 'src/models/person.dart';

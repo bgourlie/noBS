@@ -29,6 +29,12 @@ abstract class Repository<T extends Storable> {
 
   String get storeName;
 
+  Future<int> count() {
+    final trans = _db.transaction(storeName, 'readonly');
+    final store = trans.objectStore(storeName);
+    return store.count();
+  }
+
   Future<Optional<T>> get(int key) {
     final completer = new Completer<Optional<T>>();
     final tx = _db.transaction(storeName, 'readonly');

@@ -32,18 +32,20 @@ class ExerciseSetRepository extends Repository<ExerciseSet> {
         _serializer = serializer,
         super(db, serializer);
 
-  Stream<ExerciseSet> getLatest(int exerciseId, int numRecords) {
+  Stream<ExerciseSet> getLatest(int personId, int exerciseId, int numRecords) {
     final controller = new StreamController<ExerciseSet>();
     final trans = _db.transactionStore(_SETS_STORE_NAME, 'readonly');
     final store = trans.objectStore(_SETS_STORE_NAME);
-    final index = store.index('idx_exerciseId_performedDate');
+    final index = store.index('idx_personId_exerciseId_performedDate');
     // TODO: bounds should use DateTimes, not millis
     // see https://github.com/bgourlie/noBS/issues/1
     final uBound = [
+      personId,
       exerciseId,
       new DateTime.now().toUtc().millisecondsSinceEpoch
     ];
     final lBound = [
+      personId,
       exerciseId,
       new DateTime.utc(1983, 3, 15).millisecondsSinceEpoch
     ];

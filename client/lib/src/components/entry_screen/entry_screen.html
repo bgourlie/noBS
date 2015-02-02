@@ -2,6 +2,20 @@
              selected-handler="onExerciseSelected"></find-widget>
 <div ng-show="selectedExercise != null">
   <span exercise="selectedExercise"></span>
+  <div class="row">
+    <div class="col-xs-12">
+      <select ng-model="selectedUser" ng-change="userChanged()">
+        <option ng-repeat="user in users"
+                ng-value="user">
+          {{user.nick}}
+        </option>
+      </select>
+    </div>
+  </div>
+  <record-widget on-back="cancelRecord()"
+                 record-handler="onRecord"
+                 is-disabled="saving"></record-widget>
+
   <div ng-show="previousSets.length > 0">
     <table>
       <thead>
@@ -20,8 +34,4 @@
       </tbody>
     </table>
   </div>
-  <record-widget on-back="cancelRecord()"
-                 record-handler="onRecord"
-                 is-disabled="saving"></record-widget>
-  <muscle-man></muscle-man>
 </div>

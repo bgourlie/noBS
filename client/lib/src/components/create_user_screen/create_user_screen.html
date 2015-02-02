@@ -1,0 +1,29 @@
+<p ng-show="!loading && existingUsers.length == 0">Before you get started, you must create a user.</p>
+<table>
+  <thead>
+    <tr>
+      <th>E-Mail</th>
+      <th>Nickname</th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="user in existingUsers">
+    <td>{{user.email}}</td>
+    <td>{{user.nick}}</td>
+  </tr>
+  </tbody>
+</table>
+<form name="createUserForm" ng-submit="submitUser()">
+  <div class="row">
+    <div class="col-sm-4 col-xs-12">
+      <input type="email" ng-model="email" placeholder="E-Mail Address" required />
+    </div>
+    <div class="col-sm-4 col-xs-12">
+      <input type="text" ng-model="nick" ng-pattern="nickRegexp" placeholder="Nickname" required />
+    </div>
+    <div class="col-sm-4 col-xs-12">
+      <button type="submit" ng-disabled="submitting || createUserForm.invalid">Create User</button>
+    </div>
+  </div>
+</form>
+<p ng-show="errorMessage != null">{{errorMessage}}</p>

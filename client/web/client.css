@@ -65,6 +65,7 @@ body .ng-hide {
 }
 body input[type=text],
 body input[type=number],
+body input[type=email],
 body button,
 body select {
   border: 1px solid #AAA;
@@ -76,6 +77,7 @@ body select {
 }
 body input[type=text]:hover:enabled,
 body input[type=number]:hover:enabled,
+body input[type=email]:hover:enabled,
 body button:hover:enabled,
 body select:hover:enabled {
   box-shadow: rgba(160, 160, 160, 0.5) 1px 1px 1px 0;
@@ -84,10 +86,25 @@ body select:hover:enabled {
 }
 body input[type=text]:focus:enabled,
 body input[type=number]:focus:enabled,
+body input[type=email]:focus:enabled,
 body button:focus:enabled,
 body select:focus:enabled {
   outline: 0;
   box-shadow: rgba(160, 160, 160, 0.5) 1px 1px 1px 0;
+}
+app-main > nav > ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+app-main > nav > ul > li {
+  display: inline;
+}
+app-main > nav > ul > li a {
+  text-decoration: none;
+}
+app-main > nav > ul > li a.selected {
+  font-weight: bold;
 }
 find-widget {
   display: block;

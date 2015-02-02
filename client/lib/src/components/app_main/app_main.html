@@ -1,0 +1,19 @@
+<nav>
+  <ul>
+    <li>
+      <a href
+         ng-click="changeState(STATE_ENTRY)"
+         ng-class="state == STATE_ENTRY ? 'selected' : null">Log Exercise
+      </a>
+    </li>
+    <li>
+      <a href
+         ng-click="changeState(STATE_CREATE_USER)"
+         ng-class="state == STATE_CREATE_USER ? 'selected' : null">Manage Users
+      </a>
+    </li>
+  </ul>
+</nav>
+<create-user-screen ng-if="state == STATE_CREATE_USER"
+                      user-created-handler="onUserCreated"></create-user-screen>
+<entry-screen ng-if="state == STATE_ENTRY"></entry-screen>

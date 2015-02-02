@@ -19,16 +19,12 @@
 // All portions of the code written by W. Brian Gourlie are Copyright (c)
 // 2014-2015 W. Brian Gourlie. All Rights Reserved.
 
-part of fitlog_web_client;
+part of nobs_storage;
 
 @Injectable()
-class Routes {
-  void call(Router router, RouteViewFactory views) {
-    views.configure({
-      'entry_screen': ngRoute(
-          path: '',
-          defaultRoute: true,
-          viewHtml: '<entry-screen></entry-screen>')
-    });
-  }
+class PersonRepository extends Repository<Person> {
+  String get storeName => _PEOPLE_STORE_NAME;
+
+  PersonRepository(Database db, PersonSerializer serializer)
+      : super(db, serializer);
 }

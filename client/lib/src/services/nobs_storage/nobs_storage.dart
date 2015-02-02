@@ -31,6 +31,8 @@ import 'package:client/src/services/storage_engine/storage_engine.dart';
 
 part 'nobs_db_v1_config.dart';
 part 'exercise_repository.dart';
+part 'person_repository.dart';
+part 'person_serializer.dart';
 part 'exercise_set_repository.dart';
 part 'exercise_serializer.dart';
 part 'exercise_set_serializer.dart';
@@ -40,6 +42,7 @@ final _logger = new Logger('nobs_storage');
 const _DB_NAME = 'nobs';
 const _EXERCISE_STORE_NAME = 'exercises';
 const _SETS_STORE_NAME = 'sets';
+const _PEOPLE_STORE_NAME = 'people';
 
 class NobsStorageModule extends Module {
   NobsStorageModule() {
@@ -47,5 +50,7 @@ class NobsStorageModule extends Module {
     bind(ExerciseSetRepository);
     bind(ExerciseSerializer);
     bind(ExerciseSetSerializer);
+    bind(PersonRepository);
+    bind(PersonSerializer);
   }
 }

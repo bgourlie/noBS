@@ -21,6 +21,7 @@
 
 library entry_screen;
 
+import 'dart:async';
 import 'package:angular/angular.dart';
 import 'package:di/annotations.dart';
 import 'package:logging/logging.dart';
@@ -35,17 +36,25 @@ import 'package:client/src/services/nobs_storage/nobs_storage.dart';
 class EntryScreen {
   static final _logger = new Logger('nobs_entry_screen');
   final ExerciseSetRepository _setRepo;
+  final PersonRepository _personRepo;
+  List<Person> users;
+  Person selectedUser;
   Exercise selectedExercise;
   List<ExerciseSet> previousSets;
   bool saving = false;
-  EntryScreen(this._setRepo);
+
+  EntryScreen(this._setRepo, this._personRepo) {
+    _personRepo.getAll().toList().then((List<Person> users) {
+      this.users = users;
+      assert(users.length != 0);
+      selectedUser = users[0];
+    });
+  }
 
   void onExerciseSelected(Exercise e) {
     _logger.finest('${e.title} selected');
     selectedExercise = e;
-    _setRepo.getLatest(e.dbKey, 3).toList().then((sets) {
-      previousSets = sets;
-    });
+    refreshExerciseHistory();
   }
 
   void onRecord(num weight, num reps) {
@@ -54,7 +63,8 @@ class EntryScreen {
     assert(selectedExercise != null);
     // eventually we will have widgets to adjust recorded/performed dates.
     final now = new DateTime.now().toUtc().millisecondsSinceEpoch;
-    final set = new ExerciseSet(selectedExercise.dbKey, weight, reps, now, now);
+    final set = new ExerciseSet(
+        selectedUser.dbKey, selectedExercise.dbKey, weight, reps, now, now);
     _setRepo.put(set).then((_) {
       _logger.finest('saved set!');
       previousSets.add(set);
@@ -64,5 +74,24 @@ class EntryScreen {
   void cancelRecord() {
     _logger.finest('cancel record called.');
     selectedExercise = null;
+  }
+
+  void refreshExerciseHistory() {
+    _setRepo
+        .getLatest(selectedUser.dbKey, selectedExercise.dbKey, 3)
+        .toList()
+        .then((sets) {
+      previousSets = sets;
+    });
+  }
+
+  void userChanged() {
+    // small hack - run in a future to guarantee model is updated
+    // The change event can fire before angular digest loop completes
+    // and updates model.
+    new Future(() {
+      _logger.finest('selected user is ${selectedUser.nick}');
+      refreshExerciseHistory();
+    });
   }
 }

@@ -26,6 +26,7 @@ import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular/core_dom/module_internal.dart';
 import 'package:client/fitlog_models.dart';
+import 'package:client/src/components/app_main/app_main.dart';
 import 'package:client/src/components/entry_screen/entry_screen.dart';
 import 'package:client/src/components/version_info/version_info.dart';
 import 'package:client/src/components/find_widget/find_widget.dart';
@@ -33,13 +34,12 @@ import 'package:client/src/components/exercise/exercise.dart';
 import 'package:client/src/components/tag/tag.dart';
 import 'package:client/src/components/record_widget/record_widget.dart';
 import 'package:client/src/components/muscle_man/muscle_man.dart';
+import 'package:client/src/components/create_user_screen/create_user_screen.dart';
 import 'package:client/src/filters/relative_time.dart';
 import 'package:client/src/services/find_engine_defaults/find_engine_defaults.dart';
 import 'package:client/src/services/exercise_find_engine.dart';
 import 'package:client/src/services/nobs_storage/nobs_storage.dart';
 import 'package:client/src/services/exercise_source.dart';
-
-part 'src/routes.dart';
 
 class ClientModule extends Module {
   final AppVersion _appVersion;
@@ -50,6 +50,9 @@ class ClientModule extends Module {
     install(new NobsStorageModule());
     bind(Database, toValue: this._database);
     bind(AppVersion, toValue: this._appVersion);
+
+    bind(AppMain);
+    bind(CreateUserScreen);
     bind(EntryScreen);
     bind(VersionInfo);
     bind(FindWidget);
@@ -60,7 +63,6 @@ class ClientModule extends Module {
     bind(ExerciseSource);
     bind(ExerciseFindEngine);
     bind(MuscleMan);
-    bind(RouteInitializerFn, toImplementation: Routes);
 
     // disable CSS shim
     bind(PlatformJsBasedShim, toImplementation: PlatformJsBasedNoShim);

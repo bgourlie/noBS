@@ -53,10 +53,10 @@ class ClientVersionPatcher extends Transformer {
   Map<String, String> _getBuildInfo() {
     final env = Platform.environment;
     return {
-        'BUILD_NUMBER': env['TRAVIS_BUILD_NUMBER'],
-        'BRANCH': env['TRAVIS_BRANCH'],
-        'COMMIT_ID': env['TRAVIS_COMMIT'],
-        'BUILD_TIME': env['BUILD_TIME']
+      'BUILD_NUMBER': env['TRAVIS_BUILD_NUMBER'],
+      'BRANCH': env['TRAVIS_BRANCH'],
+      'COMMIT_ID': env['TRAVIS_COMMIT'],
+      'BUILD_TIME': env['BUILD_TIME']
     };
   }
 }

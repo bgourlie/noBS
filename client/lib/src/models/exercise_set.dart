@@ -22,6 +22,7 @@
 part of fitlog_models;
 
 class ExerciseSet implements Storable {
+  final int personId;
   final int exerciseId;
   final num weight;
   final num reps;
@@ -65,6 +66,6 @@ class ExerciseSet implements Storable {
     _performedDate = null;
   }
 
-  ExerciseSet(this.exerciseId, this.weight, this.reps, this.recordedDateMillis,
-      this.performedDateMillis);
+  ExerciseSet(this.personId, this.exerciseId, this.weight, this.reps,
+      this.recordedDateMillis, this.performedDateMillis);
 }

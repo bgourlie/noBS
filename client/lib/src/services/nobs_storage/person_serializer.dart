@@ -22,23 +22,12 @@
 part of nobs_storage;
 
 @Injectable()
-class ExerciseSetSerializer extends Serializer<ExerciseSet> {
-  ExerciseSetSerializer();
-  // TODO: Use DateTime objects instead od millis
-  // see https://github.com/bgourlie/noBS/issues/1
-  ExerciseSet deserializeImpl(Map obj) {
-    return new ExerciseSet(obj['personId'], obj['exerciseId'], obj['weight'],
-        obj['reps'], obj['recordedDate'], obj['performedDate']);
+class PersonSerializer extends Serializer<Person> {
+  Person deserializeImpl(Map obj) {
+    return new Person(obj['email'], obj['nick']);
   }
 
-  Map serializeImpl(ExerciseSet obj) {
-    return {
-      'personId': obj.personId,
-      'exerciseId': obj.exerciseId,
-      'weight': obj.weight,
-      'reps': obj.reps,
-      'recordedDate': obj.recordedDateMillis,
-      'performedDate': obj.performedDateMillis
-    };
+  Map serializeImpl(Person obj) {
+    return {'email': obj.email, 'nick': obj.nick};
   }
 }

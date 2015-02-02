@@ -36,6 +36,7 @@ final _logger = new Logger('integration_tests');
 void main() {
   final config = new NobsDbV1Config();
   Database db;
+  final personSerializer = new PersonSerializer();
   final exerciseSerializer = new ExerciseSerializer();
   final exerciseSetSerializer = new ExerciseSetSerializer();
 
@@ -59,32 +60,37 @@ void main() {
   });
 
   test('should add and retrieve an exercise, exercise set', () {
-    final exerciseRepo = new ExerciseRepository(db, exerciseSerializer);
-    final exercise =
-        new Exercise('benchpress', ['barbell benchpress'], ['chest']);
-    expect(exerciseRepo.put(exercise).then((_) {
-      expect(exerciseRepo.get(exercise.dbKey).then((benchpress) {
-        expect(benchpress.isPresent, isTrue);
-        expect(benchpress.value.dbKey, equals(exercise.dbKey));
+    final personRepo = new PersonRepository(db, personSerializer);
+    final person = new Person('brian@gourlie.com', 'brian');
 
-        final setRepo = new ExerciseSetRepository(db, exerciseSetSerializer);
-        final set = new ExerciseSet(benchpress.value.dbKey, 225, 8,
-            new DateTime.now().toUtc().millisecondsSinceEpoch,
-            new DateTime.now().toUtc().millisecondsSinceEpoch);
-        final set2 = new ExerciseSet(benchpress.value.dbKey, 225, 8,
-            new DateTime.now().toUtc().millisecondsSinceEpoch,
-            new DateTime.now().toUtc().millisecondsSinceEpoch);
+    expect(personRepo.put(person).then((_) {
+      final exerciseRepo = new ExerciseRepository(db, exerciseSerializer);
+      final exercise =
+          new Exercise('benchpress', ['barbell benchpress'], ['chest']);
+      expect(exerciseRepo.put(exercise).then((_) {
+        expect(exerciseRepo.get(exercise.dbKey).then((benchpress) {
+          expect(benchpress.isPresent, isTrue);
+          expect(benchpress.value.dbKey, equals(exercise.dbKey));
 
-        expect(setRepo.putAll([set, set2]).then((__) {
-          expect(setRepo.get(set.dbKey).then((dbSet) {
-            expect(dbSet.isPresent, isTrue);
-            expect(dbSet.value.dbKey, equals(set.dbKey));
-            expect(dbSet.value.exerciseId, equals(benchpress.value.dbKey));
-            expect(setRepo
-                .getLatest(benchpress.value.dbKey, 3)
-                .toList()
-                .then((sets) {
-              expect(sets.length, equals(2));
+          final setRepo = new ExerciseSetRepository(db, exerciseSetSerializer);
+          final set = new ExerciseSet(person.dbKey, benchpress.value.dbKey, 225,
+              8, new DateTime.now().toUtc().millisecondsSinceEpoch,
+              new DateTime.now().toUtc().millisecondsSinceEpoch);
+          final set2 = new ExerciseSet(person.dbKey, benchpress.value.dbKey,
+              225, 8, new DateTime.now().toUtc().millisecondsSinceEpoch,
+              new DateTime.now().toUtc().millisecondsSinceEpoch);
+
+          expect(setRepo.putAll([set, set2]).then((__) {
+            expect(setRepo.get(set.dbKey).then((dbSet) {
+              expect(dbSet.isPresent, isTrue);
+              expect(dbSet.value.dbKey, equals(set.dbKey));
+              expect(dbSet.value.exerciseId, equals(benchpress.value.dbKey));
+              expect(setRepo
+                  .getLatest(person.dbKey, benchpress.value.dbKey, 3)
+                  .toList()
+                  .then((sets) {
+                expect(sets.length, equals(2));
+              }), completes);
             }), completes);
           }), completes);
         }), completes);

@@ -28,10 +28,12 @@ class NobsDbV1Config implements DbConfig {
   Future upgrade(Database db, Transaction tx, int oldVersion) {
     final setsStore =
         db.createObjectStore(_SETS_STORE_NAME, autoIncrement: true);
+    final peopleStore =
+        db.createObjectStore(_PEOPLE_STORE_NAME, autoIncrement: true);
     final exerciseStore =
         db.createObjectStore(_EXERCISE_STORE_NAME, autoIncrement: true);
-    setsStore.createIndex(
-        'idx_exerciseId_performedDate', ['exerciseId', 'performedDate']);
+    setsStore.createIndex('idx_personId_exerciseId_performedDate',
+        ['personId', 'exerciseId', 'performedDate']);
     return _seed(db, tx);
   }
 

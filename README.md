@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/bgourlie/noBS.svg?branch=master)](https://travis-ci.org/bgourlie/noBS)
+[![Coverage Status](https://coveralls.io/repos/bgourlie/noBS/badge.svg?branch=coveralls-integration)](https://coveralls.io/r/bgourlie/noBS?branch=coveralls-integration)
 
 # noBS Exercise Logger
 

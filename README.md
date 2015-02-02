@@ -9,7 +9,7 @@ noBS Exercise Logger is my latest attempt at creating a simple and useful tool f
 
 ### Browser Support
 
-noBS should work fully in the latest versions of Chrome and Firefox.  Unfortunatly, it is not currently supported in Internet Explorer or Safari due to poor/buggy [IndexedDB support](http://caniuse.com/#search=indexeddb) in these browsers.
+noBS should work in the latest versions of Chrome, Safari and Firefox.  It is not currently supported in IE as of version 11 due to [an incomplete implementation of IndexedDB](http://caniuse.com/#search=indexeddb) in these browsers.
 
 ### How do I use it?
 

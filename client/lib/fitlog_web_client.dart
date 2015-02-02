@@ -29,7 +29,7 @@ import 'package:client/fitlog_models.dart';
 import 'package:client/src/components/entry_screen/entry_screen.dart';
 import 'package:client/src/components/version_info/version_info.dart';
 import 'package:client/src/components/find_widget/find_widget.dart';
-import 'package:client/src/components/find_result/find_result.dart';
+import 'package:client/src/components/exercise/exercise.dart';
 import 'package:client/src/components/tag/tag.dart';
 import 'package:client/src/components/record_widget/record_widget.dart';
 import 'package:client/src/components/muscle_man/muscle_man.dart';

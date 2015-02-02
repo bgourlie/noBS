@@ -96,35 +96,29 @@ find-widget find-box {
   margin-top: 5px;
   text-align: center;
 }
-[find-result] {
+[exercise] {
   display: block;
 }
-[find-result] .container {
+[exercise] .container {
   padding: 3px;
 }
-[find-result] .container header.title {
+[exercise] .container header.title {
   display: inline-block;
 }
-[find-result] .container:hover {
-  background-color: lightgoldenrodyellow;
-}
-[find-result] tag {
+[exercise] tag {
   margin-right: 5px;
 }
-[find-result] tag:last-of-type {
+[exercise] tag:last-of-type {
   margin-right: 0;
 }
-[find-result] .matchInfo {
-  font-size: 0.8rem;
-}
-[find-result] .synonyms {
+[exercise] .synonyms {
   font-size: 0.8rem;
   margin: 0;
 }
-[find-result] .synonym::after {
+[exercise] .synonym::after {
   content: ', ';
 }
-[find-result] .synonym:last-of-type::after {
+[exercise] .synonym:last-of-type::after {
   content: '';
 }
 find-widget {
@@ -139,6 +133,12 @@ find-widget ul {
 find-widget li {
   list-style-type: none;
   padding-bottom: 5px;
+}
+find-widget li:hover {
+  background-color: lightgoldenrodyellow;
+}
+find-widget .matchInfo {
+  font-size: 0.8rem;
 }
 muscle-man {
   display: block;

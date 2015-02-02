@@ -1,8 +1,7 @@
 <find-widget ng-show="selectedExercise == null"
              selected-handler="onExerciseSelected"></find-widget>
 <div ng-show="selectedExercise != null">
-  <h4>Recording data for {{selectedExercise.title}}</h4>
-
+  <span exercise="selectedExercise"></span>
   <div ng-show="previousSets.length > 0">
     <table>
       <thead>

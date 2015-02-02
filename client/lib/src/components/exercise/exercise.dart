@@ -19,48 +19,19 @@
 // All portions of the code written by W. Brian Gourlie are Copyright (c)
 // 2014-2015 W. Brian Gourlie. All Rights Reserved.
 
-[find-result]{
-  display: block;
+library find_result;
 
-  .container{
+import 'package:di/annotations.dart';
+import 'package:angular/angular.dart';
+import 'package:client/fitlog_models.dart';
+import 'package:client/src/services/find_engine/find_engine.dart' as fe;
 
-    header.title {
-      display: inline-block;
-    }
-
-    padding: 3px;
-
-    &:hover{
-      background-color: lightgoldenrodyellow;
-    }
-  }
-
-  tag{
-    margin-right: 5px;
-
-    &:last-of-type {
-      margin-right: 0;
-    }
-  }
-
-  .matchInfo {
-    font-size: @fontSizeSmall;
-  }
-
-  .synonyms{
-    font-size: @fontSizeSmall;
-    margin: 0;
-  }
-
-  .synonym{
-
-    &::after{
-      content: ', '
-    }
-
-    &:last-of-type::after{
-      content: '';
-    }
-  }
+@Injectable()
+@Component(
+    selector: '[exercise]',
+    templateUrl: 'packages/client/src/components/exercise/exercise.html',
+    useShadowDom: false,
+    map: const {'exercise': '=>!exercise',})
+class FindResult {
+  Exercise exercise;
 }
-

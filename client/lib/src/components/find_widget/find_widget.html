@@ -2,7 +2,14 @@
        placeholder="Start typing to find an exercise" />
 <ul class="find-results">
   <li ng-repeat="findResult in findResults | orderBy:['match.rank', 'match.subRank']"
-      find-result="findResult"
+      exercise="findResult.item"
       ng-click="handleSelect(findResult.item)">
+    <span class="matchInfo">
+      matched on <em>{{findResult.matchedTerm}}</em>
+      ({{findResult.matchedTerm.termType == 1 ? 'name' : 'tag'}})
+      fragment: "{{findResult.match.matchedFragment}}"
+      rank: {{findResult.match.rank}}
+      subrank: {{findResult.match.subRank}}
+     </span>
   </li>
 </ul>

@@ -19,51 +19,40 @@
 // All portions of the code written by W. Brian Gourlie are Copyright (c)
 // 2014-2015 W. Brian Gourlie. All Rights Reserved.
 
-library find_result;
+[exercise]{
+  display: block;
 
-import 'package:di/annotations.dart';
-import 'package:angular/angular.dart';
-import 'package:client/fitlog_models.dart';
-import 'package:client/src/services/find_engine/find_engine.dart' as fe;
+  .container{
 
-@Injectable()
-@Component(
-    selector: '[find-result]',
-    templateUrl: 'packages/client/src/components/find_result/find_result.html',
-    useShadowDom: false,
-    map: const {'find-result': '=>!findResult',})
-class FindResult {
-  Exercise _exercise;
-  List<String> _tags;
-  List<String> _synonyms;
-
-  fe.FindResult<Exercise> findResult;
-
-  Exercise get exercise {
-    if (_exercise == null) {
-      _exercise = findResult.item;
+    header.title {
+      display: inline-block;
     }
-    return _exercise;
+
+    padding: 3px;
   }
 
-  List<String> get tags {
-    if (_tags == null) {
-      _tags = exercise.terms
-          .where((fe.Term t) => t.termType == fe.Term.TYPE_TAG)
-          .map((t) => t.term)
-          .toList();
+  tag{
+    margin-right: 5px;
+
+    &:last-of-type {
+      margin-right: 0;
     }
-    return _tags;
   }
 
-  List<String> get synonyms {
-    if (_synonyms == null) {
-      _synonyms = exercise.terms
-          .where((fe.Term t) => t.termType == fe.Term.TYPE_NAME)
-          .skip(1)
-          .map((fe.Term t) => t.term)
-          .toList();
+  .synonyms{
+    font-size: @fontSizeSmall;
+    margin: 0;
+  }
+
+  .synonym{
+
+    &::after{
+      content: ', '
     }
-    return _synonyms;
+
+    &:last-of-type::after{
+      content: '';
+    }
   }
 }
+

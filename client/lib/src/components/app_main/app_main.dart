@@ -19,16 +19,42 @@
 // All portions of the code written by W. Brian Gourlie are Copyright (c)
 // 2014-2015 W. Brian Gourlie. All Rights Reserved.
 
-part of fitlog_web_client;
+library app_main;
+
+import 'package:angular/angular.dart';
+import 'package:di/annotations.dart';
+import 'package:logging/logging.dart';
+import 'package:client/fitlog_models.dart';
+import 'package:client/src/services/nobs_storage/nobs_storage.dart';
 
 @Injectable()
-class Routes {
-  void call(Router router, RouteViewFactory views) {
-    views.configure({
-      'entry_screen': ngRoute(
-          path: '',
-          defaultRoute: true,
-          viewHtml: '<entry-screen></entry-screen>')
+@Component(
+    selector: 'app-main',
+    templateUrl: 'packages/client/src/components/app_main/app_main.html',
+    useShadowDom: false)
+class AppMain {
+  static final _logger = new Logger('app-main');
+  final int STATE_LOADING = 0;
+  final int STATE_CREATE_USER = 1;
+  final int STATE_ENTRY = 2;
+
+  final PersonRepository _personRepo;
+  int state = 0;
+
+  AppMain(this._personRepo) {
+    _personRepo.count().then((int count) {
+      if (count == 0) {
+        _logger.finest(
+            'no users have been created, displaying create user screen.');
+        state = STATE_CREATE_USER;
+      } else {
+        _logger.finest('displaying entry screen.');
+        state = STATE_ENTRY;
+      }
     });
+  }
+
+  void onUserCreated(Person person) {
+    _logger.finest('user created!');
   }
 }

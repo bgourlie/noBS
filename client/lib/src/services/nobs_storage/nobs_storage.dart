@@ -50,5 +50,7 @@ class NobsStorageModule extends Module {
     bind(ExerciseSetRepository);
     bind(ExerciseSerializer);
     bind(ExerciseSetSerializer);
+    bind(PersonRepository);
+    bind(PersonSerializer);
   }
 }

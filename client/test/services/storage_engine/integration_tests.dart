@@ -75,6 +75,17 @@ void main() {
     }), completes);
   });
 
+  test('should report count', () {
+    final fooRepo = new FooRepository(db, serializer);
+    final foo = new Foo('brian', 31);
+    final foo2 = new Foo('jon', 29);
+    expect(fooRepo.putAll([foo, foo2]).then((_) {
+      expect(fooRepo.count().then((int count) {
+        expect(count, equals(2));
+      }), completes);
+    }), completes);
+  });
+
   test('should put many and retrieve all', () {
     final fooRepo = new FooRepository(db, serializer);
     final foo1 = new Foo('brian', 31);

@@ -21,6 +21,7 @@
 
 library create_user_screen;
 
+import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:di/annotations.dart';
 import 'package:client/fitlog_models.dart';
@@ -43,29 +44,36 @@ class CreateUserScreen {
   bool loading = true;
   bool submitting = false;
 
-  int userCount;
+  List<Person> existingUsers;
 
   Function userCreatedHandler;
   NgForm createUserForm;
   String email;
   String nick;
+  String errorMessage;
 
   CreateUserScreen(this._personRepo) {
-    this._personRepo.count().then((int count) {
-      userCount = count;
+    this._personRepo.getAll().toList().then((List<Person> people) {
+      existingUsers = people;
     }).whenComplete(() => loading = false);
   }
 
   void submitUser() {
+    errorMessage = null;
     final person = new Person(email, nick);
     submitting = true;
     _personRepo.put(person).then((_) {
+      existingUsers.add(person);
       if (userCreatedHandler != null) {
-        UserCreatedHandler handler = userCreatedHandler();
-        if (handler != null) {
-          handler(person);
-        }
+        final UserCreatedHandler handler = userCreatedHandler();
+        handler(person);
       }
-    }).whenComplete(() => submitting = false);
+    })
+    .catchError((Event e){
+      errorMessage = '''An error occurred when attempting to save the user.
+      Make sure that another user doesn't already exist with the same e-mail
+      address.''';
+    })
+    .whenComplete(() => submitting = false);
   }
 }

@@ -42,19 +42,35 @@ class AppMain {
   int state = 0;
 
   AppMain(this._personRepo) {
-    _personRepo.count().then((int count) {
-      if (count == 0) {
-        _logger.finest(
-            'no users have been created, displaying create user screen.');
-        state = STATE_CREATE_USER;
-      } else {
-        _logger.finest('displaying entry screen.');
-        state = STATE_ENTRY;
-      }
-    });
+    changeState(STATE_ENTRY);
+  }
+
+  void changeState(int newState){
+    if(state == newState){
+      return;
+    }
+
+    if(![STATE_LOADING, STATE_ENTRY, STATE_CREATE_USER].contains(newState)){
+      throw new ArgumentError('Invalid state.');
+    }
+
+    // Verify that at least one user exists before allowing this state.
+    if(newState == STATE_ENTRY){
+      _personRepo.count().then((int count) {
+        if (count == 0) {
+          _logger.finest(
+              'no users have been created, displaying create user screen.');
+          changeState(STATE_CREATE_USER);
+        } else {
+          state = STATE_ENTRY;
+        }
+      });
+    } else {
+      state = newState;
+    }
   }
 
   void onUserCreated(Person person) {
-    _logger.finest('user created!');
+    changeState(STATE_ENTRY);
   }
 }

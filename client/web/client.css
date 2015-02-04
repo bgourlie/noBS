@@ -92,6 +92,20 @@ body select:focus:enabled {
   outline: 0;
   box-shadow: rgba(160, 160, 160, 0.5) 1px 1px 1px 0;
 }
+app-main > nav > ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+app-main > nav > ul > li {
+  display: inline;
+}
+app-main > nav > ul > li a {
+  text-decoration: none;
+}
+app-main > nav > ul > li a.selected {
+  font-weight: bold;
+}
 find-widget {
   display: block;
 }

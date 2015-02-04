@@ -30,6 +30,9 @@ class NobsDbV1Config implements DbConfig {
         db.createObjectStore(_SETS_STORE_NAME, autoIncrement: true);
     final peopleStore =
         db.createObjectStore(_PEOPLE_STORE_NAME, autoIncrement: true);
+
+    peopleStore.createIndex('email', 'email', unique: true);
+
     final exerciseStore =
         db.createObjectStore(_EXERCISE_STORE_NAME, autoIncrement: true);
     setsStore.createIndex('idx_personId_exerciseId_performedDate',

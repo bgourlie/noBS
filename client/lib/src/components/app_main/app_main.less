@@ -1,3 +1,19 @@
 app-main {
+  > nav > ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
 
+    > li{
+      display: inline;
+
+      a {
+        text-decoration: none;
+
+        &.selected {
+          font-weight: bold;
+        }
+      }
+    }
+  }
 }

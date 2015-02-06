@@ -50,11 +50,15 @@ void main() {
     applicationFactory().addModule(clientModule).run();
   });
 
-  // Dev tools are implemented in pure (non-angular) dart.
+  // Factory reset is implemented in pure (non-angular) dart.
   // We do this because we need to be able to fix issues that
   // may prevent angular from bootstrapping.
-  dom.querySelector('#dev-delete-db').onClick.listen((e) {
-    dom.window.indexedDB.deleteDatabase('nobs');
-    dom.window.location.reload();
+  dom.querySelector('#factory-reset').onClick.listen((e) {
+    var doDelete = dom.window.confirm(
+        'Are you sure you to reset noBS?  All data stored locally will be lost.');
+    if (doDelete) {
+      dom.window.indexedDB.deleteDatabase('nobs');
+      dom.window.location.reload();
+    }
   });
 }

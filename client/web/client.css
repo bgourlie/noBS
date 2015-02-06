@@ -92,6 +92,9 @@ body select:focus:enabled {
   outline: 0;
   box-shadow: rgba(160, 160, 160, 0.5) 1px 1px 1px 0;
 }
+.text-small {
+  font-size: 0.8rem;
+}
 app-main > nav > ul {
   padding: 0;
   margin: 0;

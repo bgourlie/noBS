@@ -35,7 +35,6 @@ import 'package:client/src/components/tag/tag.dart';
 import 'package:client/src/components/record_widget/record_widget.dart';
 import 'package:client/src/components/muscle_man/muscle_man.dart';
 import 'package:client/src/components/create_user_screen/create_user_screen.dart';
-import 'package:client/src/components/dev_tools/dev_tools.dart';
 import 'package:client/src/filters/relative_time.dart';
 import 'package:client/src/services/find_engine_defaults/find_engine_defaults.dart';
 import 'package:client/src/services/exercise_find_engine.dart';
@@ -53,7 +52,6 @@ class ClientModule extends Module {
     bind(AppVersion, toValue: this._appVersion);
 
     bind(AppMain);
-    bind(DevTools);
     bind(CreateUserScreen);
     bind(EntryScreen);
     bind(VersionInfo);

@@ -1,6 +1,6 @@
 <find-widget ng-show="selectedExercise == null"
              selected-handler="onExerciseSelected"></find-widget>
-<div ng-show="selectedExercise != null">
+<div ng-if="selectedExercise != null">
   <span exercise="selectedExercise"></span>
   <div class="row">
     <div class="col-xs-12">

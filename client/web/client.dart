@@ -49,4 +49,12 @@ void main() {
     final clientModule = new ClientModule(appVersion, db);
     applicationFactory().addModule(clientModule).run();
   });
+
+  // Dev tools are implemented in pure (non-angular) dart.
+  // We do this because we need to be able to fix issues that
+  // may prevent angular from bootstrapping.
+  dom.querySelector('#dev-delete-db').onClick.listen((e) {
+    dom.window.indexedDB.deleteDatabase('nobs');
+    dom.window.location.reload();
+  });
 }

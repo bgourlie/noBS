@@ -1,15 +1,15 @@
 <form name="recordForm" novalidate>
   <div class="row">
-    <div class="col-sm-3 col-xs-12">
+    <div class="col-sm-3 col-xs-6">
       <input type="number" placeholder="weight" ng-model="weight" ng-disabled="isDisabled" required />
     </div>
-    <div class="col-sm-3 col-xs-12">
+    <div class="col-sm-3 col-xs-6">
       <input type="number" placeholder="reps" ng-model="reps" ng-disabled="isDisabled" required />
     </div>
-    <div class="col-sm-3 col-xs-12">
+    <div class="col-sm-3 col-xs-6">
       <button id="record" type="submit" ng-disabled="recordForm.invalid || isDisabled">Record</button>
     </div>
-    <div class="col-sm-3 col-xs-12">
+    <div class="col-sm-3 col-xs-6">
       <button id="go-back" ng-disabled="isDisabled">Go back</button>
     </div>
   </div>

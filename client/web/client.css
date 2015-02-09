@@ -113,6 +113,9 @@ body select:focus:enabled {
   outline: 0;
   box-shadow: rgba(160, 160, 160, 0.5) 1px 1px 1px 0;
 }
+app-header {
+  margin-bottom: .5rem;
+}
 .text-small {
   font-size: 0.8rem;
 }
@@ -1558,7 +1561,7 @@ app-header {
   display: block;
   background-color: darkblue;
   color: white;
-  padding: 2px 4px;
+  padding: 4px;
 }
 app-header #menu-trigger {
   font-size: 1.6rem;
@@ -1566,6 +1569,7 @@ app-header #menu-trigger {
 }
 app-header nav {
   display: none;
+  margin-top: 2px;
 }
 app-header nav.toggled {
   display: block;

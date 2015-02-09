@@ -4,7 +4,7 @@
   <li ng-repeat="findResult in findResults | orderBy:['match.rank', 'match.subRank']"
       exercise="findResult.item"
       ng-click="handleSelect(findResult.item)">
-    <span class="matchInfo">
+    <span class="matchInfo invisible-xs">
       matched on <em>{{findResult.matchedTerm}}</em>
       ({{findResult.matchedTerm.termType == 1 ? 'name' : 'tag'}})
       fragment: "{{findResult.match.matchedFragment}}"

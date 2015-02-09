@@ -9,18 +9,17 @@
     <link rel="stylesheet" href="client.css">
   </head>
   <body>
-    <header>
-      <h3>NoBS Exercise Log</h3>
-      <div>
-        <span id="splash" ng-show="false">Loading...</span>
-        <version-info></version-info>
-        <a href="#" id="factory-reset" class="text-small" style="color: darkred">Factory Reset</a>
-      </div>
-    </header>
-    <app-main></app-main>
+    <app-header
+        default-section="defaultSection"
+        navigate-handler="navigate"></app-header>
+    <create-user-screen ng-if="state == STATE_CREATE_USER"
+                        user-created-handler="onUserCreated"></create-user-screen>
+
+    <entry-screen ng-if="state == STATE_ENTRY"></entry-screen>
     <footer>
       Developed by W. Brian Gourlie.  Source available on
       <a href="https://github.com/bgourlie/noBS" target="_blank">GitHub</a>.
+      <a href="#" id="factory-reset" class="text-small" style="color: darkred">Factory Reset</a>
     </footer>
     <script type="application/dart" src="client.dart"></script>
     <script data-pub-inline src="packages/browser/dart.js"></script>

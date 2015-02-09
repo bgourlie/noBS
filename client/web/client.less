@@ -21,21 +21,59 @@
 
 @fontSizeSmall: .8rem;
 @fontSizeNormal: 1rem;
-
+@fontSizeMedium: 1.2rem;
 
 html {
   font-family: "helvetica neue", helvetica, arial, sans-serif;
-  line-height: 1.4;
   font-size: 14px;
+
+  .invisible-xs {
+    display: none;
+    visibility: hidden;
+  }
+
+  .visible-xs {
+    display: block;
+    visibility: visible;
+  }
 
   @media screen and (min-width: 48em){
     font-size: 16px;
+
+    .invisible-sm {
+      display: none;
+      visibility: hidden;
+    }
+
+    .visible-sm {
+      display: block;
+      visibility: visible;
+    }
   }
   @media screen and (min-width: 62em){
     font-size: 18px;
+
+    .invisible-md {
+      display: none;
+      visibility: hidden;
+    }
+
+    .visible-md {
+      display: block;
+      visibility: visible;
+    }
   }
   @media screen and (min-width: 75em){
     font-size: 20px;
+    .invisible-lg {
+      display: none;
+      visibility: hidden;
+    }
+
+    .visible-lg {
+      display: block;
+      visibility: visible;
+    }
   }
 }
 
@@ -64,19 +102,6 @@ body {
   font-weight: normal;
   margin: .25rem 1rem;
   white-space: nowrap;
-
-  > header {
-    margin-bottom: 10px;
-
-    h3{
-      display: inline-block;
-      margin: 0;
-    }
-
-    #splash {
-      font-size: @fontSizeSmall;
-    }
-  }
 
   > footer {
     font-size: @fontSizeSmall;
@@ -118,7 +143,11 @@ body {
   font-size: @fontSizeSmall;
 }
 
-@import "packages/client/src/components/app_main/app_main.less";
+.text-medium {
+  font-size: @fontSizeMedium;
+}
+
+@import "typicons.less";
 @import "packages/client/src/components/create_user_screen/create_user_screen.less";
 @import "packages/client/src/components/entry_screen/entry_screen.less";
 @import "packages/client/src/components/exercise/exercise.less";
@@ -126,5 +155,5 @@ body {
 @import "packages/client/src/components/muscle_man/muscle_man.less";
 @import "packages/client/src/components/record_widget/record_widget.less";
 @import "packages/client/src/components/tag/tag.less";
-@import "packages/client/src/components/version_info/version_info.less";
+@import "packages/client/src/components/app_header/app_header.less";
 

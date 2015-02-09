@@ -27,6 +27,7 @@ import 'package:client/fitlog_models.dart';
 import 'package:client/src/services/storage_engine/storage_engine.dart'
     as storage;
 import 'package:client/src/services/nobs_storage/nobs_storage.dart';
+import 'package:client/app_context.dart';
 
 const VERSION = 'alpha';
 const BUILD_NUMBER = '1';
@@ -47,7 +48,10 @@ void main() {
   bootstrapper.getDatabase().then((db) {
     logger.finest('got database, running app.');
     final clientModule = new ClientModule(appVersion, db);
-    applicationFactory().addModule(clientModule).run();
+    applicationFactory()
+        .addModule(clientModule)
+        .rootContextType(AppContext)
+        .run();
   });
 
   // Factory reset is implemented in pure (non-angular) dart.

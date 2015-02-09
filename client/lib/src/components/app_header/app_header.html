@@ -1,0 +1,24 @@
+<header>
+  <h3>NoBS Exercise Log</h3>
+  <span id="menu-trigger"
+        class="typcn typcn-th-menu invisible-sm"
+        ng-click="toggleMenu()"></span>
+  <span class="version-info">
+    {{appVersion.version}} build {{appVersion.build}}
+    (built {{appVersion.buildTime | relativeTime}})
+  </span>
+  <nav id="nav" ng-class="toggled ? 'toggled' : ''">
+    <ul>
+      <li>
+        <a href
+           ng-click="goRecord()"
+           ng-class="curSection == 'record' ? 'selected' : null">Record Exercise</a>
+      </li>
+      <li>
+        <a href
+           ng-click="goManageUsers()"
+           ng-class="curSection == 'manage_users' ? 'selected' : null">Manage Users</a>
+      </li>
+    </ul>
+  </nav>
+</header>

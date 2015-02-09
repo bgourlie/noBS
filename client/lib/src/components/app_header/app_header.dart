@@ -19,58 +19,62 @@
 // All portions of the code written by W. Brian Gourlie are Copyright (c)
 // 2014-2015 W. Brian Gourlie. All Rights Reserved.
 
-library app_main;
+library app_header;
 
+import 'dart:async';
 import 'package:angular/angular.dart';
 import 'package:di/annotations.dart';
 import 'package:logging/logging.dart';
 import 'package:client/fitlog_models.dart';
-import 'package:client/src/services/nobs_storage/nobs_storage.dart';
+
+typedef Future<bool> NavigateHandler(String section);
 
 @Injectable()
 @Component(
-    selector: 'app-main',
-    templateUrl: 'packages/client/src/components/app_main/app_main.html',
-    useShadowDom: false)
-class AppMain {
-  static final _logger = new Logger('app-main');
-  final int STATE_LOADING = 0;
-  final int STATE_CREATE_USER = 1;
-  final int STATE_ENTRY = 2;
+    selector: 'app-header',
+    templateUrl: 'packages/client/src/components/app_header/app_header.html',
+    useShadowDom: false,
+    map: const {
+  'default-section': '=>!defaultSection',
+  'navigate-handler': '&navigateHandler'
+})
+class AppHeader {
+  static final _logger = new Logger('app-header');
+  final AppVersion appVersion;
+  Function navigateHandler;
+  bool toggled = false;
+  String defaultSection;
+  String curSection;
 
-  final PersonRepository _personRepo;
-  int state = 0;
-
-  AppMain(this._personRepo) {
-    changeState(STATE_ENTRY);
+  AppHeader(this.appVersion) {
+    new Future(() {
+      _doNavigate(defaultSection);
+    });
   }
 
-  void changeState(int newState) {
-    if (state == newState) {
-      return;
+  bool toggleMenu() => toggled = !toggled;
+
+  void goManageUsers() => _doNavigate('manage_users');
+
+  void goRecord() => _doNavigate('record');
+
+  void _doNavigate(String section) {
+    if (!['record', 'manage_users'].contains(section)) {
+      throw new ArgumentError('Invalid section');
     }
 
-    if (![STATE_LOADING, STATE_ENTRY, STATE_CREATE_USER].contains(newState)) {
-      throw new ArgumentError('Invalid state.');
-    }
-
-    // Verify that at least one user exists before allowing this state.
-    if (newState == STATE_ENTRY) {
-      _personRepo.count().then((int count) {
-        if (count == 0) {
-          _logger.finest(
-              'no users have been created, displaying create user screen.');
-          changeState(STATE_CREATE_USER);
+    if (navigateHandler != null) {
+      NavigateHandler handler = navigateHandler();
+      handler(section).then((doNavigate) {
+        if (doNavigate) {
+          curSection = section;
+          toggled = false;
         } else {
-          state = STATE_ENTRY;
+          _logger.warning('navigation to [$section] disallowed.');
         }
       });
     } else {
-      state = newState;
+      curSection = section;
     }
-  }
-
-  void onUserCreated(Person person) {
-    changeState(STATE_ENTRY);
   }
 }

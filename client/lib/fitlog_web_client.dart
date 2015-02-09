@@ -26,9 +26,8 @@ import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular/core_dom/module_internal.dart';
 import 'package:client/fitlog_models.dart';
-import 'package:client/src/components/app_main/app_main.dart';
 import 'package:client/src/components/entry_screen/entry_screen.dart';
-import 'package:client/src/components/version_info/version_info.dart';
+import 'package:client/src/components/app_header/app_header.dart';
 import 'package:client/src/components/find_widget/find_widget.dart';
 import 'package:client/src/components/exercise/exercise.dart';
 import 'package:client/src/components/tag/tag.dart';
@@ -51,10 +50,9 @@ class ClientModule extends Module {
     bind(Database, toValue: this._database);
     bind(AppVersion, toValue: this._appVersion);
 
-    bind(AppMain);
     bind(CreateUserScreen);
     bind(EntryScreen);
-    bind(VersionInfo);
+    bind(AppHeader);
     bind(FindWidget);
     bind(FindResult);
     bind(RelativeTime);

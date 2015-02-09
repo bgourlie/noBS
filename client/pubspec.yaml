@@ -15,9 +15,16 @@ dev_dependencies:
   args: any
   path: any
   barback: any
+  appcache: any
 transformers:
 - script_inliner
 - angular:
     $exclude: test
+- appcache:
+    $exclude: ["**.dart", "**.less", "**.html_reference"]
+    entry_points: web/client.html
+    cache:
+      - web/client.dart.js
+
 - client/client_version_patcher:
     entryPoint: client.dart

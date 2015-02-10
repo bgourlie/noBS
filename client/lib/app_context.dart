@@ -31,11 +31,10 @@ class AppContext {
           if (count == 0) {
             _changeState(STATE_CREATE_USER);
           } else {
-            state = STATE_ENTRY;
+            _changeState(STATE_ENTRY);
           }
           completer.complete(count > 0);
         });
-        _changeState(STATE_ENTRY);
         break;
       default:
         completer.completeError('unexpected section $section');

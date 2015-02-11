@@ -16,6 +16,11 @@
       </li>
       <li>
         <a href
+           ng-click="goManageExercises()"
+           ng-class="curSection == 'manage_exercises' ? 'selected' : null">Manage Exercises</a>
+      </li>
+      <li>
+        <a href
            ng-click="goManageUsers()"
            ng-class="curSection == 'manage_users' ? 'selected' : null">Manage Users</a>
       </li>

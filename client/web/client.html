@@ -15,6 +15,7 @@
     <create-user-screen ng-if="state == STATE_CREATE_USER"
                         user-created-handler="onUserCreated"></create-user-screen>
 
+    <manage-exercises-screen ng-if="state == STATE_MANAGE_EXERCISES"></manage-exercises-screen>
     <entry-screen ng-if="state == STATE_ENTRY"></entry-screen>
     <footer>
       Developed by W. Brian Gourlie.  Source available on

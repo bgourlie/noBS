@@ -19,61 +19,40 @@
 // All portions of the code written by W. Brian Gourlie are Copyright (c)
 // 2014-2015 W. Brian Gourlie. All Rights Reserved.
 
-library create_user_screen;
+library manage_exercises_screen;
 
-import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:di/annotations.dart';
-import 'package:client/fitlog_models.dart';
 import 'package:logging/logging.dart';
 import 'package:client/src/services/nobs_storage/nobs_storage.dart';
-
-typedef void UserCreatedHandler(Person person);
+import 'package:client/fitlog_models.dart';
 
 @Injectable()
 @Component(
-    selector: 'create-user-screen',
-    templateUrl: 'packages/client/src/components/create_user_screen/create_user_screen.html',
-    useShadowDom: false,
-    map: const {'user-created-handler': '&userCreatedHandler'})
-class CreateUserScreen {
-  static final _logger = new Logger('create_user_screen');
-  final PersonRepository _personRepo;
-  final nickRegexp = r'^[a-zA-Z0-9_]{3,22}$';
+    selector: 'manage-exercises-screen',
+    templateUrl: 'packages/client/src/components/manage_exercises_screen/manage_exercises_screen.html',
+    useShadowDom: false)
+class ManageExercisesScreen {
+  static final _logger = new Logger('manage-exercises-screen');
+  final ExerciseRepository _exerciseRepo;
 
-  bool loading = true;
+  NgForm createExerciseForm;
+  String name;
+  String synonyms;
+  String tags;
   bool submitting = false;
 
-  List<Person> existingUsers;
+  ManageExercisesScreen(this._exerciseRepo);
 
-  Function userCreatedHandler;
-  NgForm createUserForm;
-  String email;
-  String nick;
-  String errorMessage;
-
-  CreateUserScreen(this._personRepo) {
-    this._personRepo.getAll().toList().then((List<Person> people) {
-      existingUsers = people;
-    }).whenComplete(() => loading = false);
-  }
-
-  void submitUser() {
-    errorMessage = null;
-    final person = new Person(email, nick);
+  void submit(){
     submitting = true;
-    _personRepo.put(person).then((_) {
-      existingUsers.add(person);
-      email = '';
-      nick = '';
-      if (userCreatedHandler != null) {
-        final UserCreatedHandler handler = userCreatedHandler();
-        handler(person);
-      }
-    }).catchError((Event e) {
-      errorMessage = '''An error occurred when attempting to save the user.
-      Make sure that another user doesn't already exist with the same e-mail
-      address.''';
+    final synonymList = synonyms != null ? synonyms.split(',') : [];
+    final tagList = tags != null ? tags.split(',') : [];
+    final exercise = new Exercise(name, synonymList, tagList);
+    _exerciseRepo.put(exercise).then((_){
+      name = '';
+      synonyms = '';
+      tags = '';
     }).whenComplete(() => submitting = false);
   }
 }

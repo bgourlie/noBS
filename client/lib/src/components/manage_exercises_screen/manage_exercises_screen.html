@@ -1,0 +1,19 @@
+<h2>Create Exercise</h2>
+<form name="createExerciseForm" ng-submit="submit()" ng-disabled="submitting">
+  <div class="row">
+    <div class="col-xs-12 col-sm-4">
+      <input type="text" ng-model="name" placeholder="Exercise Name" maxlength="50" required>
+    </div>
+    <div class="col-xs-12 col-sm-4">
+      <input type="text" ng-model="tags" placeholder="Tags (comma separated)">
+    </div>
+    <div class="col-xs-12 col-sm-4">
+      <input type="text" ng-model="synonyms" placeholder="Synonyms (comma separated)">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-offset-8 col-sm-4">
+      <button type="submit" ng-disabled="createExerciseForm.invalid">Submit</button>
+    </div>
+  </div>
+</form>

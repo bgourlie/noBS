@@ -13,6 +13,7 @@ class AppContext {
   final int STATE_LOADING = 0;
   final int STATE_CREATE_USER = 1;
   final int STATE_ENTRY = 2;
+  final int STATE_MANAGE_EXERCISES = 3;
 
   final PersonRepository _personRepo;
 
@@ -25,6 +26,9 @@ class AppContext {
     switch (section) {
       case 'manage_users':
         _changeState(STATE_CREATE_USER);
+        return new Future(() => true);
+      case 'manage_exercises':
+        _changeState(STATE_MANAGE_EXERCISES);
         return new Future(() => true);
       case 'record':
         _personRepo.count().then((int count) {
@@ -49,7 +53,7 @@ class AppContext {
       return;
     }
 
-    if (![STATE_LOADING, STATE_ENTRY, STATE_CREATE_USER].contains(newState)) {
+    if (![STATE_LOADING, STATE_ENTRY, STATE_CREATE_USER, STATE_MANAGE_EXERCISES].contains(newState)) {
       throw new ArgumentError('Invalid state.');
     }
 

@@ -56,10 +56,12 @@ class AppHeader {
 
   void goManageUsers() => _doNavigate('manage_users');
 
+  void goManageExercises() => _doNavigate('manage_exercises');
+
   void goRecord() => _doNavigate('record');
 
   void _doNavigate(String section) {
-    if (!['record', 'manage_users'].contains(section)) {
+    if (!['record', 'manage_users', 'manage_exercises'].contains(section)) {
       throw new ArgumentError('Invalid section');
     }
 

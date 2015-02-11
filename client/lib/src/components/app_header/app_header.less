@@ -51,6 +51,7 @@ app-header{
 
       >li {
         display: block;
+        padding: .2rem .4rem;
         font-size: 1.6em;
 
         a {
@@ -58,6 +59,9 @@ app-header{
 
           &.selected {
             font-weight: bold;
+            &:before {
+              content: '•';
+            }
           }
         }
       }

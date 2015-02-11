@@ -1586,6 +1586,7 @@ app-header nav ul {
 }
 app-header nav ul > li {
   display: block;
+  padding: .2rem .4rem;
   font-size: 1.6em;
 }
 app-header nav ul > li a {
@@ -1593,6 +1594,9 @@ app-header nav ul > li a {
 }
 app-header nav ul > li a.selected {
   font-weight: bold;
+}
+app-header nav ul > li a.selected:before {
+  content: '•';
 }
 @media screen and (min-width: 48em) {
   app-header nav {

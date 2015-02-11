@@ -1559,8 +1559,11 @@ tag {
 }
 app-header {
   display: block;
-  background-color: darkblue;
   color: white;
+}
+app-header header {
+  border-radius: 5px;
+  background-color: darkblue;
   padding: 4px;
 }
 app-header #menu-trigger {

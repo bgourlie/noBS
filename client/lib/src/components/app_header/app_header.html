@@ -3,10 +3,10 @@
   <span id="menu-trigger"
         class="typcn typcn-th-menu invisible-sm"
         ng-click="toggleMenu()"></span>
-  <span class="version-info">
+  <div class="version-info">
     {{appVersion.version}} build {{appVersion.build}}
     (built {{appVersion.buildTime | relativeTime}})
-  </span>
+  </div>
   <nav id="nav" ng-class="toggled ? 'toggled' : ''">
     <ul>
       <li>

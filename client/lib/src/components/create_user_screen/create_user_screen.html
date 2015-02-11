@@ -15,7 +15,7 @@
 
 <p ng-show="errorMessage != null">{{errorMessage}}</p>
 
-<table>
+<table ng-show="existingUsers.length > 0">
   <thead>
   <tr>
     <th>E-Mail</th>

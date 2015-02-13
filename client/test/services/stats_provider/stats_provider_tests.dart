@@ -19,40 +19,35 @@
 // All portions of the code written by W. Brian Gourlie are Copyright (c)
 // 2014-2015 W. Brian Gourlie. All Rights Reserved.
 
-library manage_exercises_screen;
-
-import 'package:angular/angular.dart';
-import 'package:di/annotations.dart';
-import 'package:logging/logging.dart';
+import 'dart:async';
+import 'package:unittest/unittest.dart';
+import 'package:client/src/services/stats_provider/stats_provider.dart';
 import 'package:client/src/services/nobs_storage/nobs_storage.dart';
+import 'package:typed_mock/typed_mock.dart';
 import 'package:client/fitlog_models.dart';
 
-@Injectable()
-@Component(
-    selector: 'manage-exercises-screen',
-    templateUrl: 'packages/client/src/components/manage_exercises_screen/manage_exercises_screen.html',
-    useShadowDom: false)
-class ManageExercisesScreen {
-  static final _logger = new Logger('manage-exercises-screen');
-  final ExerciseRepository _exerciseRepo;
+main() {
+  test('should compute correct stats', () {
+    final nowMillis = new DateTime.now().toUtc().millisecondsSinceEpoch;
+    final setRepo = new MockSetsRepo();
+    when(setRepo.getAllByExerciseId(anyInt, anyInt)).thenReturn(
+        new Stream.fromIterable([
+      new ExerciseSet(1, 1, 225, 6, nowMillis, nowMillis),
+      new ExerciseSet(1, 1, 235, 6, nowMillis, nowMillis),
+      new ExerciseSet(1, 1, 135, 10, nowMillis, nowMillis)
+    ]));
 
-  NgForm createExerciseForm;
-  String name;
-  String synonyms;
-  String tags;
-  bool submitting = false;
+    final statsProvider = new StatsProvider(setRepo);
 
-  ManageExercisesScreen(this._exerciseRepo);
-
-  void submit() {
-    submitting = true;
-    final synonymList = synonyms != null ? synonyms.split(',') : [];
-    final tagList = tags != null ? tags.split(',') : [];
-    final exercise = new Exercise(name, synonymList, tagList);
-    _exerciseRepo.put(exercise).then((_) {
-      name = '';
-      synonyms = '';
-      tags = '';
-    }).whenComplete(() => submitting = false);
-  }
+    expect(statsProvider.getStats(1, 1).then((stats) {
+      expect(stats.totalSets, equals(3));
+      expect(stats.totalReps, equals(22));
+      expect(stats.totalWeightLifted, equals(4110));
+      expect(stats.bestReps.reps, equals(10));
+      expect(stats.bestWeight.weight, equals(235));
+      expect(stats.bestCombined.weight * stats.bestCombined.reps, equals(1410));
+    }), completes);
+  });
 }
+
+class MockSetsRepo extends TypedMock implements ExerciseSetRepository {}

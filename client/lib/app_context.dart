@@ -53,7 +53,12 @@ class AppContext {
       return;
     }
 
-    if (![STATE_LOADING, STATE_ENTRY, STATE_CREATE_USER, STATE_MANAGE_EXERCISES].contains(newState)) {
+    if (![
+      STATE_LOADING,
+      STATE_ENTRY,
+      STATE_CREATE_USER,
+      STATE_MANAGE_EXERCISES
+    ].contains(newState)) {
       throw new ArgumentError('Invalid state.');
     }
 

@@ -40,6 +40,7 @@ import 'package:client/src/services/find_engine_defaults/find_engine_defaults.da
 import 'package:client/src/services/exercise_find_engine.dart';
 import 'package:client/src/services/nobs_storage/nobs_storage.dart';
 import 'package:client/src/services/exercise_source.dart';
+import 'package:client/src/services/stats_provider/stats_provider.dart';
 
 class ClientModule extends Module {
   final AppVersion _appVersion;
@@ -61,6 +62,7 @@ class ClientModule extends Module {
     bind(Tag);
     bind(RecordWidget);
     bind(ExerciseSource);
+    bind(StatsProvider);
     bind(ExerciseFindEngine);
     bind(MuscleMan);
 

@@ -25,6 +25,7 @@ import 'dart:async';
 import 'package:angular/angular.dart';
 import 'package:di/annotations.dart';
 import 'package:logging/logging.dart';
+import 'package:client/src/services/stats_provider/stats_provider.dart';
 import 'package:client/fitlog_models.dart';
 import 'package:client/src/services/nobs_storage/nobs_storage.dart';
 
@@ -37,13 +38,17 @@ class EntryScreen {
   static final _logger = new Logger('nobs_entry_screen');
   final ExerciseSetRepository _setRepo;
   final PersonRepository _personRepo;
+  final StatsProvider _statsProvider;
+
   List<Person> users;
   Person selectedUser;
   Exercise selectedExercise;
   List<ExerciseSet> previousSets;
+  ExerciseStats exerciseStats;
+
   bool saving = false;
 
-  EntryScreen(this._setRepo, this._personRepo) {
+  EntryScreen(this._setRepo, this._personRepo, this._statsProvider) {
     _personRepo.getAll().toList().then((List<Person> users) {
       this.users = users;
       assert(users.length != 0);
@@ -82,6 +87,11 @@ class EntryScreen {
         .toList()
         .then((sets) {
       previousSets = sets;
+    });
+
+    _statsProvider.getStats(selectedUser.dbKey, selectedExercise.dbKey).then(
+        (ExerciseStats stats) {
+      exerciseStats = stats;
     });
   }
 

@@ -32,6 +32,11 @@ class ExerciseSetRepository extends Repository<ExerciseSet> {
         _serializer = serializer,
         super(db, serializer);
 
+  Stream<ExerciseSet> getAllByExerciseId(int personId, int exerciseId) {
+    // piggy backing the get latest, since most of the logic is the same...
+    return getLatest(personId, exerciseId, 99999999);
+  }
+
   Stream<ExerciseSet> getLatest(int personId, int exerciseId, int numRecords) {
     final controller = new StreamController<ExerciseSet>();
     final trans = _db.transactionStore(_SETS_STORE_NAME, 'readonly');

@@ -19,40 +19,51 @@
 // All portions of the code written by W. Brian Gourlie are Copyright (c)
 // 2014-2015 W. Brian Gourlie. All Rights Reserved.
 
-library manage_exercises_screen;
+library stats_provider;
 
-import 'package:angular/angular.dart';
+import 'dart:async';
 import 'package:di/annotations.dart';
-import 'package:logging/logging.dart';
 import 'package:client/src/services/nobs_storage/nobs_storage.dart';
 import 'package:client/fitlog_models.dart';
 
+part 'exercise_stats.dart';
+
 @Injectable()
-@Component(
-    selector: 'manage-exercises-screen',
-    templateUrl: 'packages/client/src/components/manage_exercises_screen/manage_exercises_screen.html',
-    useShadowDom: false)
-class ManageExercisesScreen {
-  static final _logger = new Logger('manage-exercises-screen');
-  final ExerciseRepository _exerciseRepo;
+class StatsProvider {
+  final ExerciseSetRepository _setRepository;
 
-  NgForm createExerciseForm;
-  String name;
-  String synonyms;
-  String tags;
-  bool submitting = false;
+  StatsProvider(this._setRepository);
 
-  ManageExercisesScreen(this._exerciseRepo);
+  Future<ExerciseStats> getStats(int personId, int exerciseId) {
+    final completer = new Completer<ExerciseStats>();
+    int totalSets = 0;
+    int totalWeightLifted = 0;
+    num totalReps = 0;
+    ExerciseSet bestWeight;
+    ExerciseSet bestReps;
+    ExerciseSet bestTotal;
 
-  void submit() {
-    submitting = true;
-    final synonymList = synonyms != null ? synonyms.split(',') : [];
-    final tagList = tags != null ? tags.split(',') : [];
-    final exercise = new Exercise(name, synonymList, tagList);
-    _exerciseRepo.put(exercise).then((_) {
-      name = '';
-      synonyms = '';
-      tags = '';
-    }).whenComplete(() => submitting = false);
+    _setRepository.getAllByExerciseId(personId, exerciseId).listen((set) {
+      totalSets++;
+      totalReps += set.reps;
+      totalWeightLifted += set.weight * set.reps;
+
+      if (bestWeight == null || bestWeight.weight < set.weight) {
+        bestWeight = set;
+      }
+
+      if (bestReps == null || bestReps.reps < set.reps) {
+        bestReps = set;
+      }
+
+      if (bestTotal == null ||
+          bestTotal.reps * bestTotal.weight < set.reps * set.weight) {
+        bestTotal = set;
+      }
+    }).onDone(() => completer.complete(new ExerciseStats(exerciseId, personId,
+        totalSets, totalWeightLifted, totalReps, bestWeight, bestReps,
+        bestTotal)));
+
+    return completer.future;
   }
 }

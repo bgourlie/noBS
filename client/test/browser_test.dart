@@ -36,6 +36,8 @@ import 'services/storage_engine/bootstrapper_tests.dart'
 import 'services/storage_engine/integration_tests.dart'
     as storage_engine_integration_tests;
 import 'services/nobs_storage/smoke_tests.dart' as nobs_storage_smoke_tests;
+import 'services/stats_provider/stats_provider_tests.dart'
+    as stats_provider_tests;
 
 void main() {
   useHtmlEnhancedConfiguration();
@@ -59,4 +61,6 @@ void main() {
   group('nobs storage', () {
     group('smoke tests', nobs_storage_smoke_tests.main);
   });
+
+  group('stats provider', stats_provider_tests.main);
 }

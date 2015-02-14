@@ -1567,8 +1567,9 @@ app-header header {
   padding: 4px;
 }
 app-header #menu-trigger {
-  font-size: 1.6rem;
+  font-size: 2rem;
   cursor: pointer;
+  margin-right: .2rem;
 }
 app-header nav {
   display: none;

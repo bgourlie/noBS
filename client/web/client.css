@@ -6,13 +6,13 @@ html .invisible-xs {
   display: none;
   visibility: hidden;
 }
-html .visible-xs {
-  display: block;
-  visibility: visible;
-}
 @media screen and (min-width: 48em) {
   html {
     font-size: 16px;
+  }
+  html .invisible-xs {
+    display: block;
+    visibility: visible;
   }
   html .invisible-sm {
     display: none;

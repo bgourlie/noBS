@@ -23,7 +23,7 @@ part of find_engine_defaults;
 
 @Injectable()
 class DefaultMatcher implements FindEngineMatcher {
-  static const int FUZZY_THRESHOLD = 1;
+  static const int FUZZY_THRESHOLD = 2;
   static const int RANK_NAME_EQUALS = 0;
   static const int RANK_TAG_EQUALS = 1;
   static const int RANK_NAME_STARTS_WITH = 2;

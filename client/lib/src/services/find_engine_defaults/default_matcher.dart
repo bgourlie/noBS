@@ -77,9 +77,9 @@ class DefaultMatcher implements FindEngineMatcher {
         : new FindEngineMatch(rank, closest['distance'], closest['fragment']);
   }
 
-  int _getRank(String term, int termType, String searchTerm) {
+  int _getRank(String term, TermType termType, String searchTerm) {
     switch (termType) {
-      case Term.TYPE_NAME:
+      case TermType.NAME:
         if (term == searchTerm) {
           return RANK_NAME_EQUALS;
         }
@@ -90,7 +90,7 @@ class DefaultMatcher implements FindEngineMatcher {
           return RANK_NAME_CONTAINS;
         }
         return RANK_LIKE;
-      case Term.TYPE_TAG:
+      case TermType.TAG:
         if (term == searchTerm) {
           return RANK_TAG_EQUALS;
         }

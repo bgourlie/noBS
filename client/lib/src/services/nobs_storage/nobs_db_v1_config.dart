@@ -35,8 +35,11 @@ class NobsDbV1Config implements DbConfig {
 
     final exerciseStore =
         db.createObjectStore(_EXERCISE_STORE_NAME, autoIncrement: true);
-    setsStore.createIndex('idx_personId_exerciseId_performedDate',
-        ['personId', 'exerciseId', 'performedDate']);
+    setsStore.createIndex('idx_personId_exerciseId_performedDate', [
+      'personId',
+      'exerciseId',
+      'performedDate'
+    ]);
     return _seed(db, tx);
   }
 
@@ -44,8 +47,10 @@ class NobsDbV1Config implements DbConfig {
     _logger.finest('seeding database...');
     final exerciseRepo = new ExerciseRepository(db, new ExerciseSerializer());
     final exercises = [
-      new Exercise('Stiff-legged Deadlift',
-          ['romanian deadlift', 'sldl'], ['back', 'hamstrings']),
+      new Exercise('Stiff-legged Deadlift', ['romanian deadlift', 'sldl'], [
+        'back',
+        'hamstrings'
+      ]),
       new Exercise('Deadlift', ['dl'], ['back', 'hamstrings']),
       new Exercise('Benchpress', ['bp'], ['chest', 'pecs']),
       new Exercise('Preacher Curl', [], ['biceps']),

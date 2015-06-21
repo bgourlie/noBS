@@ -38,8 +38,8 @@ class Exercise implements Findable, Storable {
         ..add(title)
         ..addAll(synonyms);
 
-      _terms = names.map((e) => new Term(e, Term.TYPE_NAME)).toList()
-        ..addAll(tags.map((e) => new Term(e, Term.TYPE_TAG)));
+      _terms = names.map((e) => new Term(e, TermType.NAME)).toList()
+        ..addAll(tags.map((e) => new Term(e, TermType.TAG)));
     }
     return _terms;
   }

@@ -24,7 +24,6 @@ library find_result;
 import 'package:di/annotations.dart';
 import 'package:angular/angular.dart';
 import 'package:client/fitlog_models.dart';
-import 'package:client/src/services/find_engine/find_engine.dart' as fe;
 
 @Injectable()
 @Component(

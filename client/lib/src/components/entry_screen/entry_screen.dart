@@ -89,8 +89,9 @@ class EntryScreen {
       previousSets = sets;
     });
 
-    _statsProvider.getStats(selectedUser.dbKey, selectedExercise.dbKey).then(
-        (ExerciseStats stats) {
+    _statsProvider
+        .getStats(selectedUser.dbKey, selectedExercise.dbKey)
+        .then((ExerciseStats stats) {
       exerciseStats = stats;
     });
   }

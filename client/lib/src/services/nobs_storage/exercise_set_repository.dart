@@ -42,18 +42,8 @@ class ExerciseSetRepository extends Repository<ExerciseSet> {
     final trans = _db.transactionStore(_SETS_STORE_NAME, 'readonly');
     final store = trans.objectStore(_SETS_STORE_NAME);
     final index = store.index('idx_personId_exerciseId_performedDate');
-    // TODO: bounds should use DateTimes, not millis
-    // see https://github.com/bgourlie/noBS/issues/1
-    final uBound = [
-      personId,
-      exerciseId,
-      new DateTime.now().toUtc().millisecondsSinceEpoch
-    ];
-    final lBound = [
-      personId,
-      exerciseId,
-      new DateTime.utc(1983, 3, 15).millisecondsSinceEpoch
-    ];
+    final uBound = [personId, exerciseId, new DateTime.now().toUtc()];
+    final lBound = [personId, exerciseId, new DateTime.utc(1983, 3, 15)];
     final cursor = index.openCursor(
         range: new KeyRange.bound(lBound, uBound),
         direction: 'prev',

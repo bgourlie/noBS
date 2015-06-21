@@ -31,41 +31,9 @@ class ExerciseSet implements Storable {
   int get dbKey => _dbKey;
   set dbKey(int val) => _dbKey = val;
 
-  // TODO: Get rid of these fields, getters/setters, just store the DateTime
-  // see https://github.com/bgourlie/noBS/issues/1
-  // These fields are set-once, assume immutable (will be once above is addressed.
-  int recordedDateMillis;
-  int performedDateMillis;
-  DateTime _recordedDate;
-  DateTime _performedDate;
-
-  DateTime get recordedDate {
-    if (_recordedDate == null) {
-      _recordedDate = new DateTime.fromMillisecondsSinceEpoch(
-          recordedDateMillis, isUtc: true);
-    }
-    return _recordedDate;
-  }
-  set recordedDate(DateTime date) {
-    assert(date.isUtc);
-    recordedDateMillis = date.millisecondsSinceEpoch;
-    _recordedDate = null;
-  }
-
-  DateTime get performedDate {
-    if (_performedDate == null) {
-      _performedDate = new DateTime.fromMillisecondsSinceEpoch(
-          performedDateMillis, isUtc: true);
-    }
-    return _performedDate;
-  }
-
-  set performedDate(DateTime date) {
-    assert(date.isUtc);
-    performedDateMillis = date.millisecondsSinceEpoch;
-    _performedDate = null;
-  }
+  final DateTime recordedDate;
+  final DateTime performedDate;
 
   ExerciseSet(this.personId, this.exerciseId, this.weight, this.reps,
-      this.recordedDateMillis, this.performedDateMillis);
+      this.recordedDate, this.performedDate);
 }
